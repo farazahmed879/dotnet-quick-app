@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Saleem\\dotnet-quick-app\\QuickApp\\QuickApp.csproj": {}
+    "E:\\faraz\\projects\\dotnet-quick-app\\QuickApp\\QuickApp.csproj": {}
   },
   "projects": {
-    "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj": {
+    "E:\\faraz\\projects\\dotnet-quick-app\\DAL\\DAL.csproj": {
       "version": "5.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj",
+        "projectUniqueName": "E:\\faraz\\projects\\dotnet-quick-app\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "F:\\Saleem\\dotnet-quick-app\\DAL\\obj\\",
+        "projectPath": "E:\\faraz\\projects\\dotnet-quick-app\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\Epaging\\.nuget\\packages\\",
+        "outputPath": "E:\\faraz\\projects\\dotnet-quick-app\\DAL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Epaging\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,21 +67,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.107\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\Saleem\\dotnet-quick-app\\QuickApp\\QuickApp.csproj": {
+    "E:\\faraz\\projects\\dotnet-quick-app\\QuickApp\\QuickApp.csproj": {
       "version": "5.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Saleem\\dotnet-quick-app\\QuickApp\\QuickApp.csproj",
+        "projectUniqueName": "E:\\faraz\\projects\\dotnet-quick-app\\QuickApp\\QuickApp.csproj",
         "projectName": "QuickApp",
-        "projectPath": "F:\\Saleem\\dotnet-quick-app\\QuickApp\\QuickApp.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "F:\\Saleem\\dotnet-quick-app\\QuickApp\\obj\\",
+        "projectPath": "E:\\faraz\\projects\\dotnet-quick-app\\QuickApp\\QuickApp.csproj",
+        "packagesPath": "C:\\Users\\Epaging\\.nuget\\packages\\",
+        "outputPath": "E:\\faraz\\projects\\dotnet-quick-app\\QuickApp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Epaging\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -92,8 +98,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj": {
-                "projectPath": "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj"
+              "E:\\faraz\\projects\\dotnet-quick-app\\DAL\\DAL.csproj": {
+                "projectPath": "E:\\faraz\\projects\\dotnet-quick-app\\DAL\\DAL.csproj"
               }
             }
           }
@@ -193,7 +199,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.107\\RuntimeIdentifierGraph.json"
         }
       }
     }
