@@ -271,7 +271,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
 
   handleCheckBoxChange(event, item) {
-    if (event.target.checked) {
+    if (event.checked) {
       item.view = true;
       item.insert = true;
       item.update = true;

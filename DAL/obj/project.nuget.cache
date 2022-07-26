@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WM8WX6lJowKtw+JIuRnp5NdjLfHOH2YOL6nnRHsqPYhl0fBHDvJoA4jbDdhTc3c21wY+n2xTBFYsSFQTf+18QA==",
+  "dgSpecHash": "xBZJT2IRG8cnCjWCByty8dyLhQM2gzspaTOe7rRf4ytMEUval2xuu0l8WNPt8LmQqlwGzVtrgSTi422jicf7Zg==",
   "success": true,
-  "projectFilePath": "F:\\Saleem\\QuickApp-master - Copy\\DAL\\DAL.csproj",
+  "projectFilePath": "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.4\\microsoft.aspnetcore.cryptography.internal.5.0.4.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.4\\microsoft.aspnetcore.cryptography.keyderivation.5.0.4.nupkg.sha512",

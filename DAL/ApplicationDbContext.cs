@@ -19,12 +19,14 @@ namespace DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<TBL_LOCATION> TBL_LOCATION { get; set; }
+        public DbSet<TBL_Pages> Pages { get; set; }
+        public DbSet<Module> Modules { get; set; }
         public DbSet<TBL_Country> TBL_Country { get; set; }
         public DbSet<TBL_GROUP> TBL_GROUP { get; set; }
         public DbSet<GridUserAuthorization> GridUserAuthorization { get; set; }
         public DbSet<GridUserManagementVM> GridUserManagementVM { get; set; }
 
-
+        
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
 
@@ -72,6 +74,7 @@ namespace DAL
             builder.Entity<OrderDetail>().Property(p => p.UnitPrice).HasColumnType(priceDecimalType);
             builder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType(priceDecimalType);
             builder.Entity<TBL_GROUP>().HasKey(r => r.GROUP_ID);
+            builder.Entity<TBL_Pages>().HasKey(r => r.PageID);
 
             #region Registration of Reponse Models of Procedures
 
@@ -95,6 +98,14 @@ namespace DAL
             .Property(p => p.Action).IsRequired(required: false);
             builder.Entity<GridUserManagementVM>()
             .Property(p => p.Reason).IsRequired(required: false);
+            builder.Entity<Module>()
+            .Property(p => p.CreatedBy).IsRequired(required: false);
+            builder.Entity<Module>()
+            .Property(p => p.UpdatedBy).IsRequired(required: false);
+            builder.Entity<Module>()
+            .Property(p => p.CreatedDate).IsRequired(required: false);
+            builder.Entity<Module>()
+            .Property(p => p.UpdatedDate).IsRequired(required: false);
             //        builder
             //.Entity<RegionViewModel>()
             //.ToSqlQuery("select Id, 1 as Number from Movies order by id desc")

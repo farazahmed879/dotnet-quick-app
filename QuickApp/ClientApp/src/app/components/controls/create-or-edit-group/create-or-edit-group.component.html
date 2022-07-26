@@ -1,5 +1,5 @@
 <form *ngIf="formResetToggle" name="taskEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
-      (!groupName.valid && showErrorAlert('Task name is required', 'Please enter a name for the task'));">
+      (!groupName.valid && showErrorAlert('All Group fields required', 'Please fill the form'));">
 
 
   <Section>
@@ -78,78 +78,101 @@
 
     <div class="row">
       <label class="col-form-label col-md-3"> </label>
-      <div class="col-md-9">
+      <!-- <div class="col-md-9">
         <div class="form-check">
           <input class="form-check-input" id="active" name="active" type="checkbox" [(ngModel)]="group.important">
-          <label for="active" class="form-check-label">{{'Active' | translate}}</label>
+          <label for="active" class="form-check-label"></label>
         </div>
-      </div>
+      </div> -->
+      <section class="example-section">
+        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="group.active">{{'Active' | translate}}
+        </mat-checkbox>
+      </section>
     </div>
   </Section>
 
   <Section>
-    <table>
-      <caption>All Modules</caption>
-      <tr>
-        <th>
-          <div class="center">
-            <input class="form-check-input" id="active" name="selectAll" type="checkbox"
-              (change)="handleSelectAll($event)">
-          </div>
-        </th>
-        <th>Module</th>
-        <th>View</th>
-        <th>Insert</th>
-        <th>Update</th>
-        <th>Authorize</th>
-        <th>Reject</th>
-        <th>Delete</th>
-      </tr>
-      <ng-container *ngFor="let item of data">
-        <tr>
-          <td>
-            <div class="center">
-              <input class="form-check-input" id="active" name="selectAll-{{item.id}}" type="checkbox"
-                [(ngModel)]="item.view && item.insert && item.update && item.authorize && item.reject && item.delete"
-                (change)="handleCheckBoxChange($event,item)">
-            </div>
-          </td>
-          <td>{{item.name}}</td>
-          <td>
-            <div class="center">
-              <input class="form-check-input" name="active-view-{{item.id}}" type="checkbox" [(ngModel)]="item.view">
-            </div>
-          </td>
-          <td>
-            <div class="center">
-              <input class="form-check-input" name="active-insert-{{item.id}}" type="checkbox"
-                [(ngModel)]="item.insert">
-            </div>
-          </td>
+    <mat-tab-group color="primary" backgroundColor="primary">
+      <mat-tab label="All Modules">
+        <table>
+          <tr>
+            <th>
+              <div class="center">
+                <mat-checkbox class="example-margin" color="primary" name="selectAll" [(ngModel)]="group.active"
+                  (change)="handleSelectAll($event)">
+                </mat-checkbox>
+              </div>
+            </th>
+            <th>Module</th>
+            <th>View</th>
+            <th>Insert</th>
+            <th>Update</th>
+            <th>Authorize</th>
+            <th>Reject</th>
+            <th>Delete</th>
+          </tr>
+          <ng-container *ngFor="let item of data">
+            <tr>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.id}}"
+                    [(ngModel)]="item.view && item.insert && item.update && item.authorize && item.reject && item.delete"
+                    (change)="handleCheckBoxChange($event,item)">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>{{item.name}}</td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.id}}"
+                    [(ngModel)]="item.view">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.id}}"
+                    [(ngModel)]="item.insert">
+                  </mat-checkbox>
+                </div>
+              </td>
 
-          <td>
-            <div class="center"><input class="form-check-input" name="active-update-{{item.id}}" type="checkbox"
-                [(ngModel)]="item.update">
-            </div>
-          </td>
-          <td>
-            <div class="center"><input class="form-check-input" name="active-authorize-{{item.id}}" type="checkbox"
-                [(ngModel)]="item.authorize"></div>
-          </td>
-          <td>
-            <div class="center"><input class="form-check-input" name="active-reject-{{item.id}}" type="checkbox"
-                [(ngModel)]="item.reject">
-            </div>
-          </td>
-          <td>
-            <div class="center"><input class="form-check-input" name="active-delete-{{item.id}}" type="checkbox"
-                [(ngModel)]="item.delete">
-            </div>
-          </td>
-        </tr>
-      </ng-container>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.id}}"
+                    [(ngModel)]="item.update">
+                  </mat-checkbox>
+                </div>
 
-    </table>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.id}}"
+                    [(ngModel)]="item.authorize">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.id}}"
+                    [(ngModel)]="item.reject">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.id}}"
+                    [(ngModel)]="item.delete">
+                  </mat-checkbox>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+      </mat-tab>
+      <mat-tab label="Second"> Content 2 </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
   </Section>
 
   <div class="row">

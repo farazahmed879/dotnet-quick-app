@@ -68,6 +68,9 @@ import { UserInfoAuthorizationComponent } from './components/controls/user-info-
 import { CreateOrEditGroupComponent } from './components/controls/create-or-edit-group/create-or-edit-group.component';
 import { GroupListComponent } from './components/controls/group-list/group-list.component';
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MaterialModule } from './material/material.module';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -90,7 +93,8 @@ import { GroupListComponent } from './components/controls/group-list/group-list.
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    MaterialModule,
   ],
   declarations: [
     AppComponent,
@@ -100,7 +104,7 @@ import { GroupListComponent } from './components/controls/group-list/group-list.
     ProductsComponent,
     OrdersComponent,
     SettingsComponent,
-    UsersManagementComponent, UserInfoComponent,GroupInfoComponent, UserPreferencesComponent,UsersManagementAuthorizationComponent,UserInfoAuthorizationComponent,
+    UsersManagementComponent, UserInfoComponent, GroupInfoComponent, UserPreferencesComponent, UsersManagementAuthorizationComponent, UserInfoAuthorizationComponent,
     RolesManagementComponent, RoleEditorComponent,
     AboutComponent,
     NotFoundComponent,

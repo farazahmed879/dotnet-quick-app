@@ -7457,11 +7457,11 @@
   "project": {
     "version": "5.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Saleem\\QuickApp-master - Copy\\QuickApp\\QuickApp.csproj",
+      "projectUniqueName": "F:\\Saleem\\dotnet-quick-app\\QuickApp\\QuickApp.csproj",
       "projectName": "QuickApp",
-      "projectPath": "F:\\Saleem\\QuickApp-master - Copy\\QuickApp\\QuickApp.csproj",
+      "projectPath": "F:\\Saleem\\dotnet-quick-app\\QuickApp\\QuickApp.csproj",
       "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "F:\\Saleem\\QuickApp-master - Copy\\QuickApp\\obj\\",
+      "outputPath": "F:\\Saleem\\dotnet-quick-app\\QuickApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7478,8 +7478,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "F:\\Saleem\\QuickApp-master - Copy\\DAL\\DAL.csproj": {
-              "projectPath": "F:\\Saleem\\QuickApp-master - Copy\\DAL\\DAL.csproj"
+            "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj": {
+              "projectPath": "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj"
             }
           }
         }

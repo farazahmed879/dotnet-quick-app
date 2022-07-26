@@ -45,7 +45,7 @@ namespace QuickApp.Controllers
             _authorizationService = authorizationService;
             _logger = logger;
             _config = config.Value.DomainConfig;
-            DomainName = _config.Name;
+            //DomainName = _config.Name;
         }
 
 
@@ -446,14 +446,71 @@ namespace QuickApp.Controllers
 
 
 
+        [HttpGet("GroupManagementGridData")]  //"GroupManagementGridData/{ModuleID:int?}/{ApplicationID:int?}"
+        [AllowAnonymous]
+        [ProducesResponseType(200, Type = typeof(List<RolePermissionVM>))]
+        public async Task<IActionResult> GetGroupManagementGridData() //int? ModuleID, int? ApplicationID
+        {
+            try
+            {
+
+                //[AllowAnonymous]
+                //[HttpGet("GetCountryRegionUserGroup")]
+                //[ProducesResponseType(200, Type = typeof(List<CountryRegionUserGroupVM>))]
+
+                //public async Task<IActionResult> GetCountryRegionUserGroup()
+                //{
+
+                ViewModels.RolePermissionVM rolePermissionVM = new ViewModels.RolePermissionVM();
+                var getCountrys = _context.Set<TBL_Country>().FromSqlRaw("sp_get_Country").ToList();
+                var getSP_Fill_Pages_By_ModuleID = _context.Set<DAL.Models.Module>().FromSqlInterpolated($"exec SP_Fill_Modules_By_ModuleID {null}, {null}").ToList();
+                var getSP_Fill_Pages_By_ModuleID1 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {1}").ToList();
+                var getSP_Fill_Pages_By_ModuleID2 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {2}").ToList();
+                var getSP_Fill_Pages_By_ModuleID3 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {3}").ToList();
+                var getSP_Fill_Pages_By_ModuleID4 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {4}").ToList();
+                var getSP_Fill_Pages_By_ModuleID5 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {5}").ToList();
+                var getSP_Fill_Pages_By_ModuleID6 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {6}").ToList();
+                var getSP_Fill_Pages_By_ModuleID7 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {7}").ToList();
+                var getSP_Fill_Pages_By_ModuleID8 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {8}").ToList();
+                var getSP_Fill_Pages_By_ModuleID9 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {9}").ToList();
+                var getSP_Fill_Pages_By_ModuleID10 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {10}").ToList();
+                var getSP_Fill_Pages_By_ModuleID11 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {11}").ToList();
+                var getSP_Fill_Pages_By_ModuleID12 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {12}").ToList();
+                var getSP_Fill_Pages_By_ModuleID13 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {13}").ToList();
+                rolePermissionVM.countryList = _mapper.Map<List<CountryViewModel>>(getCountrys);
+                rolePermissionVM.moduleList = _mapper.Map<List<ModuleVM>>(getSP_Fill_Pages_By_ModuleID);
+                rolePermissionVM.Fill_Modules_By_ModuleID_1= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID1);
+                rolePermissionVM.Fill_Modules_By_ModuleID_2= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID2);
+                rolePermissionVM.Fill_Modules_By_ModuleID_3= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID3);
+                rolePermissionVM.Fill_Modules_By_ModuleID_4= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID4);
+                rolePermissionVM.Fill_Modules_By_ModuleID_5= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID5);
+                rolePermissionVM.Fill_Modules_By_ModuleID_6= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID6);
+                rolePermissionVM.Fill_Modules_By_ModuleID_7= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID7);
+                rolePermissionVM.Fill_Modules_By_ModuleID_8= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID8);
+                rolePermissionVM.Fill_Modules_By_ModuleID_9= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID9);
+                rolePermissionVM.Fill_Modules_By_ModuleID_10 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID10);
+                rolePermissionVM.Fill_Modules_By_ModuleID_11 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID11);
+                rolePermissionVM.Fill_Modules_By_ModuleID_12 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID12);
+                rolePermissionVM.Fill_Modules_By_ModuleID_13 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID13);
+                return Ok(rolePermissionVM);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
         [HttpGet("UserManagementGridData/{UserID:int?}/{StatusID:int?}")]
-        [AllowAnonymous]                              
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(List<GridUserManagementVM>))]
         public async Task<IActionResult> GetUserManagementGridData(int? UserID, int? StatusID)
         {
             try
             {
-                var StatusId =Convert.ToString(StatusID);
+                var StatusId = Convert.ToString(StatusID);
                 StatusId = StatusId == "" ? null : "";
                 int? userID = null;
                 string statusID = null;
@@ -467,7 +524,7 @@ namespace QuickApp.Controllers
 
                 throw ex;
             }
-            
+
         }
 
 
@@ -490,7 +547,7 @@ namespace QuickApp.Controllers
         [AllowAnonymous]
         [HttpGet("GetCountryRegionUserGroup")]
         [ProducesResponseType(200, Type = typeof(List<CountryRegionUserGroupVM>))]
-        
+
         public async Task<IActionResult> GetCountryRegionUserGroup()
         {
             CountryRegionUserGroupVM countryRegionUserGroupVM = new CountryRegionUserGroupVM();
