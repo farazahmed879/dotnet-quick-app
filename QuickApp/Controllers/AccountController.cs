@@ -567,6 +567,20 @@ namespace QuickApp.Controllers
 
         }
 
+        [HttpGet("IsGroupExist/{GroupName}/{GroupID:int?}")]
+        [AllowAnonymous]                
+        [ProducesResponseType(200, Type = typeof(bool))]
+
+        public async Task<IActionResult> GroupNameExists(string GroupName,int? GroupID)  //int? GroupID, string GroupName
+        {
+            int? GroupIDD = 0;
+            string GroupNameD = "Test";
+            var isExist = await _context.Database.ExecuteSqlRawAsync($"exec SP_GroupNameExists {GroupIDD}, {GroupNameD}");
+            bool isExistt = true;
+            return Ok(isExistt);
+
+        }
+
         //[HttpGet("users/me/preferences")]
         //[ProducesResponseType(200, Type = typeof(string))]
         //public async Task<IActionResult> UserPreferences()
