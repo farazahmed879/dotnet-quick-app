@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CreateOrEditGroup } from 'src/app/models/createGroup.model';
+import { AccountService } from 'src/app/services/account.service';
 import { AlertService, DialogType, MessageSeverity } from 'src/app/services/alert.service';
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -29,6 +30,8 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   formResetToggle = true;
   _currentUserId: string;
   _hideCompletedTasks = false;
+  allData: any;
+  modulesList: any;
 
   public changesSavedCallback: () => void;
   public changesFailedCallback: () => void;
@@ -119,7 +122,12 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   editorModal: ModalDirective;
 
 
-  constructor(private alertService: AlertService, private translationService: AppTranslationService, private localStorage: LocalStoreManager, private authService: AuthService) {
+  constructor(private alertService: AlertService,
+    private translationService: AppTranslationService,
+    private localStorage: LocalStoreManager,
+    private authService: AuthService,
+    private accountService: AccountService
+  ) {
   }
 
 
@@ -135,6 +143,27 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     //   element.reject = false;
     //   element.delete = false;
     // });
+    this.getAllGroups();
+  }
+
+
+  getAllGroups() {
+    this.alertService.startLoadingMessage();
+    this.accountService.getModules().subscribe((res: any) => {
+      if (res) {
+        this.allData = res;
+        this.modulesList = res.moduleList;// this.modalData = this.data;
+        this.modulesList.forEach((element: any) => {
+          element.view = false;
+          element.insert = false;
+          element.update = false;
+          element.authorize = false;
+          element.reject = false;
+          element.delete = false;
+        });
+      }
+    })
+    this.alertService.stopLoadingMessage();
   }
 
   ngOnDestroy() {
@@ -293,7 +322,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
   handleSelectAll(event) {
     debugger
-    this.data.forEach((el) => {
+    this.modulesList.forEach((el: any) => {
       this.handleCheckBoxChange(event, el);
     })
   }
@@ -302,6 +331,14 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   editGroup(group: CreateOrEditGroup) {
 
 
+  }
+
+
+  getModulePages(id: string) {
+    let name = "fill_Modules_By_ModuleID_"
+    let result = name.concat(id);
+    let list = this.allData[result];
+    return list;
   }
 
 

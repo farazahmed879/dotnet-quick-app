@@ -78,27 +78,26 @@ export class GroupListComponent implements OnInit, AfterViewInit {
       { prop: 'createdDate', name: gT('users.manageuser.CreatedDate'), width: 120 }
     ];
 
-    if (this.canManageUsers) {
-      this.columns.push({ name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false });
-    }
+    // if (this.canManageUsers) {
+    //   this.columns.push({ name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false });
+    // }
 
-    this.loadData();
-    this.loadGridUserManagement();
+    //this.getAllGroups();
   }
 
 
   ngAfterViewInit() {
 
-    this.createOrEditGroupModal.changesSavedCallback = () => {
-      this.addNewUserToList();
-      this.editorModal.hide();
-    };
+    // this.createOrEditGroupModal.changesSavedCallback = () => {
+    //   this.addNewUserToList();
+    //   this.editorModal.hide();
+    // };
 
-    this.createOrEditGroupModal.changesCancelledCallback = () => {
-      this.editedGroup = null;
-      this.sourceUser = null;
-      this.editorModal.hide();
-    };
+    // this.createOrEditGroupModal.changesCancelledCallback = () => {
+    //   this.editedGroup = null;
+    //   this.sourceUser = null;
+    //   this.editorModal.hide();
+    // };
   }
 
 
@@ -125,32 +124,17 @@ export class GroupListComponent implements OnInit, AfterViewInit {
   }
 
 
-  loadData() {
-    this.alertService.startLoadingMessage();
-    this.loadingIndicator = true;
+  // getAllGroups() {
+  //   debugger
+  //   this.alertService.startLoadingMessage();
+  //   this.accountService.getModules().subscribe((res) => {
+  //     if (res) {
+  //       debugger
+  //     } 
+  //   })
+  //   this.alertService.stopLoadingMessage();
+  // }
 
-    if (this.canViewRoles) {
-
-
-      this.accountService.getUsersAndRoles().subscribe(results => this.onDataLoadSuccessful(results[0], results[1]), error => this.onDataLoadFailed(error));
-    } else {
-      this.accountService.getUsers().subscribe(users => this.onDataLoadSuccessful(users, this.accountService.currentUser.roles.map(x => new Role(x))), error => this.onDataLoadFailed(error));
-    }
-  }
-
-  loadGridUserManagement() {
-
-    this.alertService.stopLoadingMessage();
-    this.loadingIndicator = false;
-
-    this.accountService.getUserManagementGridData(null, null)
-      .subscribe(results => {
-        this.GridUserManagementVM = results;
-        this.rowsCache = [...this.GridUserManagementVM];
-        this.rows = this.GridUserManagementVM;
-        console.log("this.GridUserManagementVM" + this.GridUserManagementVM);
-      });
-  }
 
   onDataLoadSuccessful(users: User[], roles: Role[]) {
     this.alertService.stopLoadingMessage();
