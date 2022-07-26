@@ -22,6 +22,7 @@ export class AccountEndpoint extends EndpointBase {
   get roleByRoleNameUrl() { return this.configurations.baseUrl + '/api/account/roles/name'; }
   get permissionsUrl() { return this.configurations.baseUrl + '/api/account/permissions'; }
   get userManagementGrid() { return this.configurations.baseUrl + '/api/account/UserManagementGridData'; }
+  get modulesUrl() { return this.configurations.baseUrl + '/api/Account/GroupManagementGridData'; }
 
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
@@ -65,8 +66,8 @@ export class AccountEndpoint extends EndpointBase {
       }));
   }
 
-  getUserManagementGridData<T>(UserID?: number, StatusID?: number): Observable<T> {   
-    const endpointUrl = UserID  && StatusID ? `${this.userManagementGrid}/${UserID}/${StatusID}` :  UserID ? `${this.userManagementGrid}/${UserID}` : `${this.userManagementGrid}/${StatusID}`? this.userManagementGrid: this.userManagementGrid;
+  getUserManagementGridData<T>(UserID?: number, StatusID?: number): Observable<T> {
+    const endpointUrl = UserID && StatusID ? `${this.userManagementGrid}/${UserID}/${StatusID}` : UserID ? `${this.userManagementGrid}/${UserID}` : `${this.userManagementGrid}/${StatusID}` ? this.userManagementGrid : this.userManagementGrid;
 
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
@@ -74,7 +75,7 @@ export class AccountEndpoint extends EndpointBase {
       }));
   }
 
-  
+
   getCountryRegionUserGroup<T>(): Observable<T> {
     return this.http.get<T>(this.countries, this.requestHeaders).pipe<T>(
       catchError(error => {
@@ -223,6 +224,15 @@ export class AccountEndpoint extends EndpointBase {
     return this.http.get<T>(this.permissionsUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getPermissionsEndpoint());
+      }));
+  }
+
+
+  getModulesEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
+    const endpointUrl = page && pageSize ? `${this.modulesUrl}/${page}/${pageSize}` : this.modulesUrl;
+    return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getModulesEndpoint(page, pageSize));
       }));
   }
 }

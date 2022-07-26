@@ -98,7 +98,7 @@
           <tr>
             <th>
               <div class="center">
-                <mat-checkbox class="example-margin" color="primary" name="selectAll" [(ngModel)]="group.active"
+                <mat-checkbox class="example-margin" color="primary" name="selectAll"
                   (change)="handleSelectAll($event)">
                 </mat-checkbox>
               </div>
@@ -111,27 +111,27 @@
             <th>Reject</th>
             <th>Delete</th>
           </tr>
-          <ng-container *ngFor="let item of data">
+          <ng-container *ngFor="let item of modulesList">
             <tr>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.id}}"
+                  <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.moduleID}}"
                     [(ngModel)]="item.view && item.insert && item.update && item.authorize && item.reject && item.delete"
                     (change)="handleCheckBoxChange($event,item)">
                   </mat-checkbox>
                 </div>
               </td>
-              <td>{{item.name}}</td>
+              <td>{{item.moduleName}}</td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.id}}"
+                  <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.moduleID}}"
                     [(ngModel)]="item.view">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.id}}"
+                  <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.moduleID}}"
                     [(ngModel)]="item.insert">
                   </mat-checkbox>
                 </div>
@@ -139,7 +139,7 @@
 
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.id}}"
+                  <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.moduleID}}"
                     [(ngModel)]="item.update">
                   </mat-checkbox>
                 </div>
@@ -147,21 +147,21 @@
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.id}}"
+                  <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.moduleID}}"
                     [(ngModel)]="item.authorize">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.id}}"
+                  <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.moduleID}}"
                     [(ngModel)]="item.reject">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.id}}"
+                  <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.moduleID}}"
                     [(ngModel)]="item.delete">
                   </mat-checkbox>
                 </div>
@@ -170,8 +170,79 @@
           </ng-container>
         </table>
       </mat-tab>
-      <mat-tab label="Second"> Content 2 </mat-tab>
-      <mat-tab label="Third"> Content 3 </mat-tab>
+      <mat-tab *ngFor="let item of modulesList" label="{{item.moduleName}}">
+        <table>
+          <tr>
+            <th>
+              Select
+            </th>
+            <th>Page Name</th>
+            <th>View</th>
+            <th>Insert</th>
+            <th>Update</th>
+            <th>Authorize</th>
+            <th>Reject</th>
+            <th>Delete</th>
+          </tr>
+          <ng-container *ngFor="let page of getModulePages(item.moduleID)">
+            <tr>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.moduleID}}"
+                    [(ngModel)]="page.view && page.insert && page.update && page.authorize && page.reject && page.delete"
+                    (change)="handleCheckBoxChange($event,page)">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>{{page.pageName}}</td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.view">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.insert">
+                  </mat-checkbox>
+                </div>
+              </td>
+
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.update">
+                  </mat-checkbox>
+                </div>
+
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.authorize">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.reject">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.delete">
+                  </mat-checkbox>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+      </mat-tab>
     </mat-tab-group>
   </Section>
 

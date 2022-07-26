@@ -46,16 +46,16 @@ export class AccountService {
   }
 
   getDomains() {
-    
+
     return this.accountEndpoint.getDomains<DomainVM[]>();
   }
 
   getUserManagementGridData(UserID?: number, StatusID?: number) {
-    return this.accountEndpoint.getUserManagementGridData<GridUserManagementVM[]>(UserID,StatusID);
+    return this.accountEndpoint.getUserManagementGridData<GridUserManagementVM[]>(UserID, StatusID);
   }
 
   getCountryRegionUserGroup() {
-    
+
     return this.accountEndpoint.getCountryRegionUserGroup<UserViewModel>();
   }
 
@@ -186,5 +186,10 @@ export class AccountService {
 
   get currentUser() {
     return this.authService.currentUser;
+  }
+
+  getModules(page?: number, pageSize?: number) {
+    var result = this.accountEndpoint.getModulesEndpoint(page, pageSize);
+    return result;
   }
 }

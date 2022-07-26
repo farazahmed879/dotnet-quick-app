@@ -39,7 +39,10 @@ namespace QuickApp.ViewModels
                 .ReverseMap();
             CreateMap<TBL_GROUP, GroupViewModel>()                
                 .ReverseMap();
-            
+            CreateMap<TBL_Pages, TBL_PagesVM>()
+                .ReverseMap();
+            CreateMap<Module, ModuleVM>()
+                .ReverseMap();
 
             CreateMap<ApplicationRole, RoleViewModel>()
                 .ForMember(d => d.Permissions, map => map.MapFrom(s => s.Claims))
