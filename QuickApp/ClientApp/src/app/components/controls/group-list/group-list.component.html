@@ -9,10 +9,11 @@
     <div class="col-lg-4 pr-lg-5">
       <ul class="nav flex-column flex-lg-row justify-content-end">
         <li *ngIf="canManageUsers && canAssignRoles" class="nav-item toolbaritem">
-          <a class="nav-link" href="javascript:;" (click)="newUser()">
-            <i class="fa fa-plus-circle"></i> {{'users.management.NewUser' | translate}}
+          <a class="nav-link" href="javascript:;" (click)="newGroupInfo()">
+            <i class="fa fa-plus-circle"></i> {{'users.securitymanagement.NewGroup' | translate}}
           </a>
         </li>
+
       </ul>
     </div>
   </div>
@@ -40,9 +41,9 @@
 
   <ng-template #actionsTemplate let-row="row" let-value="value" let-i="index">
     <div *ngIf="canManageUsers">
-      <a class="btn btn-link btn-sm" href="javascript:;" (click)="editUser(row)"><i class="fa fa-pencil-square-o"
+      <a class="btn btn-link btn-sm" href="javascript:;" (click)="editGroup(row)"><i class="fa fa-pencil-square-o"
           aria-hidden="true"></i> {{'users.management.Edit' | translate}}</a>|
-      <a class="btn btn-link btn-sm" href="javascript:;" (click)="deleteUser(row)"><i class="fa fa-trash-o"
+      <a class="btn btn-link btn-sm" href="javascript:;" (click)="deleteGroup(row)"><i class="fa fa-trash-o"
           aria-hidden="true"></i> {{'users.management.Delete' | translate}}</a>
     </div>
   </ng-template>

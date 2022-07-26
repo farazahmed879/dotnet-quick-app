@@ -1,10 +1,6 @@
-
-
-
-
-
 import { Component, OnInit, OnDestroy, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { CreateOrEditGroup } from 'src/app/models/createGroup.model';
 import { AlertService, DialogType, MessageSeverity } from 'src/app/services/alert.service';
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -29,10 +25,50 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   group: any = {};
   isDataLoaded = false;
   loadingIndicator = true;
+  isSaving = false;
   formResetToggle = true;
   _currentUserId: string;
   _hideCompletedTasks = false;
 
+  public changesSavedCallback: () => void;
+  public changesFailedCallback: () => void;
+  public changesCancelledCallback: () => void;
+
+  public data: any = [
+    {
+      id: 1, name: 'A',
+      view: false,
+      insert: false,
+      update: false,
+      authorize: false,
+      reject: false,
+      delete: false,
+    },
+    {
+      id: 2, name: 'B', view: false,
+      insert: false,
+      update: false,
+      authorize: false,
+      reject: false,
+      delete: false,
+    },
+    {
+      id: 3, name: 'C', view: false,
+      insert: false,
+      update: false,
+      authorize: false,
+      reject: false,
+      delete: false,
+    },
+    {
+      id: 4, name: 'D', view: false,
+      insert: false,
+      update: false,
+      authorize: false,
+      reject: false,
+      delete: false,
+    }];
+  modalData: any;
 
   get currentUserId() {
     if (this.authService.currentUser) {
@@ -89,31 +125,36 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.loadingIndicator = true;
 
-    this.fetch((data) => {
-      this.refreshDataIndexes(data);
-      this.rows = data;
-      this.rowsCache = [...data];
-      this.isDataLoaded = true;
-
-      setTimeout(() => { this.loadingIndicator = false; }, 1500);
-    });
-
-
-    const gT = (key: string) => this.translationService.getTranslation(key);
-
-    this.columns = [
-      { prop: 'completed', name: '', width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-      { prop: 'name', name: gT('todoDemo.management.Task'), cellTemplate: this.nameTemplate, width: 200 },
-      { prop: 'description', name: gT('todoDemo.management.Description'), cellTemplate: this.descriptionTemplate, width: 500 },
-      { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
-    ];
+    // this.modalData = this.data;
+    // this.modalData.forEach((element: any) => {
+    //   element.view = false;
+    //   element.insert = false;
+    //   element.update = false;
+    //   element.authorize = false;
+    //   element.reject = false;
+    //   element.delete = false;
+    // });
   }
 
   ngOnDestroy() {
     this.saveToDisk();
   }
+
+  resetForm(replace = false) {
+    // this.isChangePassword = false;
+
+    // if (!replace) {
+    //   this.form.reset();
+    // } else {
+    //   this.formResetToggle = false;
+
+    //   setTimeout(() => {
+    //     this.formResetToggle = true;
+    //   });
+    // }
+  }
+
 
 
 
@@ -227,4 +268,44 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
   //   return this.group;
   // }
+
+
+  handleCheckBoxChange(event, item) {
+    if (event.target.checked) {
+      item.view = true;
+      item.insert = true;
+      item.update = true;
+      item.authorize = true;
+      item.reject = true;
+      item.delete = true;
+      return;
+    }
+
+    item.view = false;
+    item.insert = false;
+    item.update = false;
+    item.authorize = false;
+    item.reject = false;
+    item.delete = false;
+
+  }
+
+
+  handleSelectAll(event) {
+    debugger
+    this.data.forEach((el) => {
+      this.handleCheckBoxChange(event, el);
+    })
+  }
+
+
+  editGroup(group: CreateOrEditGroup) {
+
+
+  }
+
+
 }
+
+
+

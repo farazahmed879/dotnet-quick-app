@@ -66,6 +66,7 @@ import { GroupInfoComponent } from './components/controls/group-info.component';
 import { UsersManagementAuthorizationComponent } from './components/controls/users-management-authorization.component';
 import { UserInfoAuthorizationComponent } from './components/controls/user-info-authorization.component';
 import { CreateOrEditGroupComponent } from './components/controls/create-or-edit-group/create-or-edit-group.component';
+import { GroupListComponent } from './components/controls/group-list/group-list.component';
 
 @NgModule({
   imports: [
@@ -112,6 +113,7 @@ import { CreateOrEditGroupComponent } from './components/controls/create-or-edit
     BootstrapTabDirective,
     BootstrapToggleDirective,
     GroupByPipe,
+    GroupListComponent,
     CreateOrEditGroupComponent
   ],
   providers: [

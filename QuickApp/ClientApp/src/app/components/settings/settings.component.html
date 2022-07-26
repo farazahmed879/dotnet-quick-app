@@ -5,33 +5,45 @@
 
   <div [@fadeInOut]>
     <div class="d-sm-flex flex-row">
-      <ul appBootstrapTab #tab="bootstrap-tab" (showBSTab)="onShowTab($event)" class="nav nav-tabs nav-tabs--vertical nav-tabs--left" role="navigation">
+      <ul appBootstrapTab #tab="bootstrap-tab" (showBSTab)="onShowTab($event)"
+        class="nav nav-tabs nav-tabs--vertical nav-tabs--left" role="navigation">
         <li class="nav-item">
-          <a id="profileTab" [routerLink]="[]" fragment="profile" data-target="#profile" href="#profile" class="nav-link active" data-toggle="tab" role="tab" aria-controls="profile">
+          <a id="profileTab" [routerLink]="[]" fragment="profile" data-target="#profile" href="#profile"
+            class="nav-link active" data-toggle="tab" role="tab" aria-controls="profile">
             <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i> {{'settings.tab.Profile' | translate}}
           </a>
         </li>
         <li class="nav-item">
-          <a id="preferencesTab" [routerLink]="[]" fragment="preferences" data-target="#preferences" href="#preferences" class="nav-link" data-toggle="tab" role="tab" aria-controls="preferences">
+          <a id="preferencesTab" [routerLink]="[]" fragment="preferences" data-target="#preferences" href="#preferences"
+            class="nav-link" data-toggle="tab" role="tab" aria-controls="preferences">
             <i class="fa fa-sliders fa-fw" aria-hidden="true"></i> {{'settings.tab.Preferences' | translate}}
           </a>
         </li>
         <li [hidden]="!canViewUsers" class="nav-item">
-          <a id="usersTab" [routerLink]="[]" fragment="users" data-target="#users" href="#users" class="nav-link" data-toggle="tab" role="tab" aria-controls="users">
+          <a id="usersTab" [routerLink]="[]" fragment="users" data-target="#users" href="#users" class="nav-link"
+            data-toggle="tab" role="tab" aria-controls="users">
             <i class="fa fa-users fa-fw" aria-hidden="true"></i> {{'settings.tab.Users' | translate}}
           </a>
         </li>
 
         <li class="nav-item">
-          <a id="usersTab" [routerLink]="[]" fragment="usersauthorization" data-target="#usersauthorization" href="#usersauthorization" class="nav-link"
-             data-toggle="tab" role="tab" aria-controls="usersauthorization">
+          <a id="usersTab" [routerLink]="[]" fragment="usersauthorization" data-target="#usersauthorization"
+            href="#usersauthorization" class="nav-link" data-toggle="tab" role="tab" aria-controls="usersauthorization">
             <i class="fa fa-users fa-fw" aria-hidden="true"></i> {{'settings.tab.AuthorizeUsers' | translate}}
           </a>
         </li>
 
         <li [hidden]="!canViewRoles" class="nav-item">
-          <a id="rolesTab" [routerLink]="[]" fragment="roles" data-target="#roles" href="#roles" class="nav-link" data-toggle="tab" role="tab" aria-controls="roles">
+          <a id="rolesTab" [routerLink]="[]" fragment="roles" data-target="#roles" href="#roles" class="nav-link"
+            data-toggle="tab" role="tab" aria-controls="roles">
             <i class="fa fa-shield fa-fw" aria-hidden="true"></i> {{'settings.tab.Roles' | translate}}
+          </a>
+        </li>
+
+        <li [hidden]="!canViewRoles" class="nav-item">
+          <a id="groupsTab" [routerLink]="[]" fragment="groups" data-target="#groups" href="#groups" class="nav-link"
+            data-toggle="tab" role="tab" aria-controls="groups">
+            <i class="fa fa-shield fa-fw" aria-hidden="true"></i> {{'Groups' | translate}}
           </a>
         </li>
       </ul>
@@ -73,6 +85,14 @@
           <hr class="separator-hr" />
           <div [@fadeInOut] *ngIf="canViewRoles && isRolesActivated" class="content-container pl-lg-1">
             <app-roles-management></app-roles-management>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="groups" role="tabpanel">
+          <h4>{{'Groups' | translate}}</h4>
+          <hr class="separator-hr" />
+          <div [@fadeInOut] *ngIf="canViewRoles && isGroupActivated" class="content-container pl-lg-1">
+            <app-group-list></app-group-list>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-export class CreateGroup {
+export class CreateOrEditGroup {
     public id: string;
     public name: string;
     public description: string;
