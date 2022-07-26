@@ -1,0 +1,77 @@
+2022-07-21T02:12:28.6059794+05:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2022-07-21T02:12:28.6686102+05:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2022-07-21T02:12:28.6734227+05:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2022-07-21T02:12:31.2413500+05:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-07-21T02:12:31.2414415+05:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-07-21T02:12:31.2414775+05:00  [INF] Content root path: "E:\QuickApp-master\QuickApp-master - Copy\QuickApp" (b5d60022)
+2022-07-21T16:35:55.9369422+05:00  [ERR] Error: src/app/app.module.ts:95:5 - error NG6001: The class 'LoginComponent' is listed in the declarations of the NgModule 'AppModule', but is not a directive, a component, or a pipe. Either remove it from the NgModule's declarations, or add an appropriate Angular decorator.
+ (1ba101d4)
+2022-07-21T16:35:55.9370608+05:00  [ERR] 95     LoginComponent,
+ (76221c03)
+2022-07-21T16:35:55.9370855+05:00  [ERR]        ~~~~~~~~~~~~~~
+ (44e63b46)
+2022-07-21T16:35:55.9371018+05:00  [ERR]   src/app/components/login/login.component.ts:16:14
+ (d71008b0)
+2022-07-21T16:35:55.9371211+05:00  [ERR]     16 export class LoginComponent implements OnInit, OnDestroy {
+ (3d4cf588)
+2022-07-21T16:35:55.9371488+05:00  [ERR]                     ~~~~~~~~~~~~~~
+ (bb99c305)
+2022-07-21T16:35:55.9372476+05:00  [ERR]     'LoginComponent' is declared here.
+ (06e9a35b)
+2022-07-21T16:35:55.9372702+05:00  [ERR] Error: src/app/components/login/login.component.ts:29:139 - error NG2003: No suitable injection token for parameter 'accountService' of class 'LoginComponent'.
+ (4c7e9ea5)
+2022-07-21T16:35:55.9372865+05:00  [ERR]   The type should reference a known declaration.
+ (b3c05cd4)
+2022-07-21T16:35:55.9373019+05:00  [ERR] 29   constructor(private alertService: AlertService, private authService: AuthService, private configurations: ConfigurationService, private accountService: AccountService) {
+ (e493116b)
+2022-07-21T16:35:55.9373312+05:00  [ERR]                                                                                                                                              ~~~~~~~~~~~~~~
+ (b7c69e0e)
+2022-07-21T16:35:55.9373864+05:00  [ERR]   src/app/components/login/login.component.ts:29:155
+ (5759abde)
+2022-07-21T16:35:55.9374109+05:00  [ERR]     29   constructor(private alertService: AlertService, private authService: AuthService, private configurations: ConfigurationService, private accountService: AccountService) {
+ (9981c041)
+2022-07-21T16:35:55.9374297+05:00  [ERR]                                                                                                                                                                  ~~~~~~~~~~~~~~
+ (57189c54)
+2022-07-21T16:35:55.9374412+05:00  [ERR]     This type could not be resolved.
+ (11be5e24)
+2022-07-21T16:35:55.9374556+05:00  [ERR] Error: src/app/components/login/login.component.ts:29:155 - error TS2304: Cannot find name 'AccountService'.
+ (8785cb3d)
+2022-07-21T16:35:55.9374748+05:00  [ERR] 29   constructor(private alertService: AlertService, private authService: AuthService, private configurations: ConfigurationService, private accountService: AccountService) {
+ (e493116b)
+2022-07-21T16:35:55.9374905+05:00  [ERR]                                                                                                                                                              ~~~~~~~~~~~~~~
+ (daa1c350)
+2022-07-21T16:44:05.7424508+05:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2022-07-21T16:44:05.7882690+05:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2022-07-21T16:44:05.7996846+05:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2022-07-21T16:44:06.8837567+05:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-07-21T16:44:06.8838664+05:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-07-21T16:44:06.8839135+05:00  [INF] Content root path: "E:\QuickApp-master\QuickApp-master - Copy\QuickApp" (b5d60022)
+2022-07-21T16:47:07.8530737+05:00 800000ef-0001-f400-b63f-84710c7967bb [ERR] An unhandled exception has occurred while executing the request. (48a46595)
+System.TimeoutException: The Angular CLI process did not start listening for requests within the timeout period of 180 seconds. Check the log output for error information.
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at IdentityServer4.Hosting.IdentityServerMiddleware.Invoke(HttpContext context, IEndpointRouter router, IUserSession session, IEventService events, IBackChannelLogoutService backChannelLogoutService)
+   at IdentityServer4.Hosting.MutualTlsEndpointMiddleware.Invoke(HttpContext context, IAuthenticationSchemeProvider schemes)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at IdentityServer4.Hosting.BaseUrlMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-21T16:47:07.8530737+05:00 800000be-0001-fb00-b63f-84710c7967bb [ERR] An unhandled exception has occurred while executing the request. (48a46595)
+System.TimeoutException: The Angular CLI process did not start listening for requests within the timeout period of 180 seconds. Check the log output for error information.
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at IdentityServer4.Hosting.IdentityServerMiddleware.Invoke(HttpContext context, IEndpointRouter router, IUserSession session, IEventService events, IBackChannelLogoutService backChannelLogoutService)
+   at IdentityServer4.Hosting.MutualTlsEndpointMiddleware.Invoke(HttpContext context, IAuthenticationSchemeProvider schemes)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at IdentityServer4.Hosting.BaseUrlMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.<Invoke>g__AwaitMatcher|8_0(EndpointRoutingMiddleware middleware, HttpContext httpContext, Task`1 matcherTask)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)

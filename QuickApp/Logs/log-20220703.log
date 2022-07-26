@@ -1,0 +1,506 @@
+2022-07-03T00:55:21.1835335+05:00 800000ad-0002-f000-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T00:55:23.0201850+05:00 800000ad-0002-f000-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T00:55:25.5764209+05:00 80000087-0003-fc00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration" (f7642de5)
+2022-07-03T00:55:25.8068612+05:00 8000007b-0003-f400-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T00:55:25.8635163+05:00 8000007b-0003-f400-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T00:55:27.3612177+05:00 80000115-0000-ed00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T00:55:27.4222905+05:00 80000115-0000-ed00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T00:55:27.5473264+05:00 800000b1-0002-f000-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T00:55:27.6056199+05:00 800000b1-0002-f000-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T00:55:27.6151314+05:00 8000008b-0003-fc00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T00:55:27.6788894+05:00 8000008b-0003-fc00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T00:55:27.7382049+05:00 800000be-0002-ec00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T00:55:27.7424921+05:00 800000be-0002-ec00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T00:55:30.3106818+05:00 80000117-0000-ed00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryKeyEndpoint" for "/.well-known/openid-configuration/jwks" (f7642de5)
+2022-07-03T00:55:30.3439811+05:00 80000119-0000-ed00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.TokenEndpoint" for "/connect/token" (f7642de5)
+2022-07-03T00:55:30.4134881+05:00 80000119-0000-ed00-b63f-84710c7967bb [INF] Token request validation success, TokenRequestValidationLog { ClientId: "quickapp_spa", ClientName: null, GrantType: "refresh_token", Scopes: null, AuthorizationCode: "********", RefreshToken: "****BDF6", UserName: null, AuthenticationContextReferenceClasses: null, Tenant: null, IdP: null, Raw: [("refresh_token": "***REDACTED***"), ("client_id": "quickapp_spa"), ("grant_type": "refresh_token")] } (3a073258)
+2022-07-03T00:55:33.6457363+05:00 800000ff-0000-eb00-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T00:55:33.6517011+05:00 800000ff-0000-eb00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration" (f7642de5)
+2022-07-03T00:55:40.2448888+05:00 800000aa-0003-fb00-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T00:55:40.4004798+05:00 800000aa-0003-fb00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryKeyEndpoint" for "/.well-known/openid-configuration/jwks" (f7642de5)
+2022-07-03T00:55:41.7137126+05:00 800000ac-0003-fb00-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T00:55:41.7176358+05:00 800000ac-0003-fb00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.TokenEndpoint" for "/connect/token" (f7642de5)
+2022-07-03T00:55:41.7275961+05:00 800000ac-0003-fb00-b63f-84710c7967bb [INF] Token request validation success, TokenRequestValidationLog { ClientId: "quickapp_spa", ClientName: null, GrantType: "refresh_token", Scopes: null, AuthorizationCode: "********", RefreshToken: "****6AC0", UserName: null, AuthenticationContextReferenceClasses: null, Tenant: null, IdP: null, Raw: [("refresh_token": "***REDACTED***"), ("client_id": "quickapp_spa"), ("grant_type": "refresh_token")] } (3a073258)
+2022-07-03T01:11:07.7111556+05:00 800000fb-0002-fb00-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T01:11:07.7264799+05:00 800000fb-0002-fb00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration" (f7642de5)
+2022-07-03T01:11:07.7522414+05:00 800000a1-0001-f600-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T01:11:07.7559200+05:00 800000a1-0001-f600-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryKeyEndpoint" for "/.well-known/openid-configuration/jwks" (f7642de5)
+2022-07-03T01:11:07.7722328+05:00 800000a3-0001-f600-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T01:11:07.7785394+05:00 800000a3-0001-f600-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.TokenEndpoint" for "/connect/token" (f7642de5)
+2022-07-03T01:11:07.8496597+05:00 800000a3-0001-f600-b63f-84710c7967bb [INF] Credentials validated for username: "admin" (cb811aa7)
+2022-07-03T01:11:07.8546308+05:00 800000a3-0001-f600-b63f-84710c7967bb [INF] Token request validation success, TokenRequestValidationLog { ClientId: "quickapp_spa", ClientName: null, GrantType: "password", Scopes: "email offline_access openid phone profile quickapp_api roles", AuthorizationCode: "********", RefreshToken: "********", UserName: "admin", AuthenticationContextReferenceClasses: null, Tenant: null, IdP: null, Raw: [("username": "admin"), ("password": "***REDACTED***"), ("client_id": "quickapp_spa"), ("grant_type": "password"), ("scope": "openid email phone profile offline_access roles quickapp_api")] } (3a073258)
+2022-07-03T01:35:03.2952085+05:00  [ERR] Error: src/app/app.module.ts:102:5 - error TS1005: ',' expected.
+ (bfd03584)
+2022-07-03T01:35:03.3359882+05:00  [ERR] 102     RolesManagementComponent, RoleEditorComponent,
+ (8dc26e4a)
+2022-07-03T01:35:03.3480480+05:00  [ERR]         ~~~~~~~~~~~~~~~~~~~~~~~~
+ (4f836198)
+2022-07-03T01:35:38.4668557+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T01:35:38.5083354+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T01:35:38.5295387+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T01:35:38.5380868+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:35:38.5788290+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T01:35:38.6374728+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T01:35:38.6461411+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:35:38.6519503+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:35:38.6582451+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T01:35:38.6640365+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T01:35:38.6874528+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T01:35:38.6959033+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T01:35:38.7039355+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T01:35:38.7076036+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:35:38.7113445+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T01:35:38.7159308+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T01:35:38.7195202+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:35:38.7239273+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:35:38.7305781+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T01:35:41.3021315+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T01:35:41.3150888+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T01:35:41.3193291+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T01:35:41.3355231+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:35:41.3456415+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T01:35:41.3569959+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T01:35:41.3636297+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:35:41.3727150+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:35:41.3759556+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T01:35:41.3796284+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T01:35:41.3833777+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T01:35:41.3891476+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T01:35:41.3933749+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T01:35:41.3972227+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:35:41.4094631+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T01:35:41.4136966+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T01:35:41.4178082+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:35:41.4231525+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:35:41.4288016+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T01:46:16.8569548+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T01:46:16.9242214+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T01:46:17.1783593+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T01:46:17.4936052+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:46:17.9281836+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T01:46:17.9437447+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T01:46:17.9515779+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:46:17.9802720+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:46:17.9927339+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T01:46:17.9987183+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T01:46:18.0037162+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T01:46:18.0084151+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T01:46:18.0120746+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T01:46:18.0167008+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:46:19.2235193+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T01:46:20.0391584+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T01:46:20.7749242+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:46:21.1353630+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:46:21.1547729+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T01:46:23.4838147+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T01:46:23.4900889+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T01:46:23.4961321+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T01:46:23.4995773+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:46:23.5031285+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T01:46:23.5073184+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T01:46:23.5127799+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:46:23.5309747+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:46:23.5355096+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T01:46:23.5390090+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T01:46:23.5434271+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T01:46:23.5473252+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T01:46:23.5508283+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T01:46:23.5543925+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T01:46:23.5616925+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T01:46:23.5675792+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T01:46:23.5720907+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T01:46:23.5762798+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T01:46:23.5806360+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:12:57.9906037+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T02:12:58.0060520+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:12:58.0197590+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:12:58.0349854+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:12:58.0406474+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T02:12:58.0485669+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:12:58.0539724+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:12:58.0630971+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:12:58.0690639+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:12:58.0752583+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T02:12:58.0808947+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T02:12:58.0849894+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T02:12:58.0907798+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T02:12:58.0958573+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:12:58.1005332+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T02:12:58.1235659+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T02:12:58.1293783+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:12:58.1336809+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:12:58.1390732+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:13:01.8140723+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T02:13:01.9018382+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:13:01.9527971+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:13:01.9679518+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:13:01.9758413+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T02:13:01.9820254+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:13:01.9887792+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:13:02.0022083+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:13:02.0097755+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:13:02.0141468+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T02:13:02.0190929+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T02:13:02.0259190+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T02:13:02.0306893+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T02:13:02.0376217+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:13:02.0427067+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T02:13:02.0473540+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T02:13:02.0537736+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:13:02.0581506+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:13:02.0626114+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:13:41.2674367+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:73:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (0e29dad2)
+2022-07-03T02:13:41.2807367+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:13:41.2888967+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:13:41.3940334+05:00  [ERR] 73           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (facaa175)
+2022-07-03T02:13:41.5118373+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T02:13:41.5448548+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:13:41.5564101+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:13:41.5617586+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:13:41.5694510+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:13:41.5779825+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:73:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (69fadd7a)
+2022-07-03T02:13:41.5858208+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T02:13:41.5904621+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T02:13:41.6042014+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T02:13:41.6104360+05:00  [ERR] 73           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (facaa175)
+2022-07-03T02:13:41.6427431+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T02:13:41.6740284+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T02:13:41.6946049+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:13:41.7016459+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:13:41.7134041+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:13:46.5141571+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:73:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (0e29dad2)
+2022-07-03T02:13:47.2416311+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:13:47.7649288+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:13:48.0964011+05:00  [ERR] 73           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (facaa175)
+2022-07-03T02:13:49.7100649+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T02:13:50.0945034+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:13:50.1733533+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:13:50.5643236+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:13:51.1318690+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:13:52.0682693+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:73:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (69fadd7a)
+2022-07-03T02:13:52.1896319+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T02:13:52.3770520+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T02:13:52.4322791+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T02:13:52.4475567+05:00  [ERR] 73           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (facaa175)
+2022-07-03T02:13:52.4661568+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T02:13:52.5704225+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T02:13:52.6369780+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:13:52.6465418+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:13:52.6525198+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:13:52.9475990+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:73:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (0e29dad2)
+2022-07-03T02:13:52.9633094+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:13:52.9736072+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:13:53.0101521+05:00  [ERR] 73           <app-user-info-authorization></app-user-info-authorization>
+ (cae4070f)
+2022-07-03T02:13:53.0497025+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (f9a8cee8)
+2022-07-03T02:13:53.0571976+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:13:53.0821086+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:13:53.0945691+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:13:53.0998163+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:14:17.2693123+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T02:14:17.2894031+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:14:17.2956159+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:14:17.3062114+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:14:17.3371779+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T02:14:17.3472470+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:14:17.3576340+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:14:17.3701642+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:14:17.4908461+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:14:17.6451390+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T02:14:17.6641755+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T02:14:17.6748117+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T02:14:17.6809519+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T02:14:17.6949650+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:14:17.7208338+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T02:14:17.7438773+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T02:14:17.7612600+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:14:17.7733209+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:14:17.7848278+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:17:22.1855793+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T02:17:22.1983189+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:17:22.2071633+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:17:22.2120902+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:17:22.2166222+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T02:17:22.2264765+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:17:22.2357796+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:17:22.2410620+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:17:22.2473101+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:17:22.2530719+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T02:17:22.2676750+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T02:17:22.2741643+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T02:17:22.2788183+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T02:17:22.2835054+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:17:22.2887455+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T02:17:22.2946812+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T02:17:22.2990429+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:17:22.3104072+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:17:22.3154741+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:20:33.0730320+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:11 - error NG8001: 'app-user-info-authorization' is not a known element:
+ (d7869e8e)
+2022-07-03T02:20:33.1711328+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component, then verify that it is part of this module.
+ (ab6ca096)
+2022-07-03T02:20:33.3502353+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (3f60f45b)
+2022-07-03T02:20:33.5840673+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:20:33.9192325+05:00  [ERR]              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (b228deba)
+2022-07-03T02:20:34.0185350+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.ts:24:16
+ (9d5474d3)
+2022-07-03T02:20:34.0415446+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:20:34.0528323+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:20:34.0892424+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:20:34.1229261+05:00  [ERR] Error: src/app/components/controls/users-management-authorization.component.html:72:52 - error NG8002: Can't bind to 'isGeneralEditor' since it isn't a known property of 'app-user-info-authorization'.
+ (b2095496)
+2022-07-03T02:20:34.1344294+05:00  [ERR] 1. If 'app-user-info-authorization' is an Angular component and it has 'isGeneralEditor' input, then verify that it is part of this module.
+ (8e02f098)
+2022-07-03T02:20:34.1402939+05:00  [ERR] 2. If 'app-user-info-authorization' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+ (98addce5)
+2022-07-03T02:20:34.1497330+05:00  [ERR] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+ (35b92b82)
+2022-07-03T02:20:34.1846370+05:00  [ERR] 72           <app-user-info-authorization #userEditor [isGeneralEditor]="true"></app-user-info-authorization>
+ (b6686722)
+2022-07-03T02:20:34.1926860+05:00  [ERR]                                                       ~~~~~~~~~~~~~~~~~~~~~~~~
+ (140681f9)
+2022-07-03T02:20:34.2025750+05:00  [ERR]   src/app/components/controls/users-management-authorization.component.tsm:24:16
+ (1f72ab92)
+2022-07-03T02:20:34.2081817+05:00  [ERR]     24   templateUrl: './users-management-authorization.component.html',
+ (a3cc44e3)
+2022-07-03T02:20:34.2229141+05:00  [ERR]                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ (bb5e15ff)
+2022-07-03T02:20:34.2387959+05:00  [ERR]     Error occurs in the template of component UsersManagementAuthorizationComponent.
+ (f380dea5)
+2022-07-03T02:26:00.7215060+05:00 80000120-0000-eb00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:26:00.8213268+05:00 800000fa-0000-f400-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:26:01.0382607+05:00 80000120-0000-eb00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:26:01.0506899+05:00 800000fa-0000-f400-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:26:01.4863003+05:00 80000113-0000-fd00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:26:01.6085573+05:00 80000113-0000-fd00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:26:03.0524764+05:00 800000fc-0000-f400-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T02:26:03.1890151+05:00 800000fc-0000-f400-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration" (f7642de5)
+2022-07-03T02:26:03.3047498+05:00 80000115-0000-fd00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:26:03.4474435+05:00 80000115-0000-fd00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:26:03.7019269+05:00 80000122-0000-eb00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:26:03.7172733+05:00 80000122-0000-eb00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:26:04.8013268+05:00 80000090-0000-fc00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:26:04.8483176+05:00 80000090-0000-fc00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:26:05.3804844+05:00 800000bd-0001-f000-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T02:26:05.4081760+05:00 800000bd-0001-f000-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryKeyEndpoint" for "/.well-known/openid-configuration/jwks" (f7642de5)
+2022-07-03T02:26:06.5358192+05:00 800000bf-0001-f000-b63f-84710c7967bb [WRN] CorsPolicyService did not allow origin: "http://localhost:4200" (f5320bfb)
+2022-07-03T02:26:06.5503632+05:00 800000bf-0001-f000-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.TokenEndpoint" for "/connect/token" (f7642de5)
+2022-07-03T02:26:06.9929943+05:00 800000bf-0001-f000-b63f-84710c7967bb [INF] Token request validation success, TokenRequestValidationLog { ClientId: "quickapp_spa", ClientName: null, GrantType: "refresh_token", Scopes: null, AuthorizationCode: "********", RefreshToken: "****F71A", UserName: null, AuthenticationContextReferenceClasses: null, Tenant: null, IdP: null, Raw: [("refresh_token": "***REDACTED***"), ("client_id": "quickapp_spa"), ("grant_type": "refresh_token")] } (3a073258)
+2022-07-03T02:47:07.4492502+05:00 80000157-0000-ed00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:47:07.4575895+05:00 80000130-0000-f100-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:47:07.4657674+05:00 80000157-0000-ed00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:47:07.4757593+05:00 80000130-0000-f100-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:47:07.8420182+05:00 80000039-0003-fa00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:47:07.8482849+05:00 800000db-0001-f000-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', Current time: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'." (48071232)
+2022-07-03T02:47:07.8648972+05:00 80000039-0003-fa00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:47:07.8720242+05:00 800000db-0001-f000-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2022-07-03T02:47:07.9198533+05:00 80000132-0000-f100-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration" (f7642de5)
+2022-07-03T02:47:07.9666578+05:00 80000134-0000-f100-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryKeyEndpoint" for "/.well-known/openid-configuration/jwks" (f7642de5)
+2022-07-03T02:47:08.0135343+05:00 8000003b-0003-fa00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.TokenEndpoint" for "/connect/token" (f7642de5)
+2022-07-03T02:47:08.0460582+05:00 8000003b-0003-fa00-b63f-84710c7967bb [INF] Token request validation success, TokenRequestValidationLog { ClientId: "quickapp_spa", ClientName: null, GrantType: "refresh_token", Scopes: null, AuthorizationCode: "********", RefreshToken: "****2038", UserName: null, AuthenticationContextReferenceClasses: null, Tenant: null, IdP: null, Raw: [("refresh_token": "***REDACTED***"), ("client_id": "quickapp_spa"), ("grant_type": "refresh_token")] } (3a073258)
+2022-07-03T03:08:42.5201821+05:00 8000012d-0002-fb00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryEndpoint" for "/.well-known/openid-configuration" (f7642de5)
+2022-07-03T03:08:42.6983768+05:00 8000012e-0002-fb00-b63f-84710c7967bb [INF] Invoking IdentityServer endpoint: "IdentityServer4.Endpoints.DiscoveryKeyEndpoint" for "/.well-known/openid-configuration/jwks" (f7642de5)

@@ -1,0 +1,36 @@
+E:\QuickApp-master\QuickApp-master\DAL\bin\Debug\net5.0\DAL.deps.json
+E:\QuickApp-master\QuickApp-master\DAL\bin\Debug\net5.0\DAL.dll
+E:\QuickApp-master\QuickApp-master\DAL\bin\Debug\net5.0\ref\DAL.dll
+E:\QuickApp-master\QuickApp-master\DAL\bin\Debug\net5.0\DAL.pdb
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.cache
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\DAL.dll
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\ref\DAL.dll
+E:\QuickApp-master\QuickApp-master\DAL\obj\Debug\net5.0\DAL.pdb
+E:\QuickApp-master\QuickApp-master - Copy\DAL\bin\Debug\net5.0\DAL.deps.json
+E:\QuickApp-master\QuickApp-master - Copy\DAL\bin\Debug\net5.0\DAL.dll
+E:\QuickApp-master\QuickApp-master - Copy\DAL\bin\Debug\net5.0\ref\DAL.dll
+E:\QuickApp-master\QuickApp-master - Copy\DAL\bin\Debug\net5.0\DAL.pdb
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.cache
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.dll
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\ref\DAL.dll
+E:\QuickApp-master\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.pdb
+F:\Saleem\QuickApp-master - Copy\DAL\bin\Debug\net5.0\DAL.deps.json
+F:\Saleem\QuickApp-master - Copy\DAL\bin\Debug\net5.0\DAL.dll
+F:\Saleem\QuickApp-master - Copy\DAL\bin\Debug\net5.0\DAL.pdb
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.cache
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.dll
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\refint\DAL.dll
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\DAL.pdb
+F:\Saleem\QuickApp-master - Copy\DAL\obj\Debug\net5.0\ref\DAL.dll
