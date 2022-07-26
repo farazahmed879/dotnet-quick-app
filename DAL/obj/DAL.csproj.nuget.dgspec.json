@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Saleem\\QuickApp-master - Copy\\DAL\\DAL.csproj": {}
+    "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj": {}
   },
   "projects": {
-    "F:\\Saleem\\QuickApp-master - Copy\\DAL\\DAL.csproj": {
+    "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj": {
       "version": "5.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Saleem\\QuickApp-master - Copy\\DAL\\DAL.csproj",
+        "projectUniqueName": "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "F:\\Saleem\\QuickApp-master - Copy\\DAL\\DAL.csproj",
+        "projectPath": "F:\\Saleem\\dotnet-quick-app\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "F:\\Saleem\\QuickApp-master - Copy\\DAL\\obj\\",
+        "outputPath": "F:\\Saleem\\dotnet-quick-app\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
