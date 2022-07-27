@@ -1,0 +1,270 @@
+<form *ngIf="formResetToggle" name="taskEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save(f.form) :
+      (!groupName.valid && showErrorAlert('All Group fields required', 'Please fill the form'));">
+
+
+  <Section>
+    <div class="form-group row">
+      <label class="col-form-label col-md-3" for="groupName">{{'Group Name' | translate}}:</label>
+      <div class="col-md-9">
+        <input appAutofocus type="text" id="groupName" name="groupName" placeholder="Enter task name"
+          class="form-control"
+          [ngClass]="{'is-valid': f.submitted && groupName.valid, 'is-invalid' : f.submitted && !groupName.valid}"
+          [(ngModel)]="group.name" #groupName="ngModel" required />
+        <span *ngIf="f.submitted && !groupName.valid" class="invalid-feedback">
+          {{'Group Name Required' | translate}}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row description-form-group">
+      <label class="col-form-label col-md-3" for="groupDescription">{{'Group Description' | translate}}:</label>
+      <div class="col-md-9">
+        <input type="text" id="groupDescription" name="groupDescription" placeholder="Enter task description"
+          class="form-control" [(ngModel)]="group.description" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-md-3" for="reference">{{'Group Reference' | translate}}:</label>
+      <div class="col-md-9">
+        <input appAutofocus type="text" id="reference" name="reference" placeholder="Enter task name"
+          class="form-control"
+          [ngClass]="{'is-valid': f.submitted && reference.valid, 'is-invalid' : f.submitted && !reference.valid}"
+          [(ngModel)]="group.reference" #reference="ngModel" required />
+        <span *ngIf="f.submitted && !reference.valid" class="invalid-feedback">
+          {{'Group Name Required' | translate}}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-md-3" for="ownerPSID">{{'Group Owner PSID' | translate}}:</label>
+      <div class="col-md-9">
+        <input appAutofocus type="text" id="ownerPSID" name="ownerPSID" placeholder="Enter task name"
+          class="form-control"
+          [ngClass]="{'is-valid': f.submitted && ownerPSID.valid, 'is-invalid' : f.submitted && !ownerPSID.valid}"
+          [(ngModel)]="group.ownerPSID" #ownerPSID="ngModel" required />
+        <span *ngIf="f.submitted && !ownerPSID.valid" class="invalid-feedback">
+          {{'Group Name Required' | translate}}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-md-3" for="ownerName">{{'Group Owner Name' | translate}}:</label>
+      <div class="col-md-9">
+        <input appAutofocus type="text" id="ownerName" name="ownerName" placeholder="Enter task name"
+          class="form-control"
+          [ngClass]="{'is-valid': f.submitted && ownerName.valid, 'is-invalid' : f.submitted && !ownerName.valid}"
+          [(ngModel)]="group.ownerName" #ownerName="ngModel" required />
+        <span *ngIf="f.submitted && !ownerName.valid" class="invalid-feedback">
+          {{'Group Name Required' | translate}}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-md-3" for="countries">{{'Countries' | translate}}:</label>
+      <div class="col-md-9">
+        <input appAutofocus type="text" id="countries" name="countries" placeholder="Enter task name"
+          class="form-control"
+          [ngClass]="{'is-valid': f.submitted && countries.valid, 'is-invalid' : f.submitted && !countries.valid}"
+          [(ngModel)]="group.countries" #countries="ngModel" required />
+        <span *ngIf="f.submitted && !countries.valid" class="invalid-feedback">
+          {{'Group Name Required' | translate}}
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-form-label col-md-3"> </label>
+      <!-- <div class="col-md-9">
+        <div class="form-check">
+          <input class="form-check-input" id="active" name="active" type="checkbox" [(ngModel)]="group.important">
+          <label for="active" class="form-check-label"></label>
+        </div>
+      </div> -->
+      <section class="example-section">
+        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="group.active">{{'Active' | translate}}
+        </mat-checkbox>
+      </section>
+    </div>
+  </Section>
+
+  <Section>
+    <mat-tab-group color="primary" backgroundColor="primary">
+      <mat-tab label="All Modules">
+        <table>
+          <tr>
+            <th>
+              <div class="center">
+                <mat-checkbox class="example-margin" color="primary" name="selectAll"
+                  (change)="handleSelectAll($event)">
+                </mat-checkbox>
+              </div>
+            </th>
+            <th>Module</th>
+            <th>View</th>
+            <th>Insert</th>
+            <th>Update</th>
+            <th>Authorize</th>
+            <th>Reject</th>
+            <th>Delete</th>
+          </tr>
+          <ng-container *ngFor="let item of modulesList">
+            <tr>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.moduleID}}"
+                    [(ngModel)]="item.view && item.insert && item.update && item.authorize && item.reject && item.delete"
+                    (change)="handleCheckBoxChange($event,item)">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>{{item.moduleName}}</td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.moduleID}}"
+                    [(ngModel)]="item.view">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.moduleID}}"
+                    [(ngModel)]="item.insert">
+                  </mat-checkbox>
+                </div>
+              </td>
+
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.moduleID}}"
+                    [(ngModel)]="item.update">
+                  </mat-checkbox>
+                </div>
+
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.moduleID}}"
+                    [(ngModel)]="item.authorize">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.moduleID}}"
+                    [(ngModel)]="item.reject">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.moduleID}}"
+                    [(ngModel)]="item.delete">
+                  </mat-checkbox>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+      </mat-tab>
+      <mat-tab *ngFor="let item of modulesList" label="{{item.moduleName}}">
+        <table>
+          <tr>
+            <th>
+              Select
+            </th>
+            <th>Page Name</th>
+            <th>View</th>
+            <th>Insert</th>
+            <th>Update</th>
+            <th>Authorize</th>
+            <th>Reject</th>
+            <th>Delete</th>
+          </tr>
+          <ng-container *ngFor="let page of getModulePages(item.moduleID)">
+            <tr>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.moduleID}}"
+                    [(ngModel)]="page.view && page.insert && page.update && page.authorize && page.reject && page.delete"
+                    (change)="handleCheckBoxChange($event,page)">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>{{page.pageName}}</td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.view">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.insert">
+                  </mat-checkbox>
+                </div>
+              </td>
+
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.update">
+                  </mat-checkbox>
+                </div>
+
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.authorize">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.reject">
+                  </mat-checkbox>
+                </div>
+              </td>
+              <td>
+                <div class="center">
+                  <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.moduleID}}-{{page.pageID}}"
+                    [(ngModel)]="page.delete">
+                  </mat-checkbox>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </Section>
+
+  <div class="row">
+    <div class="col-md-12">
+      <hr class="edit-last-separator-hr" />
+    </div>
+  </div>
+
+
+  <div class="col-sm-7 flex">
+    <!-- <button *ngIf="!isEditMode && isGeneralEditor" type="button" (click)="close()" class="btn btn-outline-secondary">
+        <i class='fa fa-close'></i> {{'users.editor.Close' | translate}}</button>
+      <button *ngIf="!isEditMode && !isGeneralEditor" type="button" (click)="edit()" class="btn btn-outline-secondary">
+        <i class='fa fa-edit'></i> {{'users.editor.Edit' | translate}}</button> -->
+    <button type="button" (click)="cancel()" class="btn btn-danger" [disabled]="isSaving">
+      <i class='fa fa-times'></i> {{'users.editor.Cancel' | translate}}</button>
+    <button type="submit" class="btn btn-primary" [disabled]="isSaving">
+      <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'>
+      </i> {{isSaving
+      ? ('users.editor.Saving' | translate) : ('users.editor.Save' | translate)}}
+    </button>
+  </div>
+  <div class="clearfix"></div>
+</form>
