@@ -294,6 +294,110 @@ namespace QuickApp.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpPost("SaveGroup")]
+        [Authorize(Authorization.Policies.ManageAllUsersPolicy)]
+        [ProducesResponseType(201, Type = typeof(GroupManagementVM))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        public async Task<IActionResult> RegisterGroup([FromBody] GroupManagementVM group)
+        {
+            //SqlTransaction trans = con.BeginTransaction();
+
+
+            if (ModelState.IsValid)
+            {
+                if (group == null)
+                    return BadRequest($"{nameof(group)} cannot be null");
+
+                // need work here
+                if (group.GroupID == 0) // means it create on first time
+                {
+                    DateTime Date = DateTime.Now;
+                    group.MakerStatus = "P";
+                    group.Action = "INSERT";
+                    group.CreatedBy = "1111111"; //group.PSID;  //login userid need to pull from session right now able to pass 
+                    group.CreatedDate = Date;
+                    var GroupID = Insert_Group_Maker(group);
+
+                    string GroupIDNEW = GroupID.ToString();
+                    //hddGroupID.Value = Convert.ToString(GroupID);
+                    /// Group Checker
+                    //GM.GroupID = GroupID;
+                    group.MakerID = "1111111";
+                    group.MakerDate = Date;
+
+                    group.CheckerActive = false;
+                    var result = Insert_Group_Checker(group);
+                }
+                else
+                {
+                    /// Group Maker
+
+                    group.MakerStatus = "U";
+                    group.Action = "UPDATE";
+                    group.Reason = null;
+                    //GM.Update_Group_Status_By_GroupID_Maker(GM.GroupID, GM.MakerStatus, GM.Action, GM.Reason, null, trans);
+
+                    /// Group Checker
+                    group.MakerID = "1111111";//SessionBO.PSID;
+                    group.MakerDate = DateTime.Now;
+                    group.CheckerActive = false;
+                    //GM.Insert_Group_Checker(GM, trans);
+
+                }
+
+                return BadRequest(ModelState);
+
+            }
+            return null;
+        }
+
+        private object Insert_Group_Checker(GroupManagementVM group)
+        {
+
+            var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
+            userIdParam.Direction = ParameterDirection.Output;
+            var GroupID = new SqlParameter("@GroupID", group.GroupID);
+            var GroupName = new SqlParameter("@GroupName", group.GroupName);
+            var GroupDescription = new SqlParameter("@GroupDescription", group.GroupDescription);
+            var Active = new SqlParameter("@Active", group.Active);
+            var MakerStatus = new SqlParameter("@MakerStatus", group.MakerStatus);
+            var Action = new SqlParameter("@Action", group.Action);
+            var MakerID = new SqlParameter("@MakerID", group.MakerID);
+            var MakerDate = new SqlParameter("@MakerDate", group.MakerDate);
+            var CheckerActive = new SqlParameter("@CheckerActive", group.CheckerActive);
+            var Reference = new SqlParameter("@Reference", group.Reference);
+            var CountryCode = new SqlParameter("@CountryCode", group.CountryCode);
+            var GroupOwnerPSID = new SqlParameter("@GroupOwnerPSID", group.GroupOwnerPSID);
+            var GroupOwnerName = new SqlParameter("@GroupOwnerName", group.GroupOwnerName);
+
+            var getChecker = _context.Database.ExecuteSqlRaw("exec SP_Insert_User_Maker @GroupID,@GroupName,@GroupDescription,@Active,@MakerStatus,@Action,@MakerID,@CheckerActive,@Reference,@CountryCode,@GroupOwnerPSID,@GroupOwnerName, @Id out", GroupID, GroupName, GroupDescription, Active, GroupID, Active, MakerStatus, Action, MakerID, MakerDate, CheckerActive, Reference, CountryCode, CountryCode, GroupOwnerPSID, GroupOwnerName, userIdParam);
+            var result = userIdParam.Value;
+            return result;
+        }
+
+        private object Insert_Group_Maker(GroupManagementVM group)
+        {
+
+            var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
+            userIdParam.Direction = ParameterDirection.Output;
+            var GroupName = new SqlParameter("@GroupName", group.GroupName);
+            var GroupDescription = new SqlParameter("@GroupDescription", group.GroupDescription);
+            var Active = new SqlParameter("@Active", group.Active);
+            var Status = new SqlParameter("@Status", group.MakerStatus);
+            var Action = new SqlParameter("@Action", group.Action);
+            var CreatedBy = new SqlParameter("@CreatedBy", group.CreatedBy);
+            var CreatedDate = new SqlParameter("@CreatedDate", group.CreatedDate);
+            var Reference = new SqlParameter("@Reference", group.Reference);
+            var CountryCode = new SqlParameter("@CountryCode", group.CountryCode);
+            var GroupOwnerPSID = new SqlParameter("@GroupOwnerPSID", group.GroupOwnerPSID);
+            var GroupOwnerName = new SqlParameter("@GroupOwnerName", group.GroupOwnerName);
+
+            var getMaker = _context.Database.ExecuteSqlRaw("exec SP_Insert_Group_Checker @GroupName,@GroupDescription,@Active,@Status,@Action,@CreatedBy,@CreatedDate,@Reference,@CountryCode,@GroupOwnerPSID,@GroupOwnerName, @Id out", GroupName, GroupDescription, Active, Status, Action, CreatedBy, CreatedDate, Reference, CountryCode, GroupOwnerPSID, GroupOwnerName, userIdParam);
+            var result = userIdParam.Value;
+            return result;
+        }
+
 
         [HttpDelete("users/{id}")]
         [ProducesResponseType(200, Type = typeof(UserViewModel))]
@@ -479,15 +583,15 @@ namespace QuickApp.Controllers
                 var getSP_Fill_Pages_By_ModuleID13 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {13}").ToList();
                 rolePermissionVM.countryList = _mapper.Map<List<CountryViewModel>>(getCountrys);
                 rolePermissionVM.moduleList = _mapper.Map<List<ModuleVM>>(getSP_Fill_Pages_By_ModuleID);
-                rolePermissionVM.Fill_Modules_By_ModuleID_1= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID1);
-                rolePermissionVM.Fill_Modules_By_ModuleID_2= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID2);
-                rolePermissionVM.Fill_Modules_By_ModuleID_3= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID3);
-                rolePermissionVM.Fill_Modules_By_ModuleID_4= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID4);
-                rolePermissionVM.Fill_Modules_By_ModuleID_5= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID5);
-                rolePermissionVM.Fill_Modules_By_ModuleID_6= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID6);
-                rolePermissionVM.Fill_Modules_By_ModuleID_7= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID7);
-                rolePermissionVM.Fill_Modules_By_ModuleID_8= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID8);
-                rolePermissionVM.Fill_Modules_By_ModuleID_9= _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID9);
+                rolePermissionVM.Fill_Modules_By_ModuleID_1 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID1);
+                rolePermissionVM.Fill_Modules_By_ModuleID_2 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID2);
+                rolePermissionVM.Fill_Modules_By_ModuleID_3 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID3);
+                rolePermissionVM.Fill_Modules_By_ModuleID_4 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID4);
+                rolePermissionVM.Fill_Modules_By_ModuleID_5 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID5);
+                rolePermissionVM.Fill_Modules_By_ModuleID_6 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID6);
+                rolePermissionVM.Fill_Modules_By_ModuleID_7 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID7);
+                rolePermissionVM.Fill_Modules_By_ModuleID_8 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID8);
+                rolePermissionVM.Fill_Modules_By_ModuleID_9 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID9);
                 rolePermissionVM.Fill_Modules_By_ModuleID_10 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID10);
                 rolePermissionVM.Fill_Modules_By_ModuleID_11 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID11);
                 rolePermissionVM.Fill_Modules_By_ModuleID_12 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID12);
@@ -517,6 +621,24 @@ namespace QuickApp.Controllers
                 int? UserCheckerID = null;
                 //var getCheckers = _context.Set<GridUserAuthorization>().FromSqlInterpolated($"exec SP_Fill_User_By_UserCheckerID_Checker {UserCheckerID};").ToList();
                 var getMakers = _context.Set<GridUserManagementVM>().FromSqlInterpolated($"exec SP_Fill_User_By_UserID_Maker {UserID}, {StatusId}").ToList();
+                return Ok(getMakers);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        [HttpGet("GroupManagementGridData/{StatusID}/{GroupID}")]
+        [AllowAnonymous]
+        [ProducesResponseType(200, Type = typeof(List<GroupManagementVM>))]
+        public async Task<IActionResult> GetGroupManagementGridData(string StatusID,int? GroupID)
+        {
+            try
+            {
+                var getMakers = _context.Set<GroupManagementViewModel>().FromSqlInterpolated($"exec SP_Fill_Group_By_GroupID_Maker {GroupID}, {StatusID}").ToList();
                 return Ok(getMakers);
             }
             catch (Exception ex)
@@ -568,10 +690,10 @@ namespace QuickApp.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("IsGroupExist/{GroupName}/{GroupID}")]                     
+        [HttpGet("IsGroupExist/{GroupName}/{GroupID}")]
         [ProducesResponseType(200, Type = typeof(bool))]
 
-        public async Task<IActionResult> GroupNameExists(string GroupName,int? GroupID)  //int? GroupID, string GroupName
+        public async Task<IActionResult> GroupNameExists(string GroupName, int? GroupID)  //int? GroupID, string GroupName
         {
             int? GroupIDD = 0;
             string GroupNameD = "Test";
