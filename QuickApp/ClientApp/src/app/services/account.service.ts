@@ -197,4 +197,8 @@ export class AccountService {
     var result = this.accountEndpoint.isGroupExist(name);
     return result;
   }
+  getGroups(page?: number, pageSize?: number) {
+    var result = this.accountEndpoint.getGroupEndpoint(page, pageSize);
+    return result;
+  }
 }
