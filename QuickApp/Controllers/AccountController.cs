@@ -567,8 +567,8 @@ namespace QuickApp.Controllers
 
         }
 
-        [HttpGet("IsGroupExist/{GroupName}/{GroupID:int?}")]
-        [AllowAnonymous]                
+        [AllowAnonymous]
+        [HttpGet("IsGroupExist/{GroupName}/{GroupID}")]                     
         [ProducesResponseType(200, Type = typeof(bool))]
 
         public async Task<IActionResult> GroupNameExists(string GroupName,int? GroupID)  //int? GroupID, string GroupName

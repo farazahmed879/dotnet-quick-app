@@ -25,6 +25,7 @@ namespace DAL
         public DbSet<TBL_GROUP> TBL_GROUP { get; set; }
         public DbSet<GridUserAuthorization> GridUserAuthorization { get; set; }
         public DbSet<GridUserManagementVM> GridUserManagementVM { get; set; }
+        public DbSet<GroupManagementViewModel> GroupManagementViewModel { get; set; }
 
         
         public DbSet<OrderDetail> OrderDetails { get; set; }
@@ -75,6 +76,7 @@ namespace DAL
             builder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType(priceDecimalType);
             builder.Entity<TBL_GROUP>().HasKey(r => r.GROUP_ID);
             builder.Entity<TBL_Pages>().HasKey(r => r.PageID);
+            builder.Entity<GroupManagementViewModel>().HasKey(r => r.GroupID);
 
             #region Registration of Reponse Models of Procedures
 
