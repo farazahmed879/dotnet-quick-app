@@ -1,0 +1,14 @@
+2022-07-27T03:09:07.7951897-07:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
+2022-07-27T03:09:07.8430510-07:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
+2022-07-27T03:09:07.8504392-07:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
+2022-07-27T03:09:09.6212815-07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-07-27T03:09:09.6475934-07:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-07-27T03:09:09.6539776-07:00  [INF] Content root path: "F:\Saleem\dotnet-quick-app\QuickApp" (b5d60022)
+2022-07-27T03:09:10.8124588-07:00  [ERR] npm WARN config global `--global`, `--local` are deprecated. Use `--location=global` instead.
+ (cf0cf533)
+2022-07-27T03:09:50.0604946-07:00  [ERR] (node:12948) [DEP0148] DeprecationWarning: Use of deprecated folder mapping "./" in the "exports" field module resolution of the package at F:\Saleem\dotnet-quick-app\QuickApp\ClientApp\node_modules\postcss\package.json.
+ (e97d25c0)
+2022-07-27T03:09:50.0654843-07:00  [ERR] Update this package.json to use a subpath pattern like "./*".
+ (2add4188)
+2022-07-27T03:09:50.0724115-07:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+ (567f389e)

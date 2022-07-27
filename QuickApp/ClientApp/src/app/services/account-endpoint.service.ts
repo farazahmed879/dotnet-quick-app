@@ -235,4 +235,12 @@ export class AccountEndpoint extends EndpointBase {
         return this.handleError(error, () => this.getModulesEndpoint(page, pageSize));
       }));
   }
+
+  isGroupExist<T>(groupName: string): Observable<T> {
+    const endpointUrl = `/api/Account/IsGroupExist/${groupName}/0`;
+    return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.isGroupExist(groupName));
+      }));
+  }
 }
