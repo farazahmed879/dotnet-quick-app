@@ -247,13 +247,19 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     });
   }
 
-  save() {
-    this.rowsCache.splice(0, 0, this.group);
-    this.rows.splice(0, 0, this.group);
-    this.refreshDataIndexes(this.rowsCache);
-    this.rows = [...this.rows];
+  checkGroupName(name) {
 
-    this.saveToDisk();
+  }
+
+  save(form) {
+    debugger
+    this.accountService.checkGroupName(form.value.groupName).subscribe((res: any) => {
+      if (res) {
+        return this.alertService.showMessage("Alert", "Group Name Aleady Exist", MessageSeverity.error);
+      }
+    })
+    debugger;
+    //this.saveToDisk();
     this.editorModal.hide();
   }
 

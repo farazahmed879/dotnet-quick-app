@@ -1,4 +1,4 @@
-<form *ngIf="formResetToggle" name="taskEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
+<form *ngIf="formResetToggle" name="taskEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save(f.form) :
       (!groupName.valid && showErrorAlert('All Group fields required', 'Please fill the form'));">
 
 
@@ -30,7 +30,7 @@
         <input appAutofocus type="text" id="reference" name="reference" placeholder="Enter task name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && reference.valid, 'is-invalid' : f.submitted && !reference.valid}"
-          [(ngModel)]="group.name" #reference="ngModel" required />
+          [(ngModel)]="group.reference" #reference="ngModel" required />
         <span *ngIf="f.submitted && !reference.valid" class="invalid-feedback">
           {{'Group Name Required' | translate}}
         </span>
@@ -43,7 +43,7 @@
         <input appAutofocus type="text" id="ownerPSID" name="ownerPSID" placeholder="Enter task name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && ownerPSID.valid, 'is-invalid' : f.submitted && !ownerPSID.valid}"
-          [(ngModel)]="group.name" #ownerPSID="ngModel" required />
+          [(ngModel)]="group.ownerPSID" #ownerPSID="ngModel" required />
         <span *ngIf="f.submitted && !ownerPSID.valid" class="invalid-feedback">
           {{'Group Name Required' | translate}}
         </span>
@@ -56,7 +56,7 @@
         <input appAutofocus type="text" id="ownerName" name="ownerName" placeholder="Enter task name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && ownerName.valid, 'is-invalid' : f.submitted && !ownerName.valid}"
-          [(ngModel)]="group.name" #ownerName="ngModel" required />
+          [(ngModel)]="group.ownerName" #ownerName="ngModel" required />
         <span *ngIf="f.submitted && !ownerName.valid" class="invalid-feedback">
           {{'Group Name Required' | translate}}
         </span>
@@ -69,7 +69,7 @@
         <input appAutofocus type="text" id="countries" name="countries" placeholder="Enter task name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && countries.valid, 'is-invalid' : f.submitted && !countries.valid}"
-          [(ngModel)]="group.name" #countries="ngModel" required />
+          [(ngModel)]="group.countries" #countries="ngModel" required />
         <span *ngIf="f.submitted && !countries.valid" class="invalid-feedback">
           {{'Group Name Required' | translate}}
         </span>

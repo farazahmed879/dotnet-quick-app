@@ -192,4 +192,9 @@ export class AccountService {
     var result = this.accountEndpoint.getModulesEndpoint(page, pageSize);
     return result;
   }
+
+  checkGroupName(name: string) {
+    var result = this.accountEndpoint.isGroupExist(name);
+    return result;
+  }
 }
