@@ -1,4 +1,4 @@
-<form *ngIf="formResetToggle" name="taskEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save(f.form) :
+<form name="taskEditorForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save(f.form) :
       (!groupName.valid && showErrorAlert('All Group fields required', 'Please fill the form'));">
 
 

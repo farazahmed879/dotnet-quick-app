@@ -18,7 +18,72 @@
     </div>
   </div>
 
-  <ngx-datatable class="material colored-header sm table table-striped table-hover"
+  <section>
+    <div class="">
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="index">
+          <mat-header-cell *matHeaderCellDef> S. No </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.index}} </mat-cell>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="groupName">
+          <mat-header-cell *matHeaderCellDef> Tracking </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{element.groupName}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="groupDescription">
+          <mat-header-cell *matHeaderCellDef> Tracking </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{element.groupDescription}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="makerStatus">
+          <mat-header-cell *matHeaderCellDef> Tracking </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{element.makerStatus}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="reason">
+          <mat-header-cell *matHeaderCellDef> Tracking </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{element.reason}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="createdDate">
+          <mat-header-cell *matHeaderCellDef> Tracking </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{element.createdDate}}
+          </mat-cell>
+        </ng-container>
+        <!-- <ng-container matColumnDef="dispute">
+          <mat-header-cell *matHeaderCellDef> Dispute </mat-header-cell>
+          <mat-cell *matCellDef="let booking">
+            <a>
+              <span class="material-icons" style="cursor: pointer;" matTooltip="Dispute"
+                (click)="getDisputeByOrderId(booking)">
+                pan_tool
+              </span>
+            </a>
+          </mat-cell>
+        </ng-container> -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns" class="table_header"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <!-- <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="totalSize" [pageIndex]="pageIndex"
+        [pageSize]="pageSize" showFirstLastButtons (page)="pageChange($event)"></mat-paginator> -->
+    </div>
+  </section>
+
+  <!-- <ngx-datatable class="material colored-header sm table table-striped table-hover"
     [loadingIndicator]="loadingIndicator" [rows]="rows" [rowHeight]="35" [headerHeight]="35" [footerHeight]="35"
     [columns]="columns" [scrollbarV]="true" [columnMode]="'force'">
   </ngx-datatable>
@@ -46,7 +111,7 @@
       <a class="btn btn-link btn-sm" href="javascript:;" (click)="deleteGroup(row)"><i class="fa fa-trash-o"
           aria-hidden="true"></i> {{'users.management.Delete' | translate}}</a>
     </div>
-  </ng-template>
+  </ng-template> -->
 
 
   <div class="modal fade" bsModal #editorModal="bs-modal" (onHidden)="onEditorModalHidden()"

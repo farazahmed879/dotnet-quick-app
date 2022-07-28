@@ -252,13 +252,11 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   }
 
   save(form) {
-    debugger
     this.accountService.checkGroupName(form.value.groupName).subscribe((res: any) => {
       if (res) {
         return this.alertService.showMessage("Alert", "Group Name Aleady Exist", MessageSeverity.error);
       }
     })
-    debugger;
     //this.saveToDisk();
     this.editorModal.hide();
   }
@@ -327,7 +325,6 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
 
   handleSelectAll(event) {
-    debugger
     this.modulesList.forEach((el: any) => {
       this.handleCheckBoxChange(event, el);
     })
@@ -345,6 +342,10 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     let result = name.concat(id);
     let list = this.allData[result];
     return list;
+  }
+
+  cancel(){
+    
   }
 
 
