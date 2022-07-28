@@ -262,6 +262,52 @@ namespace QuickApp.Controllers
         }
 
 
+        [HttpPatch("group/{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> UpdateGroup(string id, [FromBody] JsonPatchDocument<GroupManagementVM> patch)
+        {
+
+            //if (!(await _authorizationService.AuthorizeAsync(this.User, id, AccountManagementOperations.Update)).Succeeded)
+            //    return new ChallengeResult();
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    if (patch == null)
+            //        return BadRequest($"{nameof(patch)} cannot be null");
+
+
+            //    ApplicationUser appUser = await _accountManager.GetUserByIdAsync(id);
+
+            //    if (appUser == null)
+            //        return NotFound(id);
+
+
+            //    UserPatchViewModel userPVM = _mapper.Map<UserPatchViewModel>(appUser);
+            //    patch.ApplyTo(userPVM, (e) => AddError(e.ErrorMessage));
+
+            //    if (ModelState.IsValid)
+            //    {
+            //        _mapper.Map<UserPatchViewModel, ApplicationUser>(userPVM, appUser);
+
+            //        var result = await _accountManager.UpdateUserAsync(appUser);
+            //        if (result.Succeeded)
+            //            return NoContent();
+
+
+            //        AddError(result.Errors);
+            //    }
+            //}
+
+            //return BadRequest(ModelState);
+
+            return null;
+        }
+
+
         [HttpPost("users")]
         [Authorize(Authorization.Policies.ManageAllUsersPolicy)]
         [ProducesResponseType(201, Type = typeof(UserViewModel))]
