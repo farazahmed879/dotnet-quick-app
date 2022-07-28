@@ -23,6 +23,7 @@ export class AccountEndpoint extends EndpointBase {
   get permissionsUrl() { return this.configurations.baseUrl + '/api/account/permissions'; }
   get userManagementGrid() { return this.configurations.baseUrl + '/api/account/UserManagementGridData'; }
   get modulesUrl() { return this.configurations.baseUrl + '/api/Account/GroupManagementGridData'; }
+  get getGroupUrl() { return this.configurations.baseUrl + '/api/Account/GroupManagementGridData/0/0'; }
 
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
@@ -233,6 +234,13 @@ export class AccountEndpoint extends EndpointBase {
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getModulesEndpoint(page, pageSize));
+      }));
+  }
+  getGroupEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
+    debugger
+    return this.http.get<T>(this.getGroupUrl, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getGroupEndpoint(page, pageSize));
       }));
   }
 

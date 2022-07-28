@@ -1,6 +1,0 @@
-2022-06-29T16:25:04.7528043+05:00  [INF] Starting IdentityServer4 version "4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e" (8add0571)
-2022-06-29T16:25:04.7968930+05:00  [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation. (553c312b)
-2022-06-29T16:25:04.8032318+05:00  [INF] Using the default authentication scheme "Identity.Application" for IdentityServer (4a54f457)
-2022-06-29T16:25:05.8730237+05:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
-2022-06-29T16:25:05.8730981+05:00  [INF] Hosting environment: "Development" (c3307c92)
-2022-06-29T16:25:05.8731291+05:00  [INF] Content root path: "E:\QuickApp-master\QuickApp-master - Copy\QuickApp" (b5d60022)

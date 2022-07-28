@@ -82,7 +82,7 @@ export class GroupListComponent implements OnInit, AfterViewInit {
     //   this.columns.push({ name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false });
     // }
 
-    //this.getAllGroups();
+    this.getAllGroups();
   }
 
 
@@ -124,16 +124,16 @@ export class GroupListComponent implements OnInit, AfterViewInit {
   }
 
 
-  // getAllGroups() {
-  //   debugger
-  //   this.alertService.startLoadingMessage();
-  //   this.accountService.getModules().subscribe((res) => {
-  //     if (res) {
-  //       debugger
-  //     } 
-  //   })
-  //   this.alertService.stopLoadingMessage();
-  // }
+  getAllGroups() {
+    debugger
+    this.alertService.startLoadingMessage();
+    this.accountService.getGroups().subscribe((res) => {
+      if (res) {
+        debugger
+      } 
+    })
+    this.alertService.stopLoadingMessage();
+  }
 
 
   onDataLoadSuccessful(users: User[], roles: Role[]) {
