@@ -12,9 +12,7 @@ import { AlertService, DialogType, MessageSeverity } from 'src/app/services/aler
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { Utilities } from 'src/app/services/utilities';
 import { CreateOrEditGroupComponent } from '../create-or-edit-group/create-or-edit-group.component';
-import { GroupInfoComponent } from '../group-info.component';
 import { UserInfoComponent } from '../user-info.component';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({

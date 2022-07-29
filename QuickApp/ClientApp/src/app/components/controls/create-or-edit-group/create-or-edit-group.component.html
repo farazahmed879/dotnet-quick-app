@@ -6,7 +6,7 @@
     <div class="form-group row">
       <label class="col-form-label col-md-3" for="groupName">{{'Group Name' | translate}}:</label>
       <div class="col-md-9">
-        <input appAutofocus type="text" id="groupName" name="groupName" placeholder="Enter task name"
+        <input appAutofocus type="text" id="groupName" name="groupName" placeholder="Enter group name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && groupName.valid, 'is-invalid' : f.submitted && !groupName.valid}"
           [(ngModel)]="group.name" #groupName="ngModel" required />
@@ -19,7 +19,7 @@
     <div class="form-group row description-form-group">
       <label class="col-form-label col-md-3" for="groupDescription">{{'Group Description' | translate}}:</label>
       <div class="col-md-9">
-        <input type="text" id="groupDescription" name="groupDescription" placeholder="Enter task description"
+        <input type="text" id="groupDescription" name="groupDescription" placeholder="Enter group description"
           class="form-control" [(ngModel)]="group.description" />
       </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="form-group row">
       <label class="col-form-label col-md-3" for="reference">{{'Group Reference' | translate}}:</label>
       <div class="col-md-9">
-        <input appAutofocus type="text" id="reference" name="reference" placeholder="Enter task name"
+        <input appAutofocus type="text" id="reference" name="reference" placeholder="Enter group name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && reference.valid, 'is-invalid' : f.submitted && !reference.valid}"
           [(ngModel)]="group.reference" #reference="ngModel" required />
@@ -40,7 +40,7 @@
     <div class="form-group row">
       <label class="col-form-label col-md-3" for="ownerPSID">{{'Group Owner PSID' | translate}}:</label>
       <div class="col-md-9">
-        <input appAutofocus type="text" id="ownerPSID" name="ownerPSID" placeholder="Enter task name"
+        <input appAutofocus type="text" id="ownerPSID" name="ownerPSID" placeholder="Enter group name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && ownerPSID.valid, 'is-invalid' : f.submitted && !ownerPSID.valid}"
           [(ngModel)]="group.ownerPSID" #ownerPSID="ngModel" required />
@@ -53,7 +53,7 @@
     <div class="form-group row">
       <label class="col-form-label col-md-3" for="ownerName">{{'Group Owner Name' | translate}}:</label>
       <div class="col-md-9">
-        <input appAutofocus type="text" id="ownerName" name="ownerName" placeholder="Enter task name"
+        <input appAutofocus type="text" id="ownerName" name="ownerName" placeholder="Enter group name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && ownerName.valid, 'is-invalid' : f.submitted && !ownerName.valid}"
           [(ngModel)]="group.ownerName" #ownerName="ngModel" required />
@@ -66,7 +66,7 @@
     <div class="form-group row">
       <label class="col-form-label col-md-3" for="countries">{{'Countries' | translate}}:</label>
       <div class="col-md-9">
-        <input appAutofocus type="text" id="countries" name="countries" placeholder="Enter task name"
+        <input appAutofocus type="text" id="countries" name="countries" placeholder="Enter group name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && countries.valid, 'is-invalid' : f.submitted && !countries.valid}"
           [(ngModel)]="group.countries" #countries="ngModel" required />
@@ -98,8 +98,8 @@
           <tr>
             <th>
               <div class="center">
-                <mat-checkbox class="example-margin" color="primary" name="selectAll"
-                  (change)="handleSelectAll($event)">
+                <mat-checkbox class="example-margin" color="primary" name="selectAll" [checked]="handleSelectAll()"
+                  (change)="handleChangeSelectAll($event)">
                 </mat-checkbox>
               </div>
             </th>
@@ -111,13 +111,13 @@
             <th>Reject</th>
             <th>Delete</th>
           </tr>
-          <ng-container *ngFor="let item of modulesList">
+          <ng-container *ngFor="let item of allData">
             <tr>
               <td>
                 <div class="center">
                   <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.moduleID}}"
-                    [(ngModel)]="item.view && item.insert && item.update && item.authorize && item.reject && item.delete"
-                    (change)="handleCheckBoxChange($event,item)">
+                    [checked]="item.crud_View && item.crud_Insert && item.crud_Update && item.crud_Authorize && item.crud_Reject && item.crud_Delete"
+                    (change)="handleModuleParent(item,$event)">
                   </mat-checkbox>
                 </div>
               </td>
@@ -125,22 +125,24 @@
               <td>
                 <div class="center">
                   <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.moduleID}}"
-                    [(ngModel)]="item.view">
+                    [(ngModel)]="item.crud_View" (change)="handleSingleParentChange(item,$event,'crud_View')"
+                    [checked]="checkIfAllChildren(item,'crud_View')">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
                   <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.moduleID}}"
-                    [(ngModel)]="item.insert">
+                    [(ngModel)]="item.crud_Insert" (change)="handleSingleParentChange(item,$event,'crud_Insert')"
+                    [checked]="checkIfAllChildren(item,'crud_Insert')">
                   </mat-checkbox>
                 </div>
               </td>
-
               <td>
                 <div class="center">
                   <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.moduleID}}"
-                    [(ngModel)]="item.update">
+                    [(ngModel)]="item.crud_Update" (change)="handleSingleParentChange(item,$event,'crud_Update')"
+                    [checked]="checkIfAllChildren(item,'crud_Update')">
                   </mat-checkbox>
                 </div>
 
@@ -148,21 +150,24 @@
               <td>
                 <div class="center">
                   <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.moduleID}}"
-                    [(ngModel)]="item.authorize">
+                    [(ngModel)]="item.crud_Authorize" (change)="handleSingleParentChange(item,$event,'crud_Authorize')"
+                    [checked]="checkIfAllChildren(item,'crud_Authorize')">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
                   <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.moduleID}}"
-                    [(ngModel)]="item.reject">
+                    [(ngModel)]="item.crud_Reject" (change)="handleSingleParentChange(item,$event,'crud_Reject')"
+                    [checked]="checkIfAllChildren(item,'crud_Reject')">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
                   <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.moduleID}}"
-                    [(ngModel)]="item.delete">
+                    [(ngModel)]="item.crud_Delete" (change)="handleSingleParentChange(item,$event,'crud_Delete')"
+                    [checked]="checkIfAllChildren(item,'crud_Delete')">
                   </mat-checkbox>
                 </div>
               </td>
@@ -170,7 +175,7 @@
           </ng-container>
         </table>
       </mat-tab>
-      <mat-tab *ngFor="let item of modulesList" label="{{item.moduleName}}">
+      <mat-tab *ngFor="let item of allData" label="{{item.moduleName}}">
         <table>
           <tr>
             <th>
@@ -184,58 +189,59 @@
             <th>Reject</th>
             <th>Delete</th>
           </tr>
-          <ng-container *ngFor="let page of getModulePages(item.moduleID)">
+          <ng-container *ngFor="let page of item.children">
             <tr>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="selectAll-{{item.moduleID}}"
-                    [(ngModel)]="page.view && page.insert && page.update && page.authorize && page.reject && page.delete"
-                    (change)="handleCheckBoxChange($event,page)">
+                  <mat-checkbox class="example-margin" color="primary"
+                    name="selectAll-{{item.moduleID}}-{{page.pageID}}"
+                    [checked]="page.crud_View && page.crud_Insert && page.crud_Update && page.crud_Authorize && page.crud_Reject && page.crud_Delete"
+                    (change)="handlePageParent(page,$event)">
                   </mat-checkbox>
                 </div>
               </td>
               <td>{{page.pageName}}</td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-view-{{item.moduleID}}-{{page.pageID}}"
-                    [(ngModel)]="page.view">
+                  <mat-checkbox class="example-margin" color="primary"
+                    name="active-view-{{item.moduleID}}-{{page.pageID}}" [(ngModel)]="page.crud_View">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-insert-{{item.moduleID}}-{{page.pageID}}"
-                    [(ngModel)]="page.insert">
+                  <mat-checkbox class="example-margin" color="primary"
+                    name="active-insert-{{item.moduleID}}-{{page.pageID}}" [(ngModel)]="page.crud_Insert">
                   </mat-checkbox>
                 </div>
               </td>
 
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-update-{{item.moduleID}}-{{page.pageID}}"
-                    [(ngModel)]="page.update">
+                  <mat-checkbox class="example-margin" color="primary"
+                    name="active-update-{{item.moduleID}}-{{page.pageID}}" [(ngModel)]="page.crud_Update">
                   </mat-checkbox>
                 </div>
 
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-authorize-{{item.moduleID}}-{{page.pageID}}"
-                    [(ngModel)]="page.authorize">
+                  <mat-checkbox class="example-margin" color="primary"
+                    name="active-authorize-{{item.moduleID}}-{{page.pageID}}" [(ngModel)]="page.crud_Authorize">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-reject-{{item.moduleID}}-{{page.pageID}}"
-                    [(ngModel)]="page.reject">
+                  <mat-checkbox class="example-margin" color="primary"
+                    name="active-reject-{{item.moduleID}}-{{page.pageID}}" [(ngModel)]="page.crud_Reject">
                   </mat-checkbox>
                 </div>
               </td>
               <td>
                 <div class="center">
-                  <mat-checkbox class="example-margin" color="primary" name="active-delete-{{item.moduleID}}-{{page.pageID}}"
-                    [(ngModel)]="page.delete">
+                  <mat-checkbox class="example-margin" color="primary"
+                    name="active-delete-{{item.moduleID}}-{{page.pageID}}" [(ngModel)]="page.crud_Delete">
                   </mat-checkbox>
                 </div>
               </td>

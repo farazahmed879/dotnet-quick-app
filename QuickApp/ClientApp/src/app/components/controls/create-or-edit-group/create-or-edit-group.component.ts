@@ -32,6 +32,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   _hideCompletedTasks = false;
   allData: any;
   modulesList: any;
+  selectAllParent = false;
 
   public changesSavedCallback: () => void;
   public changesFailedCallback: () => void;
@@ -151,19 +152,39 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     this.alertService.startLoadingMessage();
     this.accountService.getModules().subscribe((res: any) => {
       if (res) {
-        this.allData = res;
-        this.modulesList = res.moduleList;// this.modalData = this.data;
-        this.modulesList.forEach((element: any) => {
-          element.view = false;
-          element.insert = false;
-          element.update = false;
-          element.authorize = false;
-          element.reject = false;
-          element.delete = false;
+        this.allData = res.moduleList.map(i => {
+          let children = res[`fill_Modules_By_ModuleID_${i.moduleID}`];
+          return {
+            ...i, children,
+            crud_View: !children.some(j => j.crud_View == false),
+            crud_Insert: !children.some(j => j.crud_Insert == false),
+            crud_Update: !children.some(i => i.crud_Update == false),
+            crud_Authorize: !children.some(i => i.crud_Authorize == false),
+            crud_Reject: !children.some(i => i.crud_Reject == false),
+            crud_Delete: !children.some(i => i.crud_Delete == false),
+          }
         });
+        console.log("all Data", this.allData);
+        //this.dataMappting()
       }
+
     })
     this.alertService.stopLoadingMessage();
+  }
+
+
+  dataMappting() {
+    this.selectAllParent = true;
+    this.allData.forEach((item) => {
+      item.crud_View = !item.children.some(i => i.crud_View == false);
+      item.crud_Insert = !item.children.some(i => i.crud_Insert == false);
+      item.crud_Update = !item.children.some(i => i.crud_Update == false);
+      item.crud_Authorize = !item.children.some(i => i.crud_Authorize == false);
+      item.crud_Reject = !item.children.some(i => i.crud_Reject == false);
+      item.crud_Delete = !item.children.some(i => i.crud_Delete == false);
+      if (!item.crud_View || !item.crud_Insert || !item.crud_Update || item.crud_Authorize || !item.crud_Reject || !item.crud_Delete)
+        this.selectAllParent = false;
+    })
   }
 
   ngOnDestroy() {
@@ -302,31 +323,9 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   //   return this.group;
   // }
 
-
-  handleCheckBoxChange(event, item) {
-    if (event.checked) {
-      item.view = true;
-      item.insert = true;
-      item.update = true;
-      item.authorize = true;
-      item.reject = true;
-      item.delete = true;
-      return;
-    }
-
-    item.view = false;
-    item.insert = false;
-    item.update = false;
-    item.authorize = false;
-    item.reject = false;
-    item.delete = false;
-
-  }
-
-
-  handleSelectAll(event) {
-    this.modulesList.forEach((el: any) => {
-      this.handleCheckBoxChange(event, el);
+  handleChangeSelectAll(event) {
+    this.allData.forEach((el: any) => {
+      this.handleModuleParent(el, event);
     })
   }
 
@@ -337,15 +336,53 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   }
 
 
-  getModulePages(id: string) {
-    let name = "fill_Modules_By_ModuleID_"
-    let result = name.concat(id);
-    let list = this.allData[result];
-    return list;
+  cancel() {
+
   }
 
-  cancel(){
-    
+  handleSingleParentChange(item, event, parent) {
+    item.children.map((el) => {
+      el[parent] = event.checked;
+    })
+  }
+
+
+  handleModuleParent(item, event) {
+    this.handlePageParent(item, event);
+    item.children.map((el) => {
+      this.handlePageParent(el, event);
+    })
+  }
+
+
+  handlePageParent(item, event) {
+    item.crud_View = event.checked;
+    item.crud_Insert = event.checked;
+    item.crud_Update = event.checked;
+    item.crud_Authorize = event.checked;
+    item.crud_Reject = event.checked;
+    item.crud_Delete = event.checked;
+  }
+
+
+  handleSelectAll() {
+    let parentCheck = true;
+    this.allData.forEach((item: any) => {
+      if (!item.crud_View || !item.crud_Insert || !item.crud_Update || !item.crud_Authorize || !item.crud_Reject || !item.crud_Delete)
+        parentCheck = false;
+      return;
+    })
+    return parentCheck;
+  }
+
+  checkIfAllChildren(data, prop) {
+    let parentCheck = true;
+    data.children.forEach((item: any) => {
+      if (!item[prop])
+        parentCheck = false;
+      return;
+    })
+    return parentCheck;
   }
 
 
