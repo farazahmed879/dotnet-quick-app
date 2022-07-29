@@ -14,6 +14,8 @@ import { Utilities } from 'src/app/services/utilities';
 import { CreateOrEditGroupComponent } from '../create-or-edit-group/create-or-edit-group.component';
 import { GroupInfoComponent } from '../group-info.component';
 import { UserInfoComponent } from '../user-info.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-group-list',
@@ -21,6 +23,15 @@ import { UserInfoComponent } from '../user-info.component';
   styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit, AfterViewInit {
+
+  displayedColumns = ['index', 'groupName', 'groupDescription', 'makerStatus', 'reason', 'createdBy', 'createdDate'];
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  public pageSize = 10;
+  public currentPage = 0;
+  public totalSize = 0;
+  public pageIndex: number = 0;
+
+
   columns: any[] = [];
   rows1: User[] = [];
   rowsCache1: User[] = [];
@@ -65,23 +76,33 @@ export class GroupListComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-
     const gT = (key: string) => this.translationService.getTranslation(key);
+
 
     this.columns = [
       { prop: 'index', name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
-      { prop: 'psid', name: gT('users.manageuser.PSID'), width: 100 },
-      { prop: 'name', name: gT('users.manageuser.Name'), width: 170 },
-      { prop: 'status', name: gT('users.manageuser.Status'), width: 170 },
-      { prop: 'statusRequest', name: gT('users.manageuser.StatusRequest'), width: 170 },
-      { prop: 'createdBy', name: gT('users.manageuser.CreatedBy'), width: 90, cellTemplate: this.userNameTemplate },
-      { prop: 'createdDate', name: gT('users.manageuser.CreatedDate'), width: 120 }
+      { prop: 'groupName', name: 'Group Name', width: 100 },
+      { prop: 'groupDescription', name: 'Description', width: 170 },
+      { prop: 'makerStatus', name: 'Status', width: 170 },
+      { prop: 'reason', name: 'Reason', width: 170 },
+      { prop: 'createdBy', name: 'Created By', width: 90, cellTemplate: this.userNameTemplate },
+      { prop: 'createdDate', name: 'Craeted Date', width: 120 }
     ];
+
+
 
     // if (this.canManageUsers) {
     //   this.columns.push({ name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false });
     // }
 
+    this.getAllGroups();
+  }
+
+
+  pageChange(e: any) {
+    e.pageIndex = e.pageIndex + 1;
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
     this.getAllGroups();
   }
 
@@ -125,12 +146,12 @@ export class GroupListComponent implements OnInit, AfterViewInit {
 
 
   getAllGroups() {
-    debugger
     this.alertService.startLoadingMessage();
-    this.accountService.getGroups().subscribe((res) => {
+    this.accountService.getGroups().subscribe((res: []) => {
       if (res) {
-        debugger
-      } 
+        this.dataSource = new MatTableDataSource();
+        this.dataSource.data = res;
+      }
     })
     this.alertService.stopLoadingMessage();
   }
@@ -174,7 +195,7 @@ export class GroupListComponent implements OnInit, AfterViewInit {
     this.editingGroupName = null;
     //this.sourceGroupInfo = null;
     //this.editedGroupInfo = this.groupEditor.newGroup();
-    console.log("this.editedGroupInfo" + this.editedGroupInfo);
+    // console.log("this.editedGroupInfo" + this.editedGroupInfo);
     this.groupinfoeditorModal.show();
   }
 

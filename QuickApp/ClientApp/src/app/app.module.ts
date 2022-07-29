@@ -67,8 +67,6 @@ import { UsersManagementAuthorizationComponent } from './components/controls/use
 import { UserInfoAuthorizationComponent } from './components/controls/user-info-authorization.component';
 import { CreateOrEditGroupComponent } from './components/controls/create-or-edit-group/create-or-edit-group.component';
 import { GroupListComponent } from './components/controls/group-list/group-list.component';
-
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MaterialModule } from './material/material.module';
 
 @NgModule({
