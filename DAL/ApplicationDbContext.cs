@@ -29,6 +29,7 @@ namespace DAL
 
         
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<IntReturn> IntReturnValue { get; set; }
 
 
 

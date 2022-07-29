@@ -9,6 +9,23 @@ namespace QuickApp.ViewModels
 
     public class GroupManagementVM
     {
+        public List<ModuleVM> ModuleVMList { get; set; }
+
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_1 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_2 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_3 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_4 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_5 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_6 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_7 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_8 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_9 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_10 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_11 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_12 { get; set; }
+        public List<TBL_PagesVM> Fill_Modules_By_ModuleID_13 { get; set; }
+        
+
         public int GroupID { get; set; }
         public string GroupName { get; set; }
         public string GroupDescription { get; set; }

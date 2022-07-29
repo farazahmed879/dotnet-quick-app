@@ -39,7 +39,16 @@ namespace QuickApp.ViewModels
         public int? UpdatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool BackColor { get; set; } // if true of per row then read out all of their values 
 
+        public bool chkAllSelect { get; set; }
+        public bool ChkView { get; set; }       
+        public bool ChkInsert { get; set; }
+        public bool ChkUpdate { get; set; }
+        public bool ChkAuthorize { get; set; }
+        public bool ChkReject { get; set; }
+        public bool ChkDelete { get; set; }
+        public bool Active { get; set; }
     }
 
     public class TBL_PagesVM  //SP_Fill_Pages_By_ModuleID
@@ -63,5 +72,7 @@ namespace QuickApp.ViewModels
         public bool Crud_Delete { get; set; }
 
         public int? ApplicationID { get; set; }
+
+        public bool BackColor { get; set; } // if true of per row then read out all of their values 
     }
 }
