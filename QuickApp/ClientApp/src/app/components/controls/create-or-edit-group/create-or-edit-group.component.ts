@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Observable, of } from "rxjs";
 import { CreateOrEditGroup } from 'src/app/models/createGroup.model';
+import { Group } from 'src/app/models/group.model';
 import { AccountService } from 'src/app/services/account.service';
 import { AlertService, DialogType, MessageSeverity } from 'src/app/services/alert.service';
 import { AppTranslationService } from 'src/app/services/app-translation.service';
@@ -23,7 +25,15 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   rowsCache = [];
   columns = [];
   editing = {};
-  group: any = {};
+  group: any = {
+    name: "",
+    description: "",
+    reference: "",
+    ownerPSID: "",
+    ownerName: "",
+    countryId: "",
+    isActive: "",
+  };
   isDataLoaded = false;
   loadingIndicator = true;
   isSaving = false;
@@ -33,6 +43,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   allData: any;
   modulesList: any;
   selectAllParent = false;
+  countries = [];
 
   public changesSavedCallback: () => void;
   public changesFailedCallback: () => void;
@@ -145,6 +156,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     //   element.delete = false;
     // });
     this.getAllGroups();
+    this.loadCountryViewModel();
   }
 
 
@@ -269,14 +281,102 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
   }
 
   checkGroupName(name) {
-
-  }
-
-  save(form) {
-    this.accountService.checkGroupName(form.value.groupName).subscribe((res: any) => {
+    this.accountService.checkGroupName(name).subscribe((res: any) => {
       if (res) {
         return this.alertService.showMessage("Alert", "Group Name Aleady Exist", MessageSeverity.error);
       }
+    })
+  }
+
+  loadCountryViewModel() {
+    this.accountService.getCountryRegionUserGroup()
+      .subscribe(results => {
+        this.countries = results.listCountryViewModel;
+        //console.log("CountryViewModel" + this.UserViewModel);      
+      });
+  }
+
+  reqObjectMapper<T>(): Observable<Group> {
+
+    let ob: Group = {
+      groupID: 0,
+      groupName: this.group.name,
+      groupDescription: this.group.description,
+      makerStatus: null,
+      active: this.group.isActive,
+      action: null,
+      reason: null,
+      createdBy: null,
+      createdDate: null,
+      updatedBy: null,
+      updatedDate: null,
+      groupCheckerID: 0,
+      checkerStatus: null,
+      checkerActive: true,
+      makerID: null,
+      makerDate: null,
+      checkerID: null,
+      countryCode: this.group.countryId,
+      checkerDate: null,
+      reference: this.group.reference,
+      groupOwnerPSID: this.group.ownerPSID,
+      groupOwnerName: this.group.ownerName,
+      psid: null,
+      moduleVMList: []
+    };
+    let moduleObject = {
+      moduleID: 0,
+      applicationID: 0,
+      moduleName: "",
+      moduleDescription: "",
+      moduleIcon: "",
+      moduleSortOrder: 0,
+      createdBy: 0,
+      updatedBy: 0,
+      createdDate: "",
+      updatedDate: "",
+      backColor: false,
+      chkAllSelect: false,
+      chkView: false,
+      chkInsert: false,
+      chkUpdate: false,
+      chkAuthorize: false,
+      chkReject: false,
+      chkDelete: false,
+      active: false
+    };
+    this.allData.forEach((el) => {
+      moduleObject.moduleID = el.moduleID,
+        moduleObject.applicationID = el.applicationID,
+        moduleObject.moduleName = el.moduleName,
+        moduleObject.moduleDescription = el.moduleDescription,
+        moduleObject.moduleIcon = el.moduleIcon,
+        moduleObject.moduleSortOrder = el.moduleSortOrder,
+        moduleObject.backColor = el.backColor,
+        moduleObject.chkAllSelect = el.moduleID,
+        moduleObject.chkView = el.crud_View,
+        moduleObject.chkInsert = el.crud_Insert,
+        moduleObject.chkUpdate = el.crud_Update,
+        moduleObject.chkAuthorize = el.crud_Authorize,
+        moduleObject.chkReject = el.crud_Reject,
+        moduleObject.chkDelete = el.crud_Delete,
+        moduleObject.active = el.active
+      ob.moduleVMList.push(moduleObject);
+      let moduleChildrenName = `fill_Modules_By_ModuleID_${el.moduleID}`;
+      ob[moduleChildrenName] = el.children;
+    });
+
+    return of(ob);
+  }
+
+  save(form) {
+    this.reqObjectMapper().subscribe(req => {
+      debugger
+      this.accountService.saveGroup(req).subscribe((res: any) => {
+        if (res) {
+          return this.alertService.showMessage("Alert", "Group Name Aleady Exist", MessageSeverity.error);
+        }
+      })
     })
     //this.saveToDisk();
     this.editorModal.hide();

@@ -2,8 +2,8 @@
   <div class="row control-box">
     <div class="col-lg-8">
       <div class="form-group search-box">
-        <app-search-box (searchChange)="onSearchChanged($event)"
-          placeholder="{{'users.management.Search' | translate}}"></app-search-box>
+        <app-search-box (searchChange)="onSearchChanged($event)" placeholder="{{'Search for groups' | translate}}">
+        </app-search-box>
       </div>
     </div>
     <div class="col-lg-4 pr-lg-5">
@@ -17,7 +17,7 @@
       </ul>
     </div>
   </div>
-
+  <mat-progress-bar *ngIf="pageLoader" mode="indeterminate"></mat-progress-bar>
   <section>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource">
@@ -45,7 +45,7 @@
           <th mat-header-cell *matHeaderCellDef> Status </th>
           <td mat-cell *matCellDef="let element"> {{element.makerStatus}} </td>
         </ng-container>
-        
+
         <ng-container matColumnDef="reason">
           <th mat-header-cell *matHeaderCellDef> Reason </th>
           <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
@@ -66,6 +66,7 @@
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
       </mat-paginator>
+      
     </div>
   </section>
 
@@ -141,6 +142,4 @@
       </div>
     </div>
   </div>
-
-
 </div>

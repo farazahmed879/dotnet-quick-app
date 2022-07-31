@@ -201,4 +201,9 @@ export class AccountService {
     var result = this.accountEndpoint.getGroupEndpoint(page, pageSize);
     return result;
   }
+
+  saveGroup(data: any) {
+    var result = this.accountEndpoint.saveGroup(data);
+    return result;
+  }
 }

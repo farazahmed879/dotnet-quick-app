@@ -1,23 +1,26 @@
 export class Group {
-    // Note: Using only optional constructor properties without backing store disables typescript's type checking for the type
-    constructor(id?: string, userName?: string, fullName?: string, email?: string, jobTitle?: string, phoneNumber?: string, roles?: string[]) {
-
-        this.id = id;
-        this.userName = userName;
-        this.fullName = fullName;
-        this.email = email;
-        this.jobTitle = jobTitle;
-        this.phoneNumber = phoneNumber;
-        this.roles = roles;
-    }
-
-    public id: string;
-    public userName: string;
-    public fullName: string;
-    public email: string;
-    public jobTitle: string;
-    public phoneNumber: string;
-    public isEnabled: boolean;
-    public isLockedOut: boolean;
-    public roles: string[];
+        groupID: 0;
+        groupName: null;
+        groupDescription: null;
+        makerStatus: null;
+        active: null;
+        action: null;
+        reason: null;
+        createdBy: null;
+        createdDate: null;
+        updatedBy: null;
+        updatedDate: null;
+        groupCheckerID: 0;
+        checkerStatus: null;
+        checkerActive: true;
+        makerID: null;
+        makerDate: null;
+        checkerID: null;
+        countryCode: null;
+        checkerDate: null;
+        reference: null;
+        groupOwnerPSID: null;
+        groupOwnerName: null;
+        psid: null;
+        moduleVMList: any[];
 }

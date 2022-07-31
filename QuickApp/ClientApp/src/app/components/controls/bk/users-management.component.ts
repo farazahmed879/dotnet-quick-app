@@ -1,19 +1,17 @@
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-
-import { AlertService, DialogType, MessageSeverity } from '../../services/alert.service';
-import { AppTranslationService } from '../../services/app-translation.service';
-import { AccountService } from '../../services/account.service';
-import { Utilities } from '../../services/utilities';
-import { User } from '../../models/user.model';
-import { Role } from '../../models/role.model';
-import { Permission } from '../../models/permission.model';
-import { UserEdit } from '../../models/user-edit.model';
-import { UserInfoComponent } from './user-info.component';
-import { Group } from '../../models/group.model';
-import { GroupInfoComponent } from './group-info.component';
-import { DomainVM } from 'src/app/models/domainVM.model';
 import { GridUserManagementVM } from 'src/app/models/gridUserManagementVM.model';
+import { Group } from 'src/app/models/group.model';
+import { Permission } from 'src/app/models/permission.model';
+import { Role } from 'src/app/models/role.model';
+import { UserEdit } from 'src/app/models/user-edit.model';
+import { User } from 'src/app/models/user.model';
+import { AccountService } from 'src/app/services/account.service';
+import { AlertService, DialogType, MessageSeverity } from 'src/app/services/alert.service';
+import { AppTranslationService } from 'src/app/services/app-translation.service';
+import { Utilities } from 'src/app/services/utilities';
+import { GroupInfoComponent } from '../group-info.component';
+import { UserInfoComponent } from '../users/create-or-edit-user/user-info.component';
 
 
 @Component({
@@ -33,7 +31,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
   loadingIndicator: boolean;
 
   allRoles: Role[] = [];
-  GridUserManagementVM: GridUserManagementVM;
+  GridUserManagementVM: any;
 
   @ViewChild('indexTemplate', { static: true })
   indexTemplate: TemplateRef<any>;

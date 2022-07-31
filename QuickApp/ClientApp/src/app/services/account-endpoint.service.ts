@@ -24,6 +24,7 @@ export class AccountEndpoint extends EndpointBase {
   get userManagementGrid() { return this.configurations.baseUrl + '/api/account/UserManagementGridData'; }
   get modulesUrl() { return this.configurations.baseUrl + '/api/Account/GroupManagementGridData'; }
   get getGroupUrl() { return this.configurations.baseUrl + '/api/Account/GroupManagementGridData/null/0'; }
+  get saveGroupUrl() { return this.configurations.baseUrl + '/api/Account/SaveGroup'; }
 
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
@@ -248,6 +249,13 @@ export class AccountEndpoint extends EndpointBase {
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.isGroupExist(groupName));
+      }));
+  }
+
+  saveGroup<T>(data: any): Observable<T> {
+    return this.http.post<T>(this.saveGroupUrl, data, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.saveGroup(data));
       }));
   }
 }

@@ -12,8 +12,8 @@ import { AlertService, DialogType, MessageSeverity } from 'src/app/services/aler
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { Utilities } from 'src/app/services/utilities';
 import { CreateOrEditGroupComponent } from '../create-or-edit-group/create-or-edit-group.component';
-import { UserInfoComponent } from '../user-info.component';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-group-list',
@@ -21,13 +21,14 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit, AfterViewInit {
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns = ['index', 'groupName', 'groupDescription', 'makerStatus', 'reason', 'createdBy', 'createdDate'];
   public dataSource: MatTableDataSource<any> = new MatTableDataSource();
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
   public pageIndex: number = 0;
+  public pageLoader: boolean = false;
 
 
   columns: any[] = [];
@@ -66,9 +67,6 @@ export class GroupListComponent implements OnInit, AfterViewInit {
   @ViewChild('createOrEditGroupModal', { static: true })
   createOrEditGroupModal: CreateOrEditGroupComponent;
 
-  @ViewChild('asd', { static: true })
-  asd: UserInfoComponent;
-
   constructor(private alertService: AlertService, private translationService: AppTranslationService, private accountService: AccountService) {
   }
 
@@ -106,17 +104,7 @@ export class GroupListComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-
-    // this.createOrEditGroupModal.changesSavedCallback = () => {
-    //   this.addNewUserToList();
-    //   this.editorModal.hide();
-    // };
-
-    // this.createOrEditGroupModal.changesCancelledCallback = () => {
-    //   this.editedGroup = null;
-    //   this.sourceUser = null;
-    //   this.editorModal.hide();
-    // };
+    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -144,14 +132,17 @@ export class GroupListComponent implements OnInit, AfterViewInit {
 
 
   getAllGroups() {
+    this.pageLoader = true;
     this.alertService.startLoadingMessage();
     this.accountService.getGroups().subscribe((res: []) => {
       if (res) {
         this.dataSource = new MatTableDataSource();
         this.dataSource.data = res;
+        this.alertService.stopLoadingMessage();
+        this.pageLoader = false;
       }
     })
-    this.alertService.stopLoadingMessage();
+  
   }
 
 
@@ -180,7 +171,7 @@ export class GroupListComponent implements OnInit, AfterViewInit {
 
 
   onSearchChanged(value: string) {
-    //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.userName, r.fullName, r.email, r.phoneNumber, r.jobTitle, r.roles,r.accountOwner,r.department));
+    this.dataSource.filter = value.trim().toLowerCase();
   }
 
   onEditorModalHidden() {
@@ -233,6 +224,8 @@ export class GroupListComponent implements OnInit, AfterViewInit {
             MessageSeverity.error, error);
         });
   }
+
+
 
 
 

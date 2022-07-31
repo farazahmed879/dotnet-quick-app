@@ -17,7 +17,8 @@ import { GridUserManagementVM } from 'src/app/models/gridUserManagementVM.model'
 
 export class LoginComponent implements OnInit, OnDestroy {
 
-  userLogin = new UserLogin();
+  userLogin = new UserLogin() ;
+
   isLoading = false;
   formResetToggle = true;
   modalClosedCallback: () => void;
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.userLogin.domain = "Sharepoint-Dev";
     this.loadDomains();
     this.userLogin.rememberMe = this.authService.rememberMe;
 
@@ -52,7 +54,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.accountService.getDomains()
     .subscribe(results => {    
       this.DomainVM = results;
-      console.log("DomainVM"+ this.DomainVM);      
+      debugger
+      console.log("DomainVM",this.DomainVM);      
     });
   }
 

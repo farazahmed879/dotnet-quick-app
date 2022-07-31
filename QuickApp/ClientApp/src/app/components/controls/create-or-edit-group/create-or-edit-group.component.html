@@ -66,12 +66,16 @@
     <div class="form-group row">
       <label class="col-form-label col-md-3" for="countries">{{'Countries' | translate}}:</label>
       <div class="col-md-9">
-        <input appAutofocus type="text" id="countries" name="countries" placeholder="Enter group name"
+        <!-- <input appAutofocus type="text" id="countries" name="countries" placeholder="Enter group name"
           class="form-control"
           [ngClass]="{'is-valid': f.submitted && countries.valid, 'is-invalid' : f.submitted && !countries.valid}"
-          [(ngModel)]="group.countries" #countries="ngModel" required />
-        <span *ngIf="f.submitted && !countries.valid" class="invalid-feedback">
-          {{'Group Name Required' | translate}}
+          [(ngModel)]="group.countryId" #countries="ngModel" required /> -->
+        <ng-select attr.id="country-Id" name="domain" [items]="countries" [(ngModel)]="group.countryId"
+          attr.id="country-id" bindLabel="countryName" [multiple]="false" bindValue="countryCode"
+          placeholder="Select Country" class="form-control">
+        </ng-select>
+        <span *ngIf="f.submitted && !group.countryId.valid" class="invalid-feedback">
+          {{'Country Required' | translate}}
         </span>
       </div>
     </div>
@@ -85,7 +89,7 @@
         </div>
       </div> -->
       <section class="example-section">
-        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="group.active">{{'Active' | translate}}
+        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="group.isActive">{{'Active' | translate}}
         </mat-checkbox>
       </section>
     </div>

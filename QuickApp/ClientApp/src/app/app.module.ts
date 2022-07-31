@@ -1,14 +1,8 @@
-
-
-
-
-
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -20,7 +14,6 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ChartsModule } from 'ng2-charts';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppErrorHandler } from './app-error.handler';
 import { AppTitleService } from './services/app-title.service';
@@ -57,9 +50,7 @@ import { TodoDemoComponent } from './components/controls/todo-demo.component';
 import { StatisticsDemoComponent } from './components/controls/statistics-demo.component';
 import { NotificationsViewerComponent } from './components/controls/notifications-viewer.component';
 import { SearchBoxComponent } from './components/controls/search-box.component';
-import { UserInfoComponent } from './components/controls/user-info.component';
 import { UserPreferencesComponent } from './components/controls/user-preferences.component';
-import { UsersManagementComponent } from './components/controls/users-management.component';
 import { RolesManagementComponent } from './components/controls/roles-management.component';
 import { RoleEditorComponent } from './components/controls/role-editor.component';
 import { GroupInfoComponent } from './components/controls/group-info.component';
@@ -68,6 +59,8 @@ import { UserInfoAuthorizationComponent } from './components/controls/user-info-
 import { CreateOrEditGroupComponent } from './components/controls/create-or-edit-group/create-or-edit-group.component';
 import { GroupListComponent } from './components/controls/group-list/group-list.component';
 import { MaterialModule } from './material/material.module';
+import { UsersManagementComponent } from './components/controls/bk/users-management.component';
+import { UserInfoComponent } from './components/controls/users/create-or-edit-user/user-info.component';
 
 @NgModule({
   imports: [
