@@ -39,16 +39,16 @@ namespace QuickApp.ViewModels
         public int? UpdatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public bool BackColor { get; set; } // if true of per row then read out all of their values 
+        public bool BackColor { get; set; } = false;// if true of per row then read out all of their values 
 
-        public bool chkAllSelect { get; set; }
-        public bool ChkView { get; set; }       
-        public bool ChkInsert { get; set; }
-        public bool ChkUpdate { get; set; }
-        public bool ChkAuthorize { get; set; }
-        public bool ChkReject { get; set; }
-        public bool ChkDelete { get; set; }
-        public bool Active { get; set; }
+        public bool chkAllSelect { get; set; } = false;
+        public bool ChkView { get; set; } = false;
+        public bool ChkInsert { get; set; } = false;
+        public bool ChkUpdate { get; set; } = false;
+        public bool ChkAuthorize { get; set; } = false;
+        public bool ChkReject { get; set; } = false;
+        public bool ChkDelete { get; set; } = false;
+        public bool Active { get; set; } = false;
     }
 
     public class TBL_PagesVM  //SP_Fill_Pages_By_ModuleID
@@ -63,16 +63,16 @@ namespace QuickApp.ViewModels
         public string PageUrl { get; set; }
         public string PageIcon { get; set; }
         public int PageSortOrder { get; set; }
-        public bool Active { get; set; }
-        public bool Crud_View { get; set; }
-        public bool Crud_Insert { get; set; }
-        public bool Crud_Update { get; set; }
-        public bool Crud_Authorize { get; set; }
-        public bool Crud_Reject { get; set; }
-        public bool Crud_Delete { get; set; }
+        public bool Active { get; set; } = false;
+        public bool Crud_View { get; set; } = false;
+        public bool Crud_Insert { get; set; } = false;
+        public bool Crud_Update { get; set; } = false;
+        public bool Crud_Authorize { get; set; } = false;
+        public bool Crud_Reject { get; set; } = false;
+        public bool Crud_Delete { get; set; } = false;
 
         public int? ApplicationID { get; set; }
 
-        public bool BackColor { get; set; } // if true of per row then read out all of their values 
+        public bool BackColor { get; set; } = false; // if true of per row then read out all of their values 
     }
 }

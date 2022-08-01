@@ -61,4 +61,9 @@ namespace QuickApp.ViewModels
         public string PSID { get; set; } // login user id it is
 
     }
+
+    public class GroupList {
+        public int GroupID { get; set; }
+        public string GroupName { get; set; }
+    }
 }
