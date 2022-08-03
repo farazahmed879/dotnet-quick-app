@@ -32,6 +32,15 @@ export class EndpointBase {
     return { headers };
   }
 
+  protected get requestHeaders2(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.authService.accessToken,
+      'Content-Type': 'application/json',
+    });
+
+    return { headers };
+  }
+
   public refreshLogin() {
     return this.authService.refreshLogin().pipe(
       catchError(error => {

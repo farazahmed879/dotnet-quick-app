@@ -253,9 +253,13 @@ export class AccountEndpoint extends EndpointBase {
   }
 
   saveGroup<T>(data: any): Observable<T> {
-    return this.http.post<T>(this.saveGroupUrl, data, this.requestHeaders).pipe<T>(
+    return this.http.post<T>(this.saveGroupUrl, data, this.requestHeaders2).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.saveGroup(data));
       }));
   }
+
+  // saveGroup(data: any) {
+  //   return this.http.post(this.saveGroupUrl, data, this.requestHeaders)
+  // }
 }

@@ -302,26 +302,26 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
       groupID: 0,
       groupName: this.group.name,
       groupDescription: this.group.description,
-      makerStatus: null,
-      active: this.group.isActive,
-      action: null,
-      reason: null,
-      createdBy: null,
-      createdDate: null,
-      updatedBy: null,
-      updatedDate: null,
+      makerStatus: "string",
+      isActive: this.group.isActive,
+      action: "string",
+      reason: "string",
+      createdBy: 1,
+      createdDate: new Date(),
+      updatedBy: 2,
+      updatedDate: new Date(),
       groupCheckerID: 0,
-      checkerStatus: null,
+      checkerStatus: "string",
       checkerActive: true,
-      makerID: null,
-      makerDate: null,
-      checkerID: null,
+      makerID: "string",
+      makerDate:  new Date(),
+      checkerID: "string",
       countryCode: this.group.countryId,
-      checkerDate: null,
+      checkerDate: new Date(),
       reference: this.group.reference,
       groupOwnerPSID: this.group.ownerPSID,
       groupOwnerName: this.group.ownerName,
-      psid: null,
+      psid: "",
       moduleVMList: []
     };
     let moduleObject = {
@@ -333,10 +333,10 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
       moduleSortOrder: 0,
       createdBy: 0,
       updatedBy: 0,
-      createdDate: "",
-      updatedDate: "",
+      createdDate: new Date(),
+      updatedDate: new Date(),
       backColor: false,
-      chkAllSelect: false,
+      chkAllSelect: true,
       chkView: false,
       chkInsert: false,
       chkUpdate: false,
@@ -347,20 +347,24 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     };
     this.allData.forEach((el) => {
       moduleObject.moduleID = el.moduleID,
-        moduleObject.applicationID = el.applicationID,
+        moduleObject.applicationID = 0,
         moduleObject.moduleName = el.moduleName,
         moduleObject.moduleDescription = el.moduleDescription,
         moduleObject.moduleIcon = el.moduleIcon,
         moduleObject.moduleSortOrder = el.moduleSortOrder,
-        moduleObject.backColor = el.backColor,
-        moduleObject.chkAllSelect = el.moduleID,
+        moduleObject.backColor = true,
+        moduleObject.chkAllSelect = true,
         moduleObject.chkView = el.crud_View,
         moduleObject.chkInsert = el.crud_Insert,
         moduleObject.chkUpdate = el.crud_Update,
         moduleObject.chkAuthorize = el.crud_Authorize,
         moduleObject.chkReject = el.crud_Reject,
         moduleObject.chkDelete = el.crud_Delete,
-        moduleObject.active = el.active
+        moduleObject.active = true
+        moduleObject.createdBy = 1
+        moduleObject.updatedBy = 1
+        moduleObject.createdDate = new Date(),
+        moduleObject.updatedDate = new Date(),
       ob.moduleVMList.push(moduleObject);
       let moduleChildrenName = `fill_Modules_By_ModuleID_${el.moduleID}`;
       ob[moduleChildrenName] = el.children;
@@ -371,7 +375,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
   save(form) {
     this.reqObjectMapper().subscribe(req => {
-      debugger
+      console.log("req",req);
       this.accountService.saveGroup(req).subscribe((res: any) => {
         if (res) {
           return this.alertService.showMessage("Alert", "Group Name Aleady Exist", MessageSeverity.error);
