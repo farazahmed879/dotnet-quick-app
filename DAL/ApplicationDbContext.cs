@@ -22,6 +22,7 @@ namespace DAL
         public DbSet<TBL_Pages> Pages { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<TBL_Country> TBL_Country { get; set; }
+        public DbSet<ModulesPermission> ModulesPermissions { get; set; }
         public DbSet<TBL_GROUP> TBL_GROUP { get; set; }
         public DbSet<GridUserAuthorization> GridUserAuthorization { get; set; }
         public DbSet<GridUserManagementVM> GridUserManagementVM { get; set; }
@@ -82,6 +83,9 @@ namespace DAL
             #region Registration of Reponse Models of Procedures
 
             builder.Entity<GridUserAuthorization>(x =>
+              x.HasNoKey()
+            );
+            builder.Entity<IntReturn>(x =>
               x.HasNoKey()
             );
             builder.Entity<GridUserManagementVM>(x =>

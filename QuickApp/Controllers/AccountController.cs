@@ -733,7 +733,19 @@ namespace QuickApp.Controllers
                     }
 
                     InsertUpdateModulePermission(0, group.ModuleVMList);
-
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_1, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_2, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_3, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_4, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_5, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_6, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_7, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_8, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_9, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_10, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_11, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_12, 0);
+                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_13, 0);
 
                     #endregion
                 }
@@ -802,6 +814,67 @@ namespace QuickApp.Controllers
             }
         }
         #endregion
+
+
+        #region InsertUpdatePagePermission
+        private void InsertUpdateRolePagePermission(List<TBL_PagesVM> Grid, int GroupID)
+        {
+            for (int i = 0; i < Grid.Count; i++)
+            {
+                bool chkAllSelect = Grid[i].chkAllSelect;
+                bool ChkView = Grid[i].Crud_View;
+                bool ChkInsert = Grid[i].Crud_Insert;
+                bool ChkUpdate = Grid[i].Crud_Update;
+                bool ChkAuthorize = Grid[i].Crud_Authorize;
+                bool ChkReject = Grid[i].Crud_Reject;
+                bool ChkDelete = Grid[i].Crud_Delete;
+                RolePermission rolePermission = new RolePermission();
+                if (ChkInsert || ChkAuthorize || ChkReject || ChkUpdate || ChkDelete)
+                {
+                    rolePermission.Active = true;
+                }
+                else
+                {
+                    rolePermission.Active = false;
+                }
+                //if (chkAllSelect.Checked)
+                //{
+                //    if (ChkView.Checked || ChkInsert.Checked || ChkAuthorize.Checked || ChkReject.Checked || ChkUpdate.Checked || ChkDelete.Checked)
+                //    {
+                rolePermission.RoleID = 1063; //RoleID;
+                rolePermission.PageID = Grid[i].PageID;
+                rolePermission.Can_View = ChkView;
+                rolePermission.Can_Insert = ChkInsert;
+                rolePermission.Can_Update = ChkUpdate;
+                rolePermission.Can_Authorize = ChkAuthorize;
+                rolePermission.Can_Reject = ChkReject;
+                rolePermission.Can_Delete = ChkDelete;
+
+                Insert_Update_Pages_Permissions_Checker(rolePermission);
+                //    }
+                //}
+            }
+        }
+        #endregion
+
+
+        public void Insert_Update_Pages_Permissions_Checker(RolePermission RP)
+        {
+            SqlParameter[] param ={new SqlParameter("@RoleId",RP.RoleID)
+                                 ,new SqlParameter("@UserId",RP.UserID)
+                                 ,new SqlParameter("@PageId",RP.PageID)
+                                 ,new SqlParameter("@Can_View",RP.Can_View)
+                                 ,new SqlParameter("@Can_Insert",RP.Can_Insert)
+                                 ,new SqlParameter("@Can_Update",RP.Can_Update)
+                                 ,new SqlParameter("@Can_Authorize",RP.Can_Authorize)
+                                 ,new SqlParameter("@Can_Reject",RP.Can_Reject)
+                                 ,new SqlParameter("@Can_Delete",RP.Can_Delete)
+                                 ,new SqlParameter("@Active",RP.Active)
+                                 ,new SqlParameter("@CreatedBy",1111111) //Sess.UserID
+                                 ,new SqlParameter("@CreatedDate", DateTime.Now)
+                                 };
+            var getChecker = _context.Database.ExecuteSqlRaw("exec [SP_Insert_Update_Pages_Permissions_Checker]", param);
+        }
 
         private void Insert_Update_Modules_Permissions_Checker(ModuleVM moduleVM)
         {
@@ -1040,7 +1113,7 @@ namespace QuickApp.Controllers
 
 
 
-        
+
 
         [HttpGet("GroupAuthorizationGridData/{RoleID}")]
         [AllowAnonymous]
@@ -1048,7 +1121,7 @@ namespace QuickApp.Controllers
         public async Task<IActionResult> GetGroupAuthorizationGridData(int RoleID)
         {
             try
-            {                
+            {
                 var getMakers = _context.Set<GroupManagementViewModel>().FromSqlInterpolated($"exec SP_Get_Pages_Permissions_By_RoleID {RoleID}").ToList();
                 return Ok(getMakers);
             }
@@ -1077,51 +1150,10 @@ namespace QuickApp.Controllers
                 //{
 
                 ViewModels.RolePermissionVM rolePermissionVM = new ViewModels.RolePermissionVM();
+                BindAllGrids(rolePermissionVM);
                 var getCountrys = _context.Set<TBL_Country>().FromSqlRaw("sp_get_Country").ToList();
-                var getSP_Fill_Pages_By_ModuleID = _context.Set<DAL.Models.Module>().FromSqlInterpolated($"exec SP_Fill_Modules_By_ModuleID {null}, {null}").ToList();
-                var getSP_Fill_Pages_By_ModuleID1 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {1}").ToList();
-                //getSP_Fill_Pages_By_ModuleID1.All(c => { c.Crud_Insert = false; c.Crud_View = false  });
-                getSP_Fill_Pages_By_ModuleID1.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; });
 
-                var getSP_Fill_Pages_By_ModuleID2 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {2}").ToList();
-                getSP_Fill_Pages_By_ModuleID2.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID3 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {3}").ToList();
-                getSP_Fill_Pages_By_ModuleID3.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID4 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {4}").ToList();
-                getSP_Fill_Pages_By_ModuleID4.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID5 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {5}").ToList();
-                getSP_Fill_Pages_By_ModuleID5.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID6 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {6}").ToList();
-                getSP_Fill_Pages_By_ModuleID6.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID7 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {7}").ToList();
-                getSP_Fill_Pages_By_ModuleID7.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID8 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {8}").ToList();
-                getSP_Fill_Pages_By_ModuleID8.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID9 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {9}").ToList();
-                getSP_Fill_Pages_By_ModuleID9.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID10 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {10}").ToList();
-                getSP_Fill_Pages_By_ModuleID10.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID11 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {11}").ToList();
-                getSP_Fill_Pages_By_ModuleID11.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID12 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {12}").ToList();
-                getSP_Fill_Pages_By_ModuleID12.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
-                var getSP_Fill_Pages_By_ModuleID13 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {13}").ToList();
-                getSP_Fill_Pages_By_ModuleID13.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
                 rolePermissionVM.countryList = _mapper.Map<List<CountryViewModel>>(getCountrys);
-                rolePermissionVM.moduleList = _mapper.Map<List<ModuleVM>>(getSP_Fill_Pages_By_ModuleID);
-                rolePermissionVM.Fill_Modules_By_ModuleID_1 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID1);
-                rolePermissionVM.Fill_Modules_By_ModuleID_2 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID2);
-                rolePermissionVM.Fill_Modules_By_ModuleID_3 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID3);
-                rolePermissionVM.Fill_Modules_By_ModuleID_4 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID4);
-                rolePermissionVM.Fill_Modules_By_ModuleID_5 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID5);
-                rolePermissionVM.Fill_Modules_By_ModuleID_6 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID6);
-                rolePermissionVM.Fill_Modules_By_ModuleID_7 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID7);
-                rolePermissionVM.Fill_Modules_By_ModuleID_8 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID8);
-                rolePermissionVM.Fill_Modules_By_ModuleID_9 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID9);
-                rolePermissionVM.Fill_Modules_By_ModuleID_10 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID10);
-                rolePermissionVM.Fill_Modules_By_ModuleID_11 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID11);
-                rolePermissionVM.Fill_Modules_By_ModuleID_12 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID12);
-                rolePermissionVM.Fill_Modules_By_ModuleID_13 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID13);
                 return Ok(rolePermissionVM);
             }
             catch (Exception ex)
@@ -1132,6 +1164,53 @@ namespace QuickApp.Controllers
 
         }
 
+        private void BindAllGrids(RolePermissionVM rolePermissionVM)
+        {
+            var getSP_Fill_Pages_By_ModuleID = _context.Set<DAL.Models.Module>().FromSqlInterpolated($"exec SP_Fill_Modules_By_ModuleID {null}, {null}").ToList();
+            var getSP_Fill_Pages_By_ModuleID1 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {1}").ToList();
+            //getSP_Fill_Pages_By_ModuleID1.All(c => { c.Crud_Insert = false; c.Crud_View = false  });
+            getSP_Fill_Pages_By_ModuleID1.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; });
+
+            var getSP_Fill_Pages_By_ModuleID2 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {2}").ToList();
+            getSP_Fill_Pages_By_ModuleID2.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID3 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {3}").ToList();
+            getSP_Fill_Pages_By_ModuleID3.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID4 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {4}").ToList();
+            getSP_Fill_Pages_By_ModuleID4.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID5 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {5}").ToList();
+            getSP_Fill_Pages_By_ModuleID5.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID6 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {6}").ToList();
+            getSP_Fill_Pages_By_ModuleID6.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID7 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {7}").ToList();
+            getSP_Fill_Pages_By_ModuleID7.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID8 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {8}").ToList();
+            getSP_Fill_Pages_By_ModuleID8.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID9 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {9}").ToList();
+            getSP_Fill_Pages_By_ModuleID9.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID10 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {10}").ToList();
+            getSP_Fill_Pages_By_ModuleID10.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID11 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {11}").ToList();
+            getSP_Fill_Pages_By_ModuleID11.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID12 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {12}").ToList();
+            getSP_Fill_Pages_By_ModuleID12.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+            var getSP_Fill_Pages_By_ModuleID13 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {13}").ToList();
+            getSP_Fill_Pages_By_ModuleID13.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
+
+            rolePermissionVM.moduleList = _mapper.Map<List<ModuleVM>>(getSP_Fill_Pages_By_ModuleID);
+            rolePermissionVM.Fill_Modules_By_ModuleID_1 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID1);
+            rolePermissionVM.Fill_Modules_By_ModuleID_2 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID2);
+            rolePermissionVM.Fill_Modules_By_ModuleID_3 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID3);
+            rolePermissionVM.Fill_Modules_By_ModuleID_4 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID4);
+            rolePermissionVM.Fill_Modules_By_ModuleID_5 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID5);
+            rolePermissionVM.Fill_Modules_By_ModuleID_6 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID6);
+            rolePermissionVM.Fill_Modules_By_ModuleID_7 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID7);
+            rolePermissionVM.Fill_Modules_By_ModuleID_8 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID8);
+            rolePermissionVM.Fill_Modules_By_ModuleID_9 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID9);
+            rolePermissionVM.Fill_Modules_By_ModuleID_10 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID10);
+            rolePermissionVM.Fill_Modules_By_ModuleID_11 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID11);
+            rolePermissionVM.Fill_Modules_By_ModuleID_12 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID12);
+            rolePermissionVM.Fill_Modules_By_ModuleID_13 = _mapper.Map<List<TBL_PagesVM>>(getSP_Fill_Pages_By_ModuleID13);
+        }
 
         [HttpGet("UserManagementGridData/{UserID:int?}/{StatusID:int?}")]
         [AllowAnonymous]
@@ -1180,6 +1259,33 @@ namespace QuickApp.Controllers
 
         }
 
+        [HttpGet("GroupManagementGridDataEdit/{GroupID}/{PageID}")]
+        [ProducesResponseType(200, Type = typeof(GroupManagementVM))]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetGroupManagementGridDataEdit(int GroupID, int PageID)
+        {
+            try
+            {
+                ViewModels.RolePermissionVM rolePermissionVM = new ViewModels.RolePermissionVM();
+                BindAllGrids(rolePermissionVM);
+                var getCountrys = _context.Set<TBL_Country>().FromSqlRaw("sp_get_Country").ToList();
+
+                rolePermissionVM.countryList = _mapper.Map<List<CountryViewModel>>(getCountrys);
+                return Ok(rolePermissionVM);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        private async void GetPagesPermissionList(int groupId)
+        {
+            var RoleID = groupId;
+            await Get_Pages_Permissions_List_By_RoleID(RoleID);
+        }
 
         [AllowAnonymous]
         [HttpGet("GetUserAuthorizationGridData/{UserCheckerID}")]
@@ -1722,12 +1828,14 @@ namespace QuickApp.Controllers
             return null;
         }
 
-        
-        private async Task<IActionResult> GetGroupManagementGridData(int? RoleID, int? UserID)
+
+        #region work for edit group
+
+        private async Task<IActionResult> Get_Modules_Rights(int? RoleID, int? UserID)
         {
             try
-            {                               
-                var getModuleRights = _context.Set<GroupManagementViewModel>().FromSqlInterpolated($"exec SP_Fill_Group_By_GroupID_Maker {RoleID}, {UserID}").ToList();
+            {
+                var getModuleRights = _context.Set<ModulesPermission>().FromSqlInterpolated($"exec SP_Get_Modules_Rights {RoleID}, {UserID}").ToList();
                 return Ok(getModuleRights);
             }
             catch (Exception ex)
@@ -1737,6 +1845,24 @@ namespace QuickApp.Controllers
             }
 
         }
+
+        #endregion
+        private async Task<IActionResult> Get_Pages_Permissions_List_By_RoleID(int RoleID)
+        {
+            try
+            {
+                var getModuleRights = _context.Set<ModulesPermission>().FromSqlInterpolated($"exec SP_Get_PagesPermissionListByRoleID {RoleID}").ToList();
+                return Ok(getModuleRights);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
 
         private void AddError(IEnumerable<string> errors, string key = "")
         {
