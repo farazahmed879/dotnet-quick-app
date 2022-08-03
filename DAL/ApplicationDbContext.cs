@@ -91,6 +91,9 @@ namespace DAL
             builder.Entity<GridUserManagementVM>(x =>
               x.HasNoKey()
             );
+            builder.Entity<ModulesPermission>(x =>
+              x.HasNoKey()
+            );
             builder.Entity<GridUserManagementVM>()
             .Property(p => p.Signatory).IsRequired(required: false);
             builder.Entity<GridUserManagementVM>()
