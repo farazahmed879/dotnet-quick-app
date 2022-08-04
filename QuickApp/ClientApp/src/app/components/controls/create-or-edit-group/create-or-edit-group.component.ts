@@ -302,20 +302,20 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
       groupID: 0,
       groupName: this.group.name,
       groupDescription: this.group.description,
-      makerStatus: "string",
+      makerStatus: "",
       isActive: this.group.isActive,
-      action: "string",
-      reason: "string",
+      action: "",
+      reason: "",
       createdBy: 1,
       createdDate: new Date(),
       updatedBy: 2,
       updatedDate: new Date(),
       groupCheckerID: 0,
-      checkerStatus: "string",
+      checkerStatus: "",
       checkerActive: true,
-      makerID: "string",
+      makerID: "",
       makerDate: new Date(),
-      checkerID: "string",
+      checkerID: "",
       countryCode: this.group.countryId,
       checkerDate: new Date(),
       reference: this.group.reference,
@@ -346,6 +346,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     //   active: false
     // };
     this.allData.forEach((el) => {
+      debugger
       let moduleObject: any = {};
       moduleObject.moduleID = el.moduleID;
       moduleObject.applicationID = 0;
@@ -353,7 +354,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
       moduleObject.moduleDescription = el.moduleDescription;
       moduleObject.moduleIcon = el.moduleIcon;
       moduleObject.moduleSortOrder = el.moduleSortOrder;
-      moduleObject.backColor = true;
+      moduleObject.backColor = el.children.some(i=> i.can_View || i.crud_Insert || i.crud_Update || i.crud_Authorize || i.crud_Reject || i.crud_Delete);
       moduleObject.chkAllSelect = true;
       moduleObject.chkView = el.crud_View;
       moduleObject.chkInsert = el.crud_Insert;
