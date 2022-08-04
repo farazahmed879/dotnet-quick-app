@@ -314,7 +314,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
       checkerStatus: "string",
       checkerActive: true,
       makerID: "string",
-      makerDate:  new Date(),
+      makerDate: new Date(),
       checkerID: "string",
       countryCode: this.group.countryId,
       checkerDate: new Date(),
@@ -324,47 +324,48 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
       psid: "",
       moduleVMList: []
     };
-    let moduleObject = {
-      moduleID: 0,
-      applicationID: 0,
-      moduleName: "",
-      moduleDescription: "",
-      moduleIcon: "",
-      moduleSortOrder: 0,
-      createdBy: 0,
-      updatedBy: 0,
-      createdDate: new Date(),
-      updatedDate: new Date(),
-      backColor: false,
-      chkAllSelect: true,
-      chkView: false,
-      chkInsert: false,
-      chkUpdate: false,
-      chkAuthorize: false,
-      chkReject: false,
-      chkDelete: false,
-      active: false
-    };
+    // let moduleObject = {
+    //   moduleID: 0,
+    //   applicationID: 0,
+    //   moduleName: "",
+    //   moduleDescription: "",
+    //   moduleIcon: "",
+    //   moduleSortOrder: 0,
+    //   createdBy: 0,
+    //   updatedBy: 0,
+    //   createdDate: new Date(),
+    //   updatedDate: new Date(),
+    //   backColor: false,
+    //   chkAllSelect: true,
+    //   chkView: false,
+    //   chkInsert: false,
+    //   chkUpdate: false,
+    //   chkAuthorize: false,
+    //   chkReject: false,
+    //   chkDelete: false,
+    //   active: false
+    // };
     this.allData.forEach((el) => {
-      moduleObject.moduleID = el.moduleID,
-        moduleObject.applicationID = 0,
-        moduleObject.moduleName = el.moduleName,
-        moduleObject.moduleDescription = el.moduleDescription,
-        moduleObject.moduleIcon = el.moduleIcon,
-        moduleObject.moduleSortOrder = el.moduleSortOrder,
-        moduleObject.backColor = true,
-        moduleObject.chkAllSelect = true,
-        moduleObject.chkView = el.crud_View,
-        moduleObject.chkInsert = el.crud_Insert,
-        moduleObject.chkUpdate = el.crud_Update,
-        moduleObject.chkAuthorize = el.crud_Authorize,
-        moduleObject.chkReject = el.crud_Reject,
-        moduleObject.chkDelete = el.crud_Delete,
-        moduleObject.active = true
-        moduleObject.createdBy = 1
-        moduleObject.updatedBy = 1
-        moduleObject.createdDate = new Date(),
-        moduleObject.updatedDate = new Date(),
+      let moduleObject: any = {};
+      moduleObject.moduleID = el.moduleID;
+      moduleObject.applicationID = 0;
+      moduleObject.moduleName = el.moduleName;
+      moduleObject.moduleDescription = el.moduleDescription;
+      moduleObject.moduleIcon = el.moduleIcon;
+      moduleObject.moduleSortOrder = el.moduleSortOrder;
+      moduleObject.backColor = true;
+      moduleObject.chkAllSelect = true;
+      moduleObject.chkView = el.crud_View;
+      moduleObject.chkInsert = el.crud_Insert;
+      moduleObject.chkUpdate = el.crud_Update;
+      moduleObject.chkAuthorize = el.crud_Authorize;
+      moduleObject.chkReject = el.crud_Reject;
+      moduleObject.chkDelete = el.crud_Delete;
+      moduleObject.active = true;
+      moduleObject.createdBy = 1;
+      moduleObject.updatedBy = 1;
+      moduleObject.createdDate = new Date();
+      moduleObject.updatedDate = new Date();
       ob.moduleVMList.push(moduleObject);
       let moduleChildrenName = `fill_Modules_By_ModuleID_${el.moduleID}`;
       ob[moduleChildrenName] = el.children;
@@ -375,7 +376,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
   save(form) {
     this.reqObjectMapper().subscribe(req => {
-      console.log("req",req);
+      console.log("req", req);
       this.accountService.saveGroup(req).subscribe((res: any) => {
         if (res) {
           return this.alertService.showMessage("Alert", "Group Name Aleady Exist", MessageSeverity.error);
