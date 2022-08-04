@@ -396,7 +396,7 @@ namespace QuickApp.Controllers
                                         var savePagesVM = new SavePagesVM
                                         {
                                             PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
+                                            canView = itemData.Crud_View,
                                             canInsert = itemData.Crud_Insert == true ? true : false,
                                             canUpdate = itemData.Crud_Update == true ? true : false,
                                             canAuthorize = itemData.Crud_Authorize == true ? true : false,
