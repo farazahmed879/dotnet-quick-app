@@ -20,10 +20,11 @@ using System.Net.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Microsoft.Extensions.Options;
+using QuickApp.Common;
 
 namespace QuickApp.Controllers
 {
-    //[Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
@@ -35,7 +36,9 @@ namespace QuickApp.Controllers
         private const string GetRoleByIdActionName = "GetRoleById";
         private readonly ApplicationDbContext _context;
         private readonly DomainConfig _config;
+        private static SCB_Session SessionBO;
         public string DomainName { get; set; }
+        public static DataTable DtPagesPermissionList = new DataTable();
         public AccountController(IMapper mapper, IAccountManager accountManager, IAuthorizationService authorizationService,
             ILogger<AccountController> logger, ApplicationDbContext context, IOptions<AppSettings> config)
         {
@@ -858,7 +861,7 @@ namespace QuickApp.Controllers
         #endregion
 
 
-        public void Insert_Update_Pages_Permissions_Checker(RolePermission RP)
+        private void Insert_Update_Pages_Permissions_Checker(RolePermission RP)
         {
             SqlParameter[] param ={new SqlParameter("@RoleId",RP.RoleID)
                                  ,new SqlParameter("@UserId",RP.UserID)
@@ -1169,7 +1172,7 @@ namespace QuickApp.Controllers
             var getSP_Fill_Pages_By_ModuleID = _context.Set<DAL.Models.Module>().FromSqlInterpolated($"exec SP_Fill_Modules_By_ModuleID {null}, {null}").ToList();
             var getSP_Fill_Pages_By_ModuleID1 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {1}").ToList();
             //getSP_Fill_Pages_By_ModuleID1.All(c => { c.Crud_Insert = false; c.Crud_View = false  });
-            getSP_Fill_Pages_By_ModuleID1.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; });
+            getSP_Fill_Pages_By_ModuleID1.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
 
             var getSP_Fill_Pages_By_ModuleID2 = _context.Set<DAL.Models.TBL_Pages>().FromSqlInterpolated($"exec SP_Fill_Pages_By_ModuleID {2}").ToList();
             getSP_Fill_Pages_By_ModuleID2.ForEach(c => { c.Crud_Insert = false; c.Crud_View = false; c.Crud_Delete = false; c.Crud_Reject = false; c.Crud_Update = false; c.Crud_Authorize = false; });
@@ -1269,9 +1272,9 @@ namespace QuickApp.Controllers
             {
                 ViewModels.RolePermissionVM rolePermissionVM = new ViewModels.RolePermissionVM();
                 BindAllGrids(rolePermissionVM);
-                var getCountrys = _context.Set<TBL_Country>().FromSqlRaw("sp_get_Country").ToList();
-
+                var getCountrys = _context.Set<TBL_Country>().FromSqlRaw("sp_get_Country").ToList();                
                 rolePermissionVM.countryList = _mapper.Map<List<CountryViewModel>>(getCountrys);
+                //DtPagesPermissionList = GetPagesPermissionList(GroupID);
                 return Ok(rolePermissionVM);
             }
             catch (Exception ex)
@@ -1281,10 +1284,12 @@ namespace QuickApp.Controllers
             }
         }
 
-        private async void GetPagesPermissionList(int groupId)
+        private async Task<DataTable> GetPagesPermissionList(int groupId)
         {
             var RoleID = groupId;
-            await Get_Pages_Permissions_List_By_RoleID(RoleID);
+            //var result = await Get_Pages_Permissions_List_By_RoleID(RoleID);
+            //return result;
+            return null;
         }
 
         [AllowAnonymous]
@@ -1847,20 +1852,21 @@ namespace QuickApp.Controllers
         }
 
         #endregion
-        private async Task<IActionResult> Get_Pages_Permissions_List_By_RoleID(int RoleID)
-        {
-            try
-            {
-                var getModuleRights = _context.Set<ModulesPermission>().FromSqlInterpolated($"exec SP_Get_PagesPermissionListByRoleID {RoleID}").ToList();
-                return Ok(getModuleRights);
-            }
-            catch (Exception ex)
-            {
+        //private async Task<DataTable> Get_Pages_Permissions_List_By_RoleID(int RoleID)
+        //{
+        //    try
+        //    {
+        //        var getModuleRights = _context.Set<ModulesPermission>().FromSqlInterpolated($"exec SP_Get_PagesPermissionListByRoleID {RoleID}").ToList();
+        //        DtPagesPermissionList = getModuleRights;
+        //        return Ok(getModuleRights);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
 
 
