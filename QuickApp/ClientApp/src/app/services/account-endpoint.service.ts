@@ -25,7 +25,7 @@ export class AccountEndpoint extends EndpointBase {
   get modulesUrl() { return this.configurations.baseUrl + '/api/Account/GroupManagementGridData'; }
   get getGroupUrl() { return this.configurations.baseUrl + '/api/Account/GroupManagementGridData/null/0'; }
   get saveGroupUrl() { return this.configurations.baseUrl + '/api/Account/SaveGroup'; }
-
+  get groupByUserNameUrl() { return this.configurations.baseUrl + '/api/account/users/username'; }
 
   constructor(private configurations: ConfigurationService, http: HttpClient, authService: AuthService) {
     super(http, authService);
@@ -48,6 +48,15 @@ export class AccountEndpoint extends EndpointBase {
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
         return this.handleError(error, () => this.getUserByUserNameEndpoint(userName));
+      }));
+  }
+
+  getGroupByUserNameEndpoint<T>(userName: string): Observable<T> {
+    const endpointUrl = `${this.groupByUserNameUrl}/${userName}`;
+
+    return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
+      catchError(error => {
+        return this.handleError(error, () => this.getGroupByUserNameEndpoint(userName));
       }));
   }
 

@@ -76,3 +76,17 @@ tr:nth-child(even) {
     display: flex;
     justify-content: right;
 }
+
+.marginTop20{
+    margin-top: 20px !important;
+  }
+  mat-form-field {
+    width: 100%;
+  }
+  mat-checkbox {
+    padding-bottom: 5px;
+  }
+
+  .marginTop100{
+    margin-top: 100px !important;
+  }
