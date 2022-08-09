@@ -55,12 +55,6 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
   @ViewChild('groupinfoeditorModal', { static: true })
   groupinfoeditorModal: ModalDirective;
 
-  @ViewChild('groupEditor', { static: true })
-  groupEditor: GroupInfoComponent;
-
-  @ViewChild('createOrEditGroupModal', { static: true })
-  createOrEditGroupModal: CreateOrEditGroupComponent;
-
   @ViewChild('userEditor', { static: true })
   userEditor: UserInfoComponent;
 

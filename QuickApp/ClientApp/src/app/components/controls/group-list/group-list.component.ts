@@ -1,35 +1,49 @@
-import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+import {
+  AfterViewInit, Component,
+  OnInit, ViewChild
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { CreateOrEditGroup } from 'src/app/models/createGroup.model';
 import { GridUserManagementVM } from 'src/app/models/gridUserManagementVM.model';
 import { Group } from 'src/app/models/group.model';
 import { Permission } from 'src/app/models/permission.model';
 import { Role } from 'src/app/models/role.model';
-import { UserEdit } from 'src/app/models/user-edit.model';
 import { User } from 'src/app/models/user.model';
 import { AccountService } from 'src/app/services/account.service';
-import { AlertService, DialogType, MessageSeverity } from 'src/app/services/alert.service';
+import {
+  AlertService,
+  DialogType,
+  MessageSeverity
+} from 'src/app/services/alert.service';
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { Utilities } from 'src/app/services/utilities';
 import { CreateOrEditGroupComponent } from '../create-or-edit-group/create-or-edit-group.component';
-import { MatTableDataSource } from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
-  styleUrls: ['./group-list.component.scss']
+  styleUrls: ['./group-list.component.scss'],
 })
 export class GroupListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns = ['index', 'groupName', 'groupDescription', 'makerStatus', 'reason', 'createdBy', 'createdDate'];
+  displayedColumns = [
+    'index',
+    'groupName',
+    'groupDescription',
+    'makerStatus',
+    'createdBy',
+    'createdDate',
+    'reason',
+    'actions',
+  ];
   public dataSource: MatTableDataSource<any> = new MatTableDataSource();
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
   public pageIndex: number = 0;
   public pageLoader: boolean = false;
-
 
   columns: any[] = [];
   rows1: User[] = [];
@@ -46,54 +60,42 @@ export class GroupListComponent implements OnInit, AfterViewInit {
   allRoles: Role[] = [];
   GridUserManagementVM: GridUserManagementVM[] = [];
 
-  @ViewChild('indexTemplate', { static: true })
-  indexTemplate: TemplateRef<any>;
+  // @ViewChild('indexTemplate', { static: true })
+  // indexTemplate: TemplateRef<any>;
 
-  @ViewChild('userNameTemplate', { static: true })
-  userNameTemplate: TemplateRef<any>;
+  // @ViewChild('userNameTemplate', { static: true })
+  // userNameTemplate: TemplateRef<any>;
 
-  @ViewChild('rolesTemplate', { static: true })
-  rolesTemplate: TemplateRef<any>;
+  // @ViewChild('rolesTemplate', { static: true })
+  // rolesTemplate: TemplateRef<any>;
 
-  @ViewChild('actionsTemplate', { static: true })
-  actionsTemplate: TemplateRef<any>;
+  // @ViewChild('actionsTemplate', { static: true })
+  // actionsTemplate: TemplateRef<any>;
 
-  @ViewChild('editorModal', { static: true })
-  editorModal: ModalDirective;
+  // @ViewChild('editorModal', { static: true })
+  // editorModal: ModalDirective;
 
-  @ViewChild('groupinfoeditorModal', { static: true })
-  groupinfoeditorModal: ModalDirective;
+  // @ViewChild('groupinfoeditorModal', { static: true })
+  // groupinfoeditorModal: ModalDirective;
 
-  @ViewChild('createOrEditGroupModal', { static: true })
-  createOrEditGroupModal: CreateOrEditGroupComponent;
+  // @ViewChild('createOrEditGroupModal', { static: true })
+  // createOrEditGroupModal: CreateOrEditGroupComponent;
 
-  constructor(private alertService: AlertService, private translationService: AppTranslationService, private accountService: AccountService) {
-  }
-
+  constructor(
+    private alertService: AlertService,
+    private translationService: AppTranslationService,
+    private accountService: AccountService,
+    private _dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     const gT = (key: string) => this.translationService.getTranslation(key);
-
-
-    this.columns = [
-      { prop: 'index', name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
-      { prop: 'groupName', name: 'Group Name', width: 100 },
-      { prop: 'groupDescription', name: 'Description', width: 170 },
-      { prop: 'makerStatus', name: 'Status', width: 170 },
-      { prop: 'reason', name: 'Reason', width: 170 },
-      { prop: 'createdBy', name: 'Created By', width: 90, cellTemplate: this.userNameTemplate },
-      { prop: 'createdDate', name: 'Craeted Date', width: 120 }
-    ];
-
-
-
     // if (this.canManageUsers) {
     //   this.columns.push({ name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false });
     // }
 
     this.getAllGroups();
   }
-
 
   pageChange(e: any) {
     e.pageIndex = e.pageIndex + 1;
@@ -102,11 +104,9 @@ export class GroupListComponent implements OnInit, AfterViewInit {
     this.getAllGroups();
   }
 
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-
 
   addNewUserToList() {
     if (this.sourceUser) {
@@ -130,7 +130,6 @@ export class GroupListComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   getAllGroups() {
     this.pageLoader = true;
     this.alertService.startLoadingMessage();
@@ -141,10 +140,8 @@ export class GroupListComponent implements OnInit, AfterViewInit {
         this.alertService.stopLoadingMessage();
         this.pageLoader = false;
       }
-    })
-  
+    });
   }
-
 
   onDataLoadSuccessful(users: User[], roles: Role[]) {
     this.alertService.stopLoadingMessage();
@@ -160,84 +157,101 @@ export class GroupListComponent implements OnInit, AfterViewInit {
     this.allRoles = roles;
   }
 
-
   onDataLoadFailed(error: any) {
     this.alertService.stopLoadingMessage();
     this.loadingIndicator = false;
 
-    this.alertService.showStickyMessage('Load Error', `Unable to retrieve users from the server.\r\nErrors: "${Utilities.getHttpResponseMessages(error)}"`,
-      MessageSeverity.error, error);
+    this.alertService.showStickyMessage(
+      'Load Error',
+      `Unable to retrieve users from the server.\r\nErrors: "${Utilities.getHttpResponseMessages(
+        error
+      )}"`,
+      MessageSeverity.error,
+      error
+    );
   }
-
 
   onSearchChanged(value: string) {
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  onEditorModalHidden() {
-    this.editingUserName = null;
-    this.createOrEditGroupModal.resetForm(true);
+  showCreateOrEditDialog(row?: any): void {
+    debugger
+    let createOrEditSubTypeDialog;
+    if (!row) {
+      createOrEditSubTypeDialog = this._dialog.open(CreateOrEditGroupComponent);
+    } else {
+      createOrEditSubTypeDialog = this._dialog.open(
+        CreateOrEditGroupComponent,{
+          data: row
+       }
+      );
+    }
+
+    createOrEditSubTypeDialog.afterClosed().subscribe((result) => {
+      if (result) {
+        
+      }
+    });
   }
 
-
-  newGroupInfo() {
-    this.editingGroupName = null;
-    //this.sourceGroupInfo = null;
-    //this.editedGroupInfo = this.groupEditor.newGroup();
-    // console.log("this.editedGroupInfo" + this.editedGroupInfo);
-    this.groupinfoeditorModal.show();
+  handleDelete(item) {
+    this.alertService.showDialog(
+      'Are you sure you want to delete "' + item.groupName + '"?',
+      DialogType.confirm,
+      () => this.deleteGroupHelper(item)
+    );
   }
 
-
-  editGroup(row: any) {
-    this.editingUserName = { name: row.userName };
-    this.sourceUser = row;
-    this.editedGroup = this.createOrEditGroupModal.editGroup(row);
-    console.log("this.GridUserManagementVM" + this.GridUserManagementVM);
-    this.editorModal.show();
-  }
-
-
-  deleteUser(row: UserEdit) {
-    this.alertService.showDialog('Are you sure you want to delete \"' + row.userName + '\"?', DialogType.confirm, () => this.deleteUserHelper(row));
-  }
-
-
-  deleteUserHelper(row: UserEdit) {
-
+  deleteGroupHelper(row) {
     this.alertService.startLoadingMessage('Deleting...');
     this.loadingIndicator = true;
 
-    this.accountService.deleteUser(row)
-      .subscribe(results => {
+    this.accountService.deleteGroup(row).subscribe(
+      (results) => {
         this.alertService.stopLoadingMessage();
         this.loadingIndicator = false;
 
         // this.rowsCache = this.rowsCache.filter(item => item !== row);
         // this.rows = this.rows.filter(item => item !== row);
       },
-        error => {
-          this.alertService.stopLoadingMessage();
-          this.loadingIndicator = false;
+      (error) => {
+        this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
 
-          this.alertService.showStickyMessage('Delete Error', `An error occured whilst deleting the user.\r\nError: "${Utilities.getHttpResponseMessages(error)}"`,
-            MessageSeverity.error, error);
-        });
+        this.alertService.showStickyMessage(
+          'Delete Error',
+          `An error occured whilst deleting the group.\r\nError: "${Utilities.getHttpResponseMessages(
+            error
+          )}"`,
+          MessageSeverity.error,
+          error
+        );
+      }
+    );
   }
 
 
-
+  showReason(item) {
+    this.alertService.showDialog('Reason:  "' + item.reason + '"');
+  }
 
 
   get canAssignRoles() {
-    return this.accountService.userHasPermission(Permission.assignRolesPermission);
+    return this.accountService.userHasPermission(
+      Permission.assignRolesPermission
+    );
   }
 
   get canViewRoles() {
-    return this.accountService.userHasPermission(Permission.viewRolesPermission);
+    return this.accountService.userHasPermission(
+      Permission.viewRolesPermission
+    );
   }
 
   get canManageUsers() {
-    return this.accountService.userHasPermission(Permission.manageUsersPermission);
+    return this.accountService.userHasPermission(
+      Permission.manageUsersPermission
+    );
   }
 }

@@ -206,4 +206,18 @@ export class AccountService {
     var result = this.accountEndpoint.saveGroup(data);
     return result;
   }
+
+  deleteGroup(group: string | User): Observable<any> {
+    if (typeof group === 'string' || group instanceof String) {
+      return this.accountEndpoint.getDeleteUserEndpoint<User>(group as string).pipe<User>(
+        tap(data => this.onRolesUserCountChanged(data.roles)));
+    } else {
+      if (group.id) {
+        return this.deleteUser(group.id);
+      } else {
+        return this.accountEndpoint.getGroupByUserNameEndpoint<User>(group.userName).pipe<User>(
+          mergeMap(user => this.deleteGroup(user.id)));
+      }
+    }
+  }
 }
