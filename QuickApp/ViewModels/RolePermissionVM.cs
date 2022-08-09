@@ -7,6 +7,8 @@ namespace QuickApp.ViewModels
 {
     public class RolePermissionVM
     {
+        public GroupManagementVM GroupManagementVM { get; set; }
+        
         public List<CountryViewModel> countryList { get; set; }
 
         public List<ModuleVM> moduleList { get; set; }

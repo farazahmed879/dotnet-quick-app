@@ -351,427 +351,475 @@ namespace QuickApp.Controllers
         public async Task<IActionResult> RegisterGroup([FromBody] GroupManagementVM group)
         {
             //SqlTransaction trans = con.BeginTransaction();
-
-
-            if (ModelState.IsValid)
+            try
             {
-                if (group == null)
-                    return BadRequest($"{nameof(group)} cannot be null");
-
-                // need work here
-                if (group.GroupID == 0) // means it create on first time
+                if (ModelState.IsValid)
                 {
-                    DateTime Date = DateTime.Now;
-                    group.MakerStatus = "P";
-                    group.Action = "INSERT";
-                    group.CreatedBy = "1111111"; //group.PSID;  //login userid need to pull from session right now able to pass 
-                    group.CreatedDate = Date;
-                    var GroupID = Insert_Group_Maker(group);
+                    if (group == null)
+                        return BadRequest($"{nameof(group)} cannot be null");
 
-                    string GroupIDNEW = GroupID.ToString();
-                    //hddGroupID.Value = Convert.ToString(GroupID);
-                    /// Group Checker
-                    //GM.GroupID = GroupID;
-                    group.MakerID = "1111111";
-                    group.MakerDate = Date;
-
-                    group.CheckerActive = false;
-                    var result = Insert_Group_Checker(group);
-
-                    #region save role permission
-
-                    List<SavePagesVM> savePagesColor = new List<SavePagesVM>();
-
-                    foreach (var item in group.ModuleVMList)
+                    // need work here
+                    if (group.GroupID == 0) // means it create on first time
                     {
-                        if (item.BackColor)
+                        DateTime Date = DateTime.Now;
+                        group.MakerStatus = "P";
+                        group.Action = "INSERT";
+                        group.CreatedBy = "1111111"; //group.PSID;  //login userid need to pull from session right now able to pass 
+                        group.CreatedDate = Date;
+                        var GroupID = Insert_Group_Maker(group);
+
+                        string GroupIDNEW = GroupID.ToString();
+                        //hddGroupID.Value = Convert.ToString(GroupID);
+                        /// Group Checker
+                        //GM.GroupID = GroupID;
+                        group.MakerID = "1111111";
+                        group.MakerDate = Date;
+
+                        group.CheckerActive = false;
+                        var result = Insert_Group_Checker(group);
+
+                        #region save role permission
+
+                        List<SavePagesVM> savePagesColor = new List<SavePagesVM>();
+
+                        foreach (var item in group.ModuleVMList)
                         {
-                            var moduleId = item.ModuleID;
-
-                            #region save pages
-
-                            if (moduleId == 1)
+                            if (item.BackColor)
                             {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_1)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
+                                var moduleId = item.ModuleID;
+                                var RoleID = GroupIDNEW != "" && GroupIDNEW != null ? Convert.ToInt32(GroupIDNEW) : 0;
+                                #region save pages
 
-                                        };
-                                        savePagesColor.Add(savePagesVM);
+                                if (moduleId == 1)
+                                {
+
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_1)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 2)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_2)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 3)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_3)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 4)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_4)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 5)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_5)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 6)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_6)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 7)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_7)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 8)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_8)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 9)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_9)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 10)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_10)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 11)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_11)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 12)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_12)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
+                                    }
+                                }
+                                if (moduleId == 13)
+                                {
+                                    savePagesColor.Clear();
+                                    foreach (var itemData in group.Fill_Modules_By_ModuleID_13)
+                                    {
+                                        if (itemData.BackColor)
+                                        {
+                                            var savePagesVM = new SavePagesVM
+                                            {
+                                                PageID = Convert.ToString(itemData.PageID),
+                                                canView = itemData.Crud_View == true ? true : false,
+                                                canInsert = itemData.Crud_Insert == true ? true : false,
+                                                canUpdate = itemData.Crud_Update == true ? true : false,
+                                                canAuthorize = itemData.Crud_Authorize == true ? true : false,
+                                                canReject = itemData.Crud_Reject == true ? true : false,
+                                                canDelete = itemData.Crud_Delete == true ? true : false,
+                                                RoleID = RoleID,
+                                                ModuleID = itemData.ModuleID.ToString()
+
+                                            };
+                                            savePagesColor.Add(savePagesVM);
+                                        }
+                                    }
+
+                                    foreach (var itemRow in savePagesColor)
+                                    {
+                                        Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
                                     }
                                 }
 
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
+
+                                #endregion
+
                             }
-                            if (moduleId == 2)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_2)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 3)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_3)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 4)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_4)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 5)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_5)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 6)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_6)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 7)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_7)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 8)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_8)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 9)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_9)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 10)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_10)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 11)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_11)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 12)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_12)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-                            if (moduleId == 13)
-                            {
-                                foreach (var itemData in group.Fill_Modules_By_ModuleID_13)
-                                {
-                                    if (itemData.BackColor)
-                                    {
-                                        var savePagesVM = new SavePagesVM
-                                        {
-                                            PageID = Convert.ToString(itemData.PageID),
-                                            canView = itemData.Crud_View == true ? true : false,
-                                            canInsert = itemData.Crud_Insert == true ? true : false,
-                                            canUpdate = itemData.Crud_Update == true ? true : false,
-                                            canAuthorize = itemData.Crud_Authorize == true ? true : false,
-                                            canReject = itemData.Crud_Reject == true ? true : false,
-                                            canDelete = itemData.Crud_Delete == true ? true : false
-
-                                        };
-                                        savePagesColor.Add(savePagesVM);
-                                    }
-                                }
-
-                                foreach (var itemRow in savePagesColor)
-                                {
-                                    Insert_Page_Permission_Color(Convert.ToInt32(itemRow.RoleID), Convert.ToInt32(itemRow.ModuleID), Convert.ToInt32(itemRow.PageID), itemRow.canView, itemRow.canInsert, itemRow.canUpdate, itemRow.canAuthorize, itemRow.canReject, itemRow.canDelete);
-                                }
-                            }
-
-
-                            #endregion
-
                         }
+
+                        InsertUpdateModulePermission(0, group.ModuleVMList);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_1, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_2, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_3, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_4, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_5, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_6, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_7, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_8, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_9, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_10, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_11, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_12, 0);
+                        InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_13, 0);
+
+                        #endregion
+                    }
+                    else
+                    {
+                        /// Group Maker
+
+                        group.MakerStatus = "U";
+                        group.Action = "UPDATE";
+                        group.Reason = null;
+                        //GM.Update_Group_Status_By_GroupID_Maker(GM.GroupID, GM.MakerStatus, GM.Action, GM.Reason, null, trans);
+
+                        /// Group Checker
+                        group.MakerID = "1111111";//SessionBO.PSID;
+                        group.MakerDate = DateTime.Now;
+                        group.CheckerActive = false;
+                        //GM.Insert_Group_Checker(GM, trans);
+
                     }
 
-                    InsertUpdateModulePermission(0, group.ModuleVMList);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_1, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_2, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_3, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_4, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_5, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_6, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_7, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_8, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_9, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_10, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_11, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_12, 0);
-                    InsertUpdateRolePagePermission(group.Fill_Modules_By_ModuleID_13, 0);
-
-                    #endregion
-                }
-                else
-                {
-                    /// Group Maker
-
-                    group.MakerStatus = "U";
-                    group.Action = "UPDATE";
-                    group.Reason = null;
-                    //GM.Update_Group_Status_By_GroupID_Maker(GM.GroupID, GM.MakerStatus, GM.Action, GM.Reason, null, trans);
-
-                    /// Group Checker
-                    group.MakerID = "1111111";//SessionBO.PSID;
-                    group.MakerDate = DateTime.Now;
-                    group.CheckerActive = false;
-                    //GM.Insert_Group_Checker(GM, trans);
+                    return BadRequest(ModelState);
 
                 }
-
-                return BadRequest(ModelState);
-
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
             return null;
         }
 
@@ -900,21 +948,24 @@ namespace QuickApp.Controllers
 
         private void Insert_Page_Permission_Color(int RoleID, int ModuleID, int PageID, bool canView, bool canInsert, bool canUpdate, bool canAuthorize, bool canReject, bool canDelete)
         {
-            var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
-            userIdParam.Direction = ParameterDirection.Output;
-            SqlParameter[] param ={
-                                  new SqlParameter("@RoleID",RoleID),
-                                  new SqlParameter("@ModuleID",ModuleID),
-                                  new SqlParameter("@PageID",PageID),
-                                  new SqlParameter("@canView",canView),
-                                  new SqlParameter("@canInsert",canInsert),
-                                  new SqlParameter("@canUpdate",canUpdate),
-                                  new SqlParameter("@canAuthorize",canAuthorize),
-                                  new SqlParameter("@canReject",canReject),
-                                  new SqlParameter("@canDelete",canDelete)
-                              };
+            //var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
+            //userIdParam.Direction = ParameterDirection.Output;
+
+            var RoleID1 = new SqlParameter("@RoleID", RoleID);
+            var ModuleID1 = new SqlParameter("@ModuleID", ModuleID);
+            var PageID1 = new SqlParameter("@PageID", PageID);
+            var canView1 = new SqlParameter("@canView", canView);
+            var canInsert1 = new SqlParameter("@canInsert", canInsert);
+            var canUpdate1 = new SqlParameter("@canUpdate", canUpdate);
+            var canAuthorize1 = new SqlParameter("@canAuthorize", canAuthorize);
+            var canReject1 = new SqlParameter("@canReject", canReject);
+            var canDelete1 = new SqlParameter("@canDelete", canDelete);
+
             //SqlHelper.ExecuteNonQuery(Trans, "[SP_PagePermissionColor]", param);
-            var getChecker = _context.Database.ExecuteSqlRaw("exec [SP_PagePermissionColor]", param);
+            //var getChecker = _context.Database.ExecuteSqlRaw("exec [SP_PagePermissionColor]", param);
+            var Insert_Page_Permission_ColorResult = _context.Database.ExecuteSqlRaw("exec SP_PagePermissionColor @RoleID,@ModuleID,@PageID,@canView,@canInsert,@canUpdate,@canAuthorize,@canReject,@canDelete"
+                , RoleID1, ModuleID1, PageID1, canView1, canInsert1, canUpdate1, canAuthorize1, canReject1, canDelete1);
+            //var results = userIdParam.Value;
             //var result = userIdParam.Value;
             //return result;
         }
@@ -922,7 +973,7 @@ namespace QuickApp.Controllers
         private object Insert_Group_Checker(GroupManagementVM group)
         {
 
-            var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
+            var userIdParam = new SqlParameter("@IdentityID", SqlDbType.Int);
             userIdParam.Direction = ParameterDirection.Output;
             var GroupID = new SqlParameter("@GroupID", group.GroupID);
             var GroupName = new SqlParameter("@GroupName", group.GroupName);
@@ -938,31 +989,39 @@ namespace QuickApp.Controllers
             var GroupOwnerPSID = new SqlParameter("@GroupOwnerPSID", group.GroupOwnerPSID);
             var GroupOwnerName = new SqlParameter("@GroupOwnerName", group.GroupOwnerName);
 
-            var getChecker = _context.Database.ExecuteSqlRaw("exec SP_Insert_User_Maker @GroupID,@GroupName,@GroupDescription,@Active,@MakerStatus,@Action,@MakerID,@CheckerActive,@Reference,@CountryCode,@GroupOwnerPSID,@GroupOwnerName, @Id out", GroupID, GroupName, GroupDescription, Active, GroupID, Active, MakerStatus, Action, MakerID, MakerDate, CheckerActive, Reference, CountryCode, CountryCode, GroupOwnerPSID, GroupOwnerName, userIdParam);
+            var getChecker = _context.Database.ExecuteSqlRaw("exec SP_Insert_Group_Checker @GroupID,@GroupName,@GroupDescription,@Active,@MakerStatus,@Action,@MakerID,@MakerDate,@CheckerActive,@Reference,@CountryCode,@GroupOwnerPSID,@GroupOwnerName, @IdentityID out", GroupID, GroupName, GroupDescription, Active, MakerStatus, Action, MakerID, MakerDate, CheckerActive, Reference, CountryCode, GroupOwnerPSID, GroupOwnerName, userIdParam);
             var result = userIdParam.Value;
             return result;
         }
 
         private object Insert_Group_Maker(GroupManagementVM group)
         {
+            try
+            {
+                var userIdParam = new SqlParameter("@IdentityID", SqlDbType.Int);
+                userIdParam.Direction = ParameterDirection.Output;
+                var GroupName = new SqlParameter("@GroupName", group.GroupName);
+                var GroupDescription = new SqlParameter("@GroupDescription", group.GroupDescription);
+                var Active = new SqlParameter("@Active", group.Active);
+                var Status = new SqlParameter("@Status", group.MakerStatus);
+                var Action = new SqlParameter("@Action", group.Action);
+                var CreatedBy = new SqlParameter("@CreatedBy", group.CreatedBy);
+                var CreatedDate = new SqlParameter("@CreatedDate", group.CreatedDate);
+                var Reference = new SqlParameter("@Reference", group.Reference);
+                var CountryCode = new SqlParameter("@CountryCode", group.CountryCode);
+                var GroupOwnerPSID = new SqlParameter("@GroupOwnerPSID", group.GroupOwnerPSID);
+                var GroupOwnerName = new SqlParameter("@GroupOwnerName", group.GroupOwnerName);
 
-            var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
-            userIdParam.Direction = ParameterDirection.Output;
-            var GroupName = new SqlParameter("@GroupName", group.GroupName);
-            var GroupDescription = new SqlParameter("@GroupDescription", group.GroupDescription);
-            var Active = new SqlParameter("@Active", group.Active);
-            var Status = new SqlParameter("@Status", group.MakerStatus);
-            var Action = new SqlParameter("@Action", group.Action);
-            var CreatedBy = new SqlParameter("@CreatedBy", group.CreatedBy);
-            var CreatedDate = new SqlParameter("@CreatedDate", group.CreatedDate);
-            var Reference = new SqlParameter("@Reference", group.Reference);
-            var CountryCode = new SqlParameter("@CountryCode", group.CountryCode);
-            var GroupOwnerPSID = new SqlParameter("@GroupOwnerPSID", group.GroupOwnerPSID);
-            var GroupOwnerName = new SqlParameter("@GroupOwnerName", group.GroupOwnerName);
+                var getMaker = _context.Database.ExecuteSqlRaw("exec SP_Insert_Group_Maker @GroupName,@GroupDescription,@Active,@Status,@Action,@CreatedBy,@CreatedDate,@Reference,@CountryCode,@GroupOwnerPSID,@GroupOwnerName, @IdentityID out", GroupName, GroupDescription, Active, Status, Action, CreatedBy, CreatedDate, Reference, CountryCode, GroupOwnerPSID, GroupOwnerName, userIdParam);
+                var result = userIdParam.Value;
+                return result;
+            }
+            catch (Exception ex)
+            {
 
-            var getMaker = _context.Database.ExecuteSqlRaw("exec SP_Insert_Group_Checker @GroupName,@GroupDescription,@Active,@Status,@Action,@CreatedBy,@CreatedDate,@Reference,@CountryCode,@GroupOwnerPSID,@GroupOwnerName, @Id out", GroupName, GroupDescription, Active, Status, Action, CreatedBy, CreatedDate, Reference, CountryCode, GroupOwnerPSID, GroupOwnerName, userIdParam);
-            var result = userIdParam.Value;
-            return result;
+                throw ex;
+            }
+
         }
 
 
@@ -994,6 +1053,18 @@ namespace QuickApp.Controllers
 
 
             return Ok(userVM);
+        }
+
+
+        [AllowAnonymous]
+        [HttpDelete("groupDelete/{id}")]
+        [ProducesResponseType(200, Type = typeof(GroupManagementVM))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> DeleteGroup(string id)
+        {
+            return Ok(true);
         }
 
 
@@ -1137,6 +1208,20 @@ namespace QuickApp.Controllers
         }
 
 
+        private List<PagePermissionVM> Get_Pages_Permissions(int? RoleID, int? UserID)
+        {
+            try
+            {
+                var getMakers = _context.Set<PagePermissionVM>().FromSqlInterpolated($"exec SP_Get_Pages_Permissions {RoleID},{UserID}").ToList();
+                return getMakers;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         [HttpGet("GroupManagementGridData")]  //"GroupManagementGridData/{ModuleID:int?}/{ApplicationID:int?}"
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(List<RolePermissionVM>))]
@@ -1249,10 +1334,8 @@ namespace QuickApp.Controllers
         {
             try
             {
-                GroupID = GroupID == 0 ? null : GroupID;
-                StatusID = StatusID == "null" ? null : StatusID;
-                var getMakers = _context.Set<GroupManagementViewModel>().FromSqlInterpolated($"exec SP_Fill_Group_By_GroupID_Maker {GroupID}, {StatusID}").ToList();
-                return Ok(getMakers);
+                var result = Fill_Group_By_GroupID_Maker(GroupID, StatusID);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -1262,18 +1345,110 @@ namespace QuickApp.Controllers
 
         }
 
+
+        /// <summary>
+        ///  Fill Grid Maker
+        /// </summary>
+        /// <param name="GroupID"></param>
+        /// <param name="Status"></param>
+        /// <returns></returns>
+        private List<GroupManagementViewModel> Fill_Group_By_GroupID_Maker(int? GroupID, string StatusID)
+        {
+            try
+            {
+                GroupID = GroupID == 0 ? null : GroupID;
+                StatusID = StatusID == "null" ? null : StatusID;
+                var getMakers = _context.Set<GroupManagementViewModel>().FromSqlInterpolated($"exec SP_Fill_Group_By_GroupID_Maker {GroupID}, {StatusID}").ToList();
+                return getMakers;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [AllowAnonymous]
         [HttpGet("GroupManagementGridDataEdit/{GroupID}/{PageID}")]
-        [ProducesResponseType(200, Type = typeof(GroupManagementVM))]
+        [ProducesResponseType(200, Type = typeof(RolePermissionVM))]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetGroupManagementGridDataEdit(int GroupID, int PageID)
         {
             try
             {
+                GroupManagementVM obj = new GroupManagementVM();
+
                 ViewModels.RolePermissionVM rolePermissionVM = new ViewModels.RolePermissionVM();
-                BindAllGrids(rolePermissionVM);
-                var getCountrys = _context.Set<TBL_Country>().FromSqlRaw("sp_get_Country").ToList();                
+
+                var getCountrys = _context.Set<TBL_Country>().FromSqlRaw("sp_get_Country").ToList();
                 rolePermissionVM.countryList = _mapper.Map<List<CountryViewModel>>(getCountrys);
+                var result = Fill_Group_By_GroupID_Maker(GroupID, null);
+                if (result.Count > 0)
+                {
+                    if (rolePermissionVM.GroupManagementVM == null)
+                    {
+                        rolePermissionVM.GroupManagementVM = new GroupManagementVM();
+                    }
+                    rolePermissionVM.GroupManagementVM.GroupName = result.FirstOrDefault()?.GroupName;
+                    rolePermissionVM.GroupManagementVM.GroupDescription = result.FirstOrDefault()?.GroupDescription;
+                    rolePermissionVM.GroupManagementVM.Reference = result.FirstOrDefault()?.Reference;
+                    rolePermissionVM.GroupManagementVM.GroupOwnerPSID = result.FirstOrDefault()?.Reference;
+                    rolePermissionVM.GroupManagementVM.GroupOwnerName = result.FirstOrDefault()?.Reference;
+                }
+                BindAllGrids(rolePermissionVM);
+                GetModulPermission(GroupID, rolePermissionVM.moduleList);
+                           
+                var getPagePermissions = Get_Pages_Permissions(GroupID, null);
+
+                if (getPagePermissions.Count > 0)
+                {
+                    foreach (var item in getPagePermissions)
+                    {
+                        bool Continue;
+                        Continue = SetRolePagePermissionOnGridVGSSEnquiry(rolePermissionVM.Fill_Modules_By_ModuleID_1, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridVGSSOrder(rolePermissionVM.Fill_Modules_By_ModuleID_2, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridVGSSCustomer(rolePermissionVM.Fill_Modules_By_ModuleID_3, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionGridVGSSSale(rolePermissionVM.Fill_Modules_By_ModuleID_4,item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridVGSSSaleOperation(rolePermissionVM.Fill_Modules_By_ModuleID_5, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridVGSSEncashment(rolePermissionVM.Fill_Modules_By_ModuleID_6, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridVGSSEncashmentOperation(rolePermissionVM.Fill_Modules_By_ModuleID_7, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridGridVGSSSecurity(rolePermissionVM.Fill_Modules_By_ModuleID_8, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridGridVGSSReports(rolePermissionVM.Fill_Modules_By_ModuleID_9, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridGridViewIPS(rolePermissionVM.Fill_Modules_By_ModuleID_10, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridViewIPSReports(rolePermissionVM.Fill_Modules_By_ModuleID_11, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridViewOPSC(rolePermissionVM.Fill_Modules_By_ModuleID_12, item);
+                        if (Continue)
+                            continue;
+                        Continue = SetRolePagePermissionOnGridViewPPB(rolePermissionVM.Fill_Modules_By_ModuleID_13, item);
+                        if (Continue)
+                            continue;
+                    }
+                }
+
+                
+
                 //DtPagesPermissionList = GetPagesPermissionList(GroupID);
                 return Ok(rolePermissionVM);
             }
@@ -1281,6 +1456,331 @@ namespace QuickApp.Controllers
             {
 
                 throw;
+            }
+        }
+
+        //private void GetRolePagePermission(int GroupID, List<TBL_PagesVM> tBL_PagesVMs)
+        //{
+        //    var result = Get_Pages_Permissions(GroupID, null);
+        //    foreach (var item in result)
+        //    {
+        //        bool Continue;
+        //        Continue = SetRolePagePermissionOnGridVGSSEnquiry(tBL_PagesVMs., dt.Rows[i]);
+        //    }
+        //}
+        
+        private bool SetRolePagePermissionOnGridVGSSEnquiry(List<TBL_PagesVM> tBL_PagesVMs,PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridVGSSOrder(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridVGSSCustomer(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionGridVGSSSale(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridVGSSSaleOperation(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridVGSSEncashment(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridVGSSEncashmentOperation(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridGridVGSSSecurity(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridGridVGSSReports(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridGridViewIPS(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridViewIPSReports(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridViewOPSC(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        private bool SetRolePagePermissionOnGridViewPPB(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
+        {
+            if (tBL_PagesVMs.Count > 0)
+            {
+                foreach (var item in tBL_PagesVMs)
+                {
+                    if (item.PageID == itemDataRow.PageID)
+                    {
+                        item.chkAllSelect = true;
+                        item.Crud_View = itemDataRow.Can_View;
+                        item.Crud_Insert = itemDataRow.Can_Insert;
+                        item.Crud_Update = itemDataRow.Can_Update;
+                        item.Crud_Authorize = itemDataRow.Can_Authorize;
+                        item.Crud_Reject = itemDataRow.Can_Reject;
+                        item.Crud_Delete = itemDataRow.Can_Delete;
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
+
+
+
+        private void GetModulPermission(int GroupID, List<ModuleVM> moduleList)
+        {
+            var result = Get_Modules_Rights(GroupID, null);
+
+            if (result != null)
+            {
+                foreach (var item in result)
+                {
+                    foreach (var itemModule in moduleList)
+                    {
+                        if (itemModule.ModuleID == item.ModuleID)
+                        {
+                            itemModule.chkAllSelect = true;
+                            itemModule.ChkView = item.Can_View;
+                            itemModule.ChkInsert = item.Can_Insert;
+                            itemModule.ChkUpdate = item.Can_Update;
+                            itemModule.ChkAuthorize = item.Can_Authorize;
+                            itemModule.ChkReject = item.Can_Reject;
+                            itemModule.ChkDelete = item.Can_Delete;
+                        }
+                    }
+                }
             }
         }
 
@@ -1836,12 +2336,12 @@ namespace QuickApp.Controllers
 
         #region work for edit group
 
-        private async Task<IActionResult> Get_Modules_Rights(int? RoleID, int? UserID)
+        private List<ModulesPermission> Get_Modules_Rights(int? RoleID, int? UserID)
         {
             try
             {
                 var getModuleRights = _context.Set<ModulesPermission>().FromSqlInterpolated($"exec SP_Get_Modules_Rights {RoleID}, {UserID}").ToList();
-                return Ok(getModuleRights);
+                return (getModuleRights);
             }
             catch (Exception ex)
             {

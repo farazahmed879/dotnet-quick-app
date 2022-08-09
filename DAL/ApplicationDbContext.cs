@@ -27,6 +27,7 @@ namespace DAL
         public DbSet<GridUserAuthorization> GridUserAuthorization { get; set; }
         public DbSet<GridUserManagementVM> GridUserManagementVM { get; set; }
         public DbSet<GroupManagementViewModel> GroupManagementViewModel { get; set; }
+        public DbSet<PagePermissionVM> PagePermissionVM { get; set; }
 
         
         public DbSet<OrderDetail> OrderDetails { get; set; }
@@ -92,6 +93,9 @@ namespace DAL
               x.HasNoKey()
             );
             builder.Entity<ModulesPermission>(x =>
+              x.HasNoKey()
+            );
+            builder.Entity<PagePermissionVM>(x =>
               x.HasNoKey()
             );
             builder.Entity<GridUserManagementVM>()

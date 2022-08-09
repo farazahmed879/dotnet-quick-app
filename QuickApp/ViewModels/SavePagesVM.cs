@@ -7,7 +7,7 @@ namespace QuickApp.ViewModels
 {
     public class SavePagesVM
     {
-        public string RoleID { get; set; }
+        public int RoleID { get; set; }
         public string ModuleID { get; set; }
         public string PageID { get; set; }
         public bool canView { get; set; }
