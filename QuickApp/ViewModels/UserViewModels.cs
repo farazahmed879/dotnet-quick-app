@@ -32,6 +32,8 @@ namespace QuickApp.ViewModels
 
         [MinimumCount(1, ErrorMessage = "Roles cannot be empty")]
         public string[] Roles { get; set; }
+
+        
     }
 
 
@@ -76,6 +78,35 @@ namespace QuickApp.ViewModels
 
         public string Region { get; set; }
         public string Group { get; set; }
+
+        public string PSID { get; set; }
+        public string RegionID { get; set; }       
+        public int GroupID { get; set; }
+        public bool Active { get; set; }
+
+        public string Signatory { get; set; }        
+        public bool AuthSignatory { get; set; }
+
+        public string Reference { get; set; }
+        public string CountryCode { get; set; }
+        public string AccountType { get; set; }
+        public string AccountDescription { get; set; }
+        public string Password { get; set; }
+
+        public string MakerStatus { get; set; }
+        public string Action { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        
+
+        public int UserID { get; set; }
+        public string MakerID { get; set; }
+
+        public DateTime? MakerDate { get; set; }
+
+        public bool CheckerActive { get; set; }
+
+        public string Reason { get; set; }
     }
 
 

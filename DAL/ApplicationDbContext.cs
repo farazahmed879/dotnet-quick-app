@@ -80,6 +80,7 @@ namespace DAL
             builder.Entity<TBL_GROUP>().HasKey(r => r.GROUP_ID);
             builder.Entity<TBL_Pages>().HasKey(r => r.PageID);
             builder.Entity<GroupManagementViewModel>().HasKey(r => r.GroupID);
+            builder.Entity<TBL_USER>().HasKey(r => r.SNO);
 
             #region Registration of Reponse Models of Procedures
 
@@ -96,6 +97,9 @@ namespace DAL
               x.HasNoKey()
             );
             builder.Entity<PagePermissionVM>(x =>
+              x.HasNoKey()
+            );
+            builder.Entity<UserLoginVM>(x =>
               x.HasNoKey()
             );
             builder.Entity<GridUserManagementVM>()

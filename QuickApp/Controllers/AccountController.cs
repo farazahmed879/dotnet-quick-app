@@ -24,7 +24,7 @@ using QuickApp.Common;
 
 namespace QuickApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
@@ -144,6 +144,10 @@ namespace QuickApp.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] UserEditViewModel user)
         {
+
+
+
+
             ApplicationUser appUser = await _accountManager.GetUserByIdAsync(id);
             string[] currentRoles = appUser != null ? (await _accountManager.GetUserRolesAsync(appUser)).ToArray() : null;
 
@@ -330,6 +334,23 @@ namespace QuickApp.Controllers
 
                 ApplicationUser appUser = _mapper.Map<ApplicationUser>(user);
 
+
+                #region save user according to VGSS
+
+                if (user.AccountType == "Generic")
+                {
+                    //user.Password = EncryptDecrypt.Encrypt(txtPassword.Text); NEED TO DO
+                }
+                else
+                {
+                    user.Password = "";
+                }
+
+                var isSaveUser = Save(0, user); //0 for it is new user
+
+
+                #endregion
+
                 var result = await _accountManager.CreateUserAsync(appUser, user.Roles, user.NewPassword);
                 if (result.Succeeded)
                 {
@@ -341,6 +362,59 @@ namespace QuickApp.Controllers
             }
 
             return BadRequest(ModelState);
+        }
+
+        private bool Save(int UserID, UserEditViewModel user)
+        {
+            try
+            {
+                var result = PSIDExists(null, user.PSID);
+
+                if (result.Count > 0)
+                {
+                    if (UserID == 0) //
+                    {
+                        DateTime Date = DateTime.Now;
+                        /// User Maker
+                        user.MakerStatus = "P";
+                        user.Action = "INSERT";
+                        user.CreatedBy = SessionBO.PSID; // login user id 
+                        user.CreatedDate = Date;
+                        var UserIDD = Insert_User_Maker(user);
+
+                        /// User Checker
+                        user.UserID = int.Parse(UserIDD.ToString());
+                        user.MakerID = user.PSID;
+                        user.MakerDate = Date;
+                        user.CheckerActive = false;
+                        var checkerResult = Insert_User_Checker(user);
+                    }
+                    else
+                    {
+                        ///// User Maker
+                        //user.UserID = UserID;
+                        //user.MakerStatus = "U";
+                        //user.Action = "UPDATE";
+                        //user.Reason = null;
+                        //UM.Update_User_Status_By_UserID_Maker(UM.UserID, null, UM.MakerStatus, UM.Action, UM.Reason, UM.Reference, trans);
+
+                        ///// User Checker
+                        //UM.MakerID = SessionBO.PSID;
+                        //UM.MakerDate = DateTime.Now;
+                        //UM.CheckerActive = false;
+                        //UM.Insert_User_Checker(UM, trans);
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return true;
         }
 
         [HttpPost("SaveGroup")]
@@ -1397,7 +1471,7 @@ namespace QuickApp.Controllers
                 }
                 BindAllGrids(rolePermissionVM);
                 GetModulPermission(GroupID, rolePermissionVM.moduleList);
-                           
+
                 var getPagePermissions = Get_Pages_Permissions(GroupID, null);
 
                 if (getPagePermissions.Count > 0)
@@ -1414,7 +1488,7 @@ namespace QuickApp.Controllers
                         Continue = SetRolePagePermissionOnGridVGSSCustomer(rolePermissionVM.Fill_Modules_By_ModuleID_3, item);
                         if (Continue)
                             continue;
-                        Continue = SetRolePagePermissionGridVGSSSale(rolePermissionVM.Fill_Modules_By_ModuleID_4,item);
+                        Continue = SetRolePagePermissionGridVGSSSale(rolePermissionVM.Fill_Modules_By_ModuleID_4, item);
                         if (Continue)
                             continue;
                         Continue = SetRolePagePermissionOnGridVGSSSaleOperation(rolePermissionVM.Fill_Modules_By_ModuleID_5, item);
@@ -1447,7 +1521,7 @@ namespace QuickApp.Controllers
                     }
                 }
 
-                
+
 
                 //DtPagesPermissionList = GetPagesPermissionList(GroupID);
                 return Ok(rolePermissionVM);
@@ -1468,8 +1542,8 @@ namespace QuickApp.Controllers
         //        Continue = SetRolePagePermissionOnGridVGSSEnquiry(tBL_PagesVMs., dt.Rows[i]);
         //    }
         //}
-        
-        private bool SetRolePagePermissionOnGridVGSSEnquiry(List<TBL_PagesVM> tBL_PagesVMs,PagePermissionVM itemDataRow)
+
+        private bool SetRolePagePermissionOnGridVGSSEnquiry(List<TBL_PagesVM> tBL_PagesVMs, PagePermissionVM itemDataRow)
         {
             if (tBL_PagesVMs.Count > 0)
             {
@@ -1838,69 +1912,28 @@ namespace QuickApp.Controllers
         {
             try
             {
-                int? roleID = null;
-                var getMakers = _context.Set<GroupManagementViewModel>().FromSqlInterpolated($"exec SP_Fill_Group_By_GroupCheckerID_Checker {roleID}").ToList();
-
-
-
-                var GroupExist = new SqlParameter("@GroupExist", SqlDbType.Int);
-                GroupExist.Direction = ParameterDirection.Output;
                 GroupID1 = GroupID1 == 0 ? null : GroupID1;
                 var GroupID = new SqlParameter("@GroupID", (object)GroupID1 ?? DBNull.Value);
                 var GroupName = new SqlParameter("@GroupName", GroupName1);
-                //var isExist = await _context.Database.ExecuteSqlRawAsync($"exec SP_GroupNameExists {GroupIDD}, {GroupNameD}");
-
-                //var getMakers = _context.Database.ExecuteSqlRaw("exec SP_GroupNameExists @GroupID,@GroupName,@GroupExist out;", GroupID, GroupName, GroupExist);
-                //var results = GroupExist.Value;
-
                 var queryResult = _context.IntReturnValue.FromSqlRaw<IntReturn>("exec SP_GroupNameExists @GroupID,@GroupName;", GroupID, GroupName).AsEnumerable().FirstOrDefault();
                 bool result = true;
                 if (queryResult.GroupExist == 0)
                 {
-                    result = true;
+                    result = true; // not exist
                 }
                 else
                 {
-                    result = false;
+                    result = false; // exist krta he group name
                 }
-
-                //var isExist1 = _context.Database.ExecuteSqlRaw("exec SP_GroupNameExists @GroupID,@GroupName,@GroupExist out;", GroupID, GroupName, GroupExist);
                 return Ok(result);
-
-
-
-                //var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
-                //userIdParam.Direction = ParameterDirection.Output;
-                //var PSID = new SqlParameter("@PSID", "1233456");
-                //var Name = new SqlParameter("@Name", "yawar");
-                //var Department = new SqlParameter("@Department", "ABCD");
-                //var RegionID = new SqlParameter("@RegionID", "071");
-                //var GroupID = new SqlParameter("@GroupID", 3);
-                //var Active = new SqlParameter("@Active", true);
-                //var Status = new SqlParameter("@Status", "P");
-                //var Action = new SqlParameter("@Action", "INSERT");
-                //var CreatedBy = new SqlParameter("@CreatedBy", "1111111");
-                //var CreatedDate = new SqlParameter("@CreatedDate", DateTime.Now);
-                //var Signatory = new SqlParameter("@Signatory", "");
-                //var AuthSignatory = new SqlParameter("@AuthSignatory", true);
-                //var Reference = new SqlParameter("@Reference", "23498");
-                //var CountryCode = new SqlParameter("@CountryCode", "PK");
-                //var AccountType = new SqlParameter("@AccountType", "User");
-                //var AccountDescription = new SqlParameter("@AccountDescription", "Account Description");
-                //var PASSWORD = new SqlParameter("@PASSWORD", "");
-
-
-                //var getMakers = _context.Database.ExecuteSqlRaw("exec SP_Insert_User_Maker @PSID,@Name,@Department,@RegionID,@GroupID,@Active,@Status,@Action,@CreatedBy,@CreatedDate,@Signatory,@AuthSignatory,@Reference,@CountryCode,@AccountType,@AccountDescription,@PASSWORD, @Id out", PSID, Name, Department, RegionID, GroupID, Active, Status, Action, CreatedBy, CreatedDate, Signatory, AuthSignatory, Reference, CountryCode, AccountType, AccountDescription, PASSWORD, userIdParam);
-                //var results = userIdParam.Value;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
-
         }
+
+
 
         //[HttpGet("users/me/preferences")]
         //[ProducesResponseType(200, Type = typeof(string))]
@@ -2019,70 +2052,75 @@ namespace QuickApp.Controllers
 
         }
 
-        private void InsertData()
-        {
 
+        /// <summary>
+        /// Insert User Checker
+        /// </summary>
+        /// <param name="BLL"></param>
+        /// <returns></returns>
+        private object Insert_User_Checker(UserEditViewModel user)
+        {
             try
             {
                 var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
                 userIdParam.Direction = ParameterDirection.Output;
-                var PSID = new SqlParameter("@PSID", "1233456");
-                var Name = new SqlParameter("@Name", "yawar");
-                var Department = new SqlParameter("@Department", "ABCD");
-                var RegionID = new SqlParameter("@RegionID", "071");
-                var GroupID = new SqlParameter("@GroupID", 3);
-                var Active = new SqlParameter("@Active", true);
-                var Status = new SqlParameter("@Status", "P");
-                var Action = new SqlParameter("@Action", "INSERT");
-                var CreatedBy = new SqlParameter("@CreatedBy", "1111111");
-                var CreatedDate = new SqlParameter("@CreatedDate", DateTime.Now);
-                var Signatory = new SqlParameter("@Signatory", "");
-                var AuthSignatory = new SqlParameter("@AuthSignatory", true);
-                var Reference = new SqlParameter("@Reference", "23498");
-                var CountryCode = new SqlParameter("@CountryCode", "PK");
-                var AccountType = new SqlParameter("@AccountType", "User");
-                var AccountDescription = new SqlParameter("@AccountDescription", "Account Description");
-                var PASSWORD = new SqlParameter("@PASSWORD", "");
-
-
-                var getMakers = _context.Database.ExecuteSqlRaw("exec SP_Insert_User_Maker @PSID,@Name,@Department,@RegionID,@GroupID,@Active,@Status,@Action,@CreatedBy,@CreatedDate,@Signatory,@AuthSignatory,@Reference,@CountryCode,@AccountType,@AccountDescription,@PASSWORD, @Id out", PSID, Name, Department, RegionID, GroupID, Active, Status, Action, CreatedBy, CreatedDate, Signatory, AuthSignatory, Reference, CountryCode, AccountType, AccountDescription, PASSWORD, userIdParam);
+                var UserID = new SqlParameter("@UserID", user.UserID);
+                var PSID = new SqlParameter("@PSID", user.PSID);
+                var Name = new SqlParameter("@Name", user.UserName);
+                var Department = new SqlParameter("@Department", user.Department);
+                var RegionID = new SqlParameter("@RegionID", user.RegionID);
+                var GroupID = new SqlParameter("@GroupID", user.GroupID);
+                var MakerStatus = new SqlParameter("@MakerStatus", user.MakerStatus);
+                var Action = new SqlParameter("@Action", user.Action);
+                var MakerID = new SqlParameter("@MakerID", user.MakerID);
+                var MakerDate = new SqlParameter("@MakerDate", user.MakerDate);
+                var CheckerActive = new SqlParameter("@CheckerActive", user.CheckerActive);
+                var Reference = new SqlParameter("@Reference", user.Reference);
+                var CountryCode = new SqlParameter("@CountryCode", user.CountryCode);
+                var AccountType = new SqlParameter("@AccountType", user.AccountType);
+                var AccountDescription = new SqlParameter("@AccountDescription", user.AccountDescription);
+                var Password = new SqlParameter("@Password", user.Password);
+                var getMakers = _context.Database.ExecuteSqlRaw("exec SP_Insert_User_Checker @UserID,@PSID,@Name,@Department,@RegionID,@GroupID,@MakerStatus,@Action,@MakerID,@MakerDate,@CheckerActive,@Reference,@CountryCode,@AccountType,@AccountDescription,@PASSWORD, @Id out", UserID, PSID, Name, Department, RegionID, GroupID, MakerStatus, Action, MakerID, MakerDate, CheckerActive, Reference, CountryCode, AccountType, AccountDescription, Password, userIdParam);
                 var results = userIdParam.Value;
-                //return results;
+                return results;
             }
 
-
-            //try
-            //{
-            //    var PSID = new SqlParameter("@PSID", "1233456");
-            //    var Name = new SqlParameter("@Name", "yawar");
-            //    var Department = new SqlParameter("@Department", "ABCD");
-            //    var RegionID = new SqlParameter("@RegionID", "071");
-            //    var GroupID = new SqlParameter("@GroupID", 3);
-            //    var Active = new SqlParameter("@Active", true);
-            //    var Status = new SqlParameter("@Status", "P");
-            //    var Action = new SqlParameter("@Action", "INSERT");
-            //    var CreatedBy = new SqlParameter("@CreatedBy", "1111111");
-            //    var CreatedDate = new SqlParameter("@CreatedDate", DateTime.Now);
-            //    var Signatory = new SqlParameter("@Signatory", "");
-            //    var AuthSignatory = new SqlParameter("@AuthSignatory", true);
-            //    var Reference = new SqlParameter("@Reference", "23498");
-            //    var CountryCode = new SqlParameter("@CountryCode", "PK");
-            //    var AccountType = new SqlParameter("@AccountType", "User");
-            //    var AccountDescription = new SqlParameter("@AccountDescription", "Account Description");
-            //    var PASSWORD = new SqlParameter("@PASSWORD", "");
-
-
-            //    var getMakers = _context.Set<GridUserManagementVM>().FromSqlRaw("exec SP_Insert_User_Maker @PSID,@Name,@Department,@RegionID,@GroupID,@Active,@Status,@Action,@CreatedBy,@CreatedDate,@Signatory,@AuthSignatory,@Reference,@CountryCode,@AccountType,@AccountDescription,@PASSWORD", PSID, Name, Department, RegionID, GroupID, Active, Status, Action, CreatedBy, CreatedDate, Signatory, AuthSignatory, Reference, CountryCode, AccountType, AccountDescription, PASSWORD).ToList();
-            //    var results = getMakers.FirstOrDefault();
-            //    return results;
-            //}
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
-
+        }
+        private object Insert_User_Maker(UserEditViewModel user)
+        {
+            try
+            {
+                var userIdParam = new SqlParameter("@Id", SqlDbType.Int);
+                userIdParam.Direction = ParameterDirection.Output;
+                var PSID = new SqlParameter("@PSID", user.PSID);
+                var Name = new SqlParameter("@Name", user.UserName);
+                var Department = new SqlParameter("@Department", user.Department);
+                var RegionID = new SqlParameter("@RegionID", user.RegionID);
+                var GroupID = new SqlParameter("@GroupID", user.GroupID);
+                var Active = new SqlParameter("@Active", user.Active);
+                var Status = new SqlParameter("@Status", user.MakerStatus);
+                var Action = new SqlParameter("@Action", "INSERT");
+                var CreatedBy = new SqlParameter("@CreatedBy", user.CreatedBy);
+                var CreatedDate = new SqlParameter("@CreatedDate", DateTime.Now);
+                var Signatory = new SqlParameter("@Signatory", user.Signatory);
+                var AuthSignatory = new SqlParameter("@AuthSignatory", user.AuthSignatory);
+                var Reference = new SqlParameter("@Reference", user.Reference);
+                var CountryCode = new SqlParameter("@CountryCode", user.CountryCode);
+                var AccountType = new SqlParameter("@AccountType", user.AccountType);
+                var AccountDescription = new SqlParameter("@AccountDescription", user.AccountDescription);
+                var PASSWORD = new SqlParameter("@PASSWORD", "Microsoft!23");
+                var getMakers = _context.Database.ExecuteSqlRaw("exec SP_Insert_User_Maker @PSID,@Name,@Department,@RegionID,@GroupID,@Active,@Status,@Action,@CreatedBy,@CreatedDate,@Signatory,@AuthSignatory,@Reference,@CountryCode,@AccountType,@AccountDescription,@PASSWORD, @Id out", PSID, Name, Department, RegionID, GroupID, Active, Status, Action, CreatedBy, CreatedDate, Signatory, AuthSignatory, Reference, CountryCode, AccountType, AccountDescription, PASSWORD, userIdParam);
+                var results = userIdParam.Value;
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             //return Convert.ToInt32(SqlHelper.ExecuteScalar(trans, CommandType.StoredProcedure, "[SP_Insert_User_Maker]", param));
         }
 
@@ -2173,40 +2211,6 @@ namespace QuickApp.Controllers
         //    }
         //}
 
-
-
-        /// <summary>
-        /// Insert User Checker
-        /// </summary>
-        /// <param name="BLL"></param>
-        /// <returns></returns>
-        //public virtual int Insert_User_Checker(UserManagement_BLL BLL)
-        //{
-        //    try
-        //    {
-        //        SqlParameter[] param = {
-        //                           new SqlParameter("@UserID", BLL.UserID),
-        //                           new SqlParameter("@PSID", BLL.PSID),
-        //                           new SqlParameter("@Name", BLL.UserName),
-        //                           new SqlParameter("@Department", BLL.Department),
-        //                           new SqlParameter("@RegionID", BLL.RegionID),
-        //                           new SqlParameter("@GroupID", BLL.GroupID),
-        //                           new SqlParameter("@MakerStatus", BLL.MakerStatus),
-        //                           new SqlParameter("@Action", BLL.Action),
-        //                           new SqlParameter("@MakerID", BLL.MakerID),
-        //                           new SqlParameter("@MakerDate", BLL.MakerDate),
-        //                           new SqlParameter("@CheckerActive", BLL.CheckerActive),
-        //                           new SqlParameter("@Reference", BLL.Reference),
-        //                           new SqlParameter("@CountryCode", BLL.CountryCode)
-
-        //                       };
-        //        return Convert.ToInt32(SqlHelper.ExecuteScalar(DBConnectionString.VGSS, CommandType.StoredProcedure, "[SP_Insert_User_Checker]", param));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
 
         [HttpPut("roles/{id}")]
         [Authorize(Authorization.Policies.ManageAllRolesPolicy)]
@@ -2351,6 +2355,21 @@ namespace QuickApp.Controllers
 
         }
 
+        private List<UserLoginVM> Get_Login_User_By_PSID(string PSID)
+        {
+            try
+            {
+                var getGet_Login_User_By_PSID = _context.Set<UserLoginVM>().FromSqlInterpolated($"exec SP_Get_Login_User_By_PSID {PSID}").ToList();
+                return (getGet_Login_User_By_PSID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
         #endregion
         //private async Task<DataTable> Get_Pages_Permissions_List_By_RoleID(int RoleID)
         //{
@@ -2381,6 +2400,22 @@ namespace QuickApp.Controllers
         private void AddError(string error, string key = "")
         {
             ModelState.AddModelError(key, error);
+        }
+
+        private List<UserLoginVM> PSIDExists(int? UserID, string PSID)
+        {
+            try
+            {
+                var UserID1 = new SqlParameter("@UserID", (object)UserID ?? DBNull.Value);
+                var PSID1 = new SqlParameter("@PSID", PSID);
+                var getGet_Login_User_By_PSID = _context.Set<UserLoginVM>().FromSqlInterpolated($"exec SP_PSIDExists {UserID1},{PSID1}").ToList();
+                return getGet_Login_User_By_PSID;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
     }
