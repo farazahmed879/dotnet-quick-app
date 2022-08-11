@@ -21,10 +21,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Microsoft.Extensions.Options;
 using QuickApp.Common;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace QuickApp.Controllers
 {
-    //[Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
@@ -51,7 +52,7 @@ namespace QuickApp.Controllers
             //DomainName = _config.Name;
         }
 
-
+        [AllowAnonymous]
         [HttpGet("users/me")]
         [ProducesResponseType(200, Type = typeof(UserViewModel))]
         public async Task<IActionResult> GetCurrentUser()
@@ -59,7 +60,7 @@ namespace QuickApp.Controllers
             return await GetUserById(Utilities.GetUserId(this.User));
         }
 
-
+        [AllowAnonymous]
         [HttpGet("users/{id}", Name = GetUserByIdActionName)]
         [ProducesResponseType(200, Type = typeof(UserViewModel))]
         [ProducesResponseType(403)]
@@ -98,16 +99,18 @@ namespace QuickApp.Controllers
 
 
         [HttpGet("users")]
-        [Authorize(Authorization.Policies.ViewAllUsersPolicy)]
+        [AllowAnonymous]
+        //[Authorize(Authorization.Policies.ViewAllUsersPolicy)]
         [ProducesResponseType(200, Type = typeof(List<UserViewModel>))]
         public async Task<IActionResult> GetUsers()
         {
             return await GetUsers(-1, -1);
         }
 
-
+        [AllowAnonymous]
         [HttpGet("users/{pageNumber:int}/{pageSize:int}")]
-        [Authorize(Authorization.Policies.ViewAllUsersPolicy)]
+        //[Authorize(Authorization.Policies.ViewAllUsersPolicy)]
+
         [ProducesResponseType(200, Type = typeof(List<UserViewModel>))]
         public async Task<IActionResult> GetUsers(int pageNumber, int pageSize)
         {
@@ -128,6 +131,7 @@ namespace QuickApp.Controllers
 
 
         [HttpPut("users/me")]
+        [AllowAnonymous]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
@@ -316,14 +320,15 @@ namespace QuickApp.Controllers
 
 
         [HttpPost("users")]
-        [Authorize(Authorization.Policies.ManageAllUsersPolicy)]
+        //[Authorize(Authorization.Policies.ManageAllUsersPolicy)]
+        [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(UserViewModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
         public async Task<IActionResult> Register([FromBody] UserEditViewModel user)
         {
-            if (!(await _authorizationService.AuthorizeAsync(this.User, (user.Roles, new string[] { }), Authorization.Policies.AssignAllowedRolesPolicy)).Succeeded)
-                return new ChallengeResult();
+            //if (!(await _authorizationService.AuthorizeAsync(this.User, (user.Roles, new string[] { }), Authorization.Policies.AssignAllowedRolesPolicy)).Succeeded)
+            //    return new ChallengeResult();
 
 
             if (ModelState.IsValid)
@@ -366,55 +371,64 @@ namespace QuickApp.Controllers
 
         private bool Save(int UserID, UserEditViewModel user)
         {
-            try
+            //using var transaction = _context.Database.BeginTransaction();
+            using (IDbContextTransaction transaction = _context.Database.BeginTransaction())
             {
-                var result = PSIDExists(null, user.PSID);
-
-                if (result.Count > 0)
+                try
                 {
-                    if (UserID == 0) //
-                    {
-                        DateTime Date = DateTime.Now;
-                        /// User Maker
-                        user.MakerStatus = "P";
-                        user.Action = "INSERT";
-                        user.CreatedBy = SessionBO.PSID; // login user id 
-                        user.CreatedDate = Date;
-                        var UserIDD = Insert_User_Maker(user);
+                    var result = PSIDExists(null, user.PSID);
 
-                        /// User Checker
-                        user.UserID = int.Parse(UserIDD.ToString());
-                        user.MakerID = user.PSID;
-                        user.MakerDate = Date;
-                        user.CheckerActive = false;
-                        var checkerResult = Insert_User_Checker(user);
-                    }
-                    else
+                    if (result.Count > 0)
                     {
-                        ///// User Maker
-                        //user.UserID = UserID;
-                        //user.MakerStatus = "U";
-                        //user.Action = "UPDATE";
-                        //user.Reason = null;
-                        //UM.Update_User_Status_By_UserID_Maker(UM.UserID, null, UM.MakerStatus, UM.Action, UM.Reason, UM.Reference, trans);
+                        if (UserID == 0) //
+                        {
+                            DateTime Date = DateTime.Now;
+                            /// User Maker
+                            user.MakerStatus = "P";
+                            user.Action = "INSERT";
+                            user.CreatedBy = user.PSID; // login user id 
+                            user.CreatedDate = Date;
+                            var UserIDD = Insert_User_Maker(user);
 
-                        ///// User Checker
-                        //UM.MakerID = SessionBO.PSID;
-                        //UM.MakerDate = DateTime.Now;
-                        //UM.CheckerActive = false;
-                        //UM.Insert_User_Checker(UM, trans);
+                            //throw new Exception();
+
+                            /// User Checker
+                            user.UserID = int.Parse(UserIDD.ToString());
+                            user.MakerID = user.PSID;
+                            user.MakerDate = Date;
+                            user.CheckerActive = false;
+                            var checkerResult = Insert_User_Checker(user);
+                        }
+                        else
+                        {
+                            ///// User Maker
+                            //user.UserID = UserID;
+                            //user.MakerStatus = "U";
+                            //user.Action = "UPDATE";
+                            //user.Reason = null;
+                            //UM.Update_User_Status_By_UserID_Maker(UM.UserID, null, UM.MakerStatus, UM.Action, UM.Reason, UM.Reference, trans);
+
+                            ///// User Checker
+                            //UM.MakerID = SessionBO.PSID;
+                            //UM.MakerDate = DateTime.Now;
+                            //UM.CheckerActive = false;
+                            //UM.Insert_User_Checker(UM, trans);
+                        }
                     }
+                    transaction.Commit();
+                    return true;
+
+
                 }
-
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
             }
 
-            return true;
+
+            return false;
         }
 
         [HttpPost("SaveGroup")]
@@ -1164,6 +1178,7 @@ namespace QuickApp.Controllers
 
 
         [HttpGet("users/me/preferences")]
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(string))]
         public async Task<IActionResult> UserPreferences()
         {
@@ -2402,13 +2417,13 @@ namespace QuickApp.Controllers
             ModelState.AddModelError(key, error);
         }
 
-        private List<UserLoginVM> PSIDExists(int? UserID, string PSID)
+        private List<TBL_USER> PSIDExists(int? UserID, string PSID)
         {
             try
             {
                 var UserID1 = new SqlParameter("@UserID", (object)UserID ?? DBNull.Value);
                 var PSID1 = new SqlParameter("@PSID", PSID);
-                var getGet_Login_User_By_PSID = _context.Set<UserLoginVM>().FromSqlInterpolated($"exec SP_PSIDExists {UserID1},{PSID1}").ToList();
+                var getGet_Login_User_By_PSID = _context.Set<TBL_USER>().FromSqlInterpolated($"exec SP_PSIDExists {UserID1},{PSID1}").ToList();
                 return getGet_Login_User_By_PSID;
             }
             catch (Exception ex)
