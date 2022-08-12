@@ -34,7 +34,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     injector: Injector,
     private _dialogRef: MatDialogRef<CreateOrEditGroupComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any
-  ) {}
+  ) { }
   editableMode = false;
   rowsCache = [];
   group: any = {
@@ -65,10 +65,11 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
 
   modalData: any;
 
-  get currentUserId() {
+  currentUserId() {
     let currentUser: any = sessionStorage.getItem("current_user");
-    if(currentUser)
-    return this._currentUserId = currentUser['id'];
+    let data = JSON.parse(currentUser);
+    if (data)
+      return data['id'];
   }
 
 
@@ -103,7 +104,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
         this.alertService.stopLoadingMessage();
       }
     });
-   
+
   }
 
   dataMappting() {
@@ -160,7 +161,7 @@ export class CreateOrEditGroupComponent implements OnInit, OnDestroy {
     });
   }
 
-  reqObjectMapper<T>(): Observable<Group> {
+  reqObjectMapper(): Observable<Group> {
     let ob: Group = {
       groupID: 0,
       groupName: this.group.groupName,

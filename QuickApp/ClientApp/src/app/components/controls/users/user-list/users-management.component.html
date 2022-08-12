@@ -9,7 +9,7 @@
     <div class="col-lg-4 pr-lg-5">
       <ul class="nav flex-column flex-lg-row justify-content-end">
         <li *ngIf="canManageUsers && canAssignRoles" class="nav-item toolbaritem">
-          <a class="nav-link" href="javascript:;" (click)="newUser()">
+          <a class="nav-link" href="javascript:;" (click)="showCreateOrEditDialog()">
             <i class="fa fa-plus-circle"></i> {{'users.management.NewUser' | translate}}
           </a>
         </li>
@@ -40,7 +40,7 @@
 
   <ng-template #actionsTemplate let-row="row" let-value="value" let-i="index">
     <div *ngIf="canManageUsers">
-      <a class="btn btn-link btn-sm" href="javascript:;" (click)="editUser(row)"><i class="fa fa-pencil-square-o"
+      <a class="btn btn-link btn-sm" href="javascript:;" (click)="showCreateOrEditDialog(row)"><i class="fa fa-pencil-square-o"
           aria-hidden="true"></i> {{'users.management.Edit' | translate}}</a>|
       <a class="btn btn-link btn-sm" href="javascript:;" (click)="deleteUser(row)"><i class="fa fa-trash-o"
           aria-hidden="true"></i> {{'users.management.Delete' | translate}}</a>
@@ -48,7 +48,7 @@
   </ng-template>
 
 
-  <div class="modal fade" bsModal #editorModal="bs-modal" (onHidden)="onEditorModalHidden()"
+  <!-- <div class="modal fade" bsModal #editorModal="bs-modal" (onHidden)="onEditorModalHidden()"
     [config]="{backdrop: 'static'}" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -66,11 +66,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 
-  <div class="modal fade" bsModal #groupinfoeditorModal="bs-modal" (onHidden)="onEditorModalHidden()"
+  <!-- <div class="modal fade" bsModal #groupinfoeditorModal="bs-modal" (onHidden)="onEditorModalHidden()"
     [config]="{backdrop: 'static'}" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -88,7 +88,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 </div>

@@ -15,9 +15,8 @@ import { Role } from '../../models/role.model';
 import { Permission } from '../../models/permission.model';
 import { UserEdit } from '../../models/user-edit.model';
 import { Group } from '../../models/group.model';
-import { GroupInfoComponent } from './group-info.component';
 import { CreateOrEditGroupComponent } from './create-or-edit-group/create-or-edit-group.component';
-import { UserInfoComponent } from './users/create-or-edit-user/user-info.component';
+import { UserInfoComponent } from './users/create-or-edit-user copy/user-info.component';
 
 
 @Component({

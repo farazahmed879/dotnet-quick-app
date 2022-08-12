@@ -78,8 +78,8 @@ export class AccountService {
     }
   }
 
-  newUser(user: UserEdit) {
-    return this.accountEndpoint.getNewUserEndpoint<User>(user);
+  newUser(user: any) {
+    return this.accountEndpoint.getNewUserEndpoint<any>(user);
   }
 
   getUserPreferences() {

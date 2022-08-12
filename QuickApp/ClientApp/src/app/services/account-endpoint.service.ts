@@ -249,7 +249,7 @@ export class AccountEndpoint extends EndpointBase {
   getGroupEndpoint<T>(page?: number, pageSize?: number): Observable<T> {
     return this.http.get<T>(this.getGroupUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.getGroupEndpoint(page, pageSize));
+        return this.handleError(error, null);
       }));
   }
 
@@ -257,14 +257,14 @@ export class AccountEndpoint extends EndpointBase {
     const endpointUrl = `/api/Account/IsGroupExist/${groupName}/0`;
     return this.http.get<T>(endpointUrl, this.requestHeaders).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.isGroupExist(groupName));
+        return this.handleError(error, null);
       }));
   }
 
   saveGroup<T>(data: any): Observable<T> {
     return this.http.post<T>(this.saveGroupUrl, data, this.requestHeaders2).pipe<T>(
       catchError(error => {
-        return this.handleError(error, () => this.saveGroup(data));
+        return this.handleError(error, null);
       }));
   }
 

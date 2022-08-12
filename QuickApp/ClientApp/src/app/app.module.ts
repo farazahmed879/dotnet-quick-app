@@ -59,8 +59,9 @@ import { UserInfoAuthorizationComponent } from './components/controls/user-info-
 import { CreateOrEditGroupComponent } from './components/controls/create-or-edit-group/create-or-edit-group.component';
 import { GroupListComponent } from './components/controls/group-list/group-list.component';
 import { MaterialModule } from './material/material.module';
-import { UsersManagementComponent } from './components/controls/bk/users-management.component';
-import { UserInfoComponent } from './components/controls/users/create-or-edit-user/user-info.component';
+import { CreateOrEditUserComponent } from './components/controls/users/create-or-edit-user/create-or-edit-user.component';
+import { UserInfoComponent } from './components/controls/users/create-or-edit-user copy/user-info.component';
+import { UsersManagementComponent } from './components/controls/users/user-list/users-management.component';
 
 @NgModule({
   imports: [
@@ -95,7 +96,7 @@ import { UserInfoComponent } from './components/controls/users/create-or-edit-us
     ProductsComponent,
     OrdersComponent,
     SettingsComponent,
-    UsersManagementComponent, UserInfoComponent, GroupInfoComponent, UserPreferencesComponent, UsersManagementAuthorizationComponent, UserInfoAuthorizationComponent,
+    UsersManagementComponent, GroupInfoComponent, UserPreferencesComponent, UsersManagementAuthorizationComponent, UserInfoAuthorizationComponent,
     RolesManagementComponent, RoleEditorComponent,
     AboutComponent,
     NotFoundComponent,
@@ -109,7 +110,9 @@ import { UserInfoComponent } from './components/controls/users/create-or-edit-us
     BootstrapToggleDirective,
     GroupByPipe,
     GroupListComponent,
-    CreateOrEditGroupComponent
+    CreateOrEditGroupComponent,
+    CreateOrEditUserComponent,
+    UserInfoComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },

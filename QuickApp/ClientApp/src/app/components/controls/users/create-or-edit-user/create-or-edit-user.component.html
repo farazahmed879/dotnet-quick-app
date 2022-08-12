@@ -1,0 +1,124 @@
+<form [attr.autocomplete]="isGeneralEditor ? 'NaN' : null" name="userInfoForm" #f="ngForm" novalidate
+  (ngSubmit)="save(f)">
+  <h1 mat-dialog-title>{{ editableMode ? 'Edit ' + user.userName : "New User" }}</h1>
+  <mat-dialog-content>
+    <div class="row-fluid">
+      <div class="col-md-12">
+        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user">IsAd</mat-checkbox>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12 row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Account Name Login</mat-label>
+            <input matInput [(ngModel)]="user.userName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Account Owner</mat-label>
+            <input matInput [(ngModel)]="user.fullName">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12 row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="user.password">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Department</mat-label>
+            <input matInput [(ngModel)]="user.department">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12 row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Country</mat-label>
+            <input matInput [(ngModel)]="user.country">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Region</mat-label>
+            <input matInput [(ngModel)]="user.region">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12 row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>User Group</mat-label>
+            <input matInput [(ngModel)]="user.group">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Reference</mat-label>
+            <input matInput [(ngModel)]="user.reference">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12 row">
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Account Type</mat-label>
+            <input matInput [(ngModel)]="user.accountType">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="standard">
+            <mat-label>Account Discription</mat-label>
+            <input matInput [(ngModel)]="user.accountDescription">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12">
+        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.active">IsActive</mat-checkbox>
+      </div>
+      <div class="col-md-12">
+        <mat-checkbox class="example-margin" color="primary" [(ngModel)]="user.authSignatory">Auth Signatory
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12">
+        <label for="file">Select Signature</label>
+        <input type="file" id="file" (change)="handleSignatureUpload($event.target.files)">
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-md-12">
+        <img [src]="fileToUpload" width="200" height="250">
+      </div>
+    </div>
+  </mat-dialog-content>
+  <div class="form-group row">
+    <div class="col-sm-7">
+      <div ngPreserveWhitespaces class="float-right">
+        <button type="button" (click)="close()" class="btn btn-outline-secondary">
+          <i class='fa fa-close'></i> {{'Cancel'}}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSaving">
+          <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving" class='fa fa-circle-o-notch fa-spin'>
+          </i> {{isSaving
+          ? ('users.editor.Saving' | translate) : ('users.editor.Save' | translate)}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

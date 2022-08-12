@@ -6,9 +6,9 @@ export class Group {
         isActive: boolean;
         action: string;
         reason: string;
-        createdBy: number;
+        createdBy: string;
         createdDate: Date;
-        updatedBy: number;
+        updatedBy: string;
         updatedDate: Date;
         groupCheckerID: number;
         checkerStatus: string;

@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, TemplateRef, ViewChild, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DomainVM } from 'src/app/models/domainVM.model';
 import { GridUserManagementVM } from 'src/app/models/gridUserManagementVM.model';
@@ -11,9 +12,10 @@ import { AccountService } from 'src/app/services/account.service';
 import { AlertService, DialogType, MessageSeverity } from 'src/app/services/alert.service';
 import { AppTranslationService } from 'src/app/services/app-translation.service';
 import { Utilities } from 'src/app/services/utilities';
-import { CreateOrEditGroupComponent } from '../../create-or-edit-group/create-or-edit-group.component';
-import { GroupInfoComponent } from '../../group-info.component';
-import { UserInfoComponent } from '../create-or-edit-user/user-info.component';
+import { CreateOrEditUserComponent } from '../create-or-edit-user/create-or-edit-user.component';
+// import { CreateOrEditGroupComponent } from '../../create-or-edit-group/create-or-edit-group.component';
+// import { GroupInfoComponent } from '../../group-info.component';
+// import { UserInfoComponent } from '../create-or-edit-user/user-info.component';
 
 
 @Component({
@@ -50,15 +52,19 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
   actionsTemplate: TemplateRef<any>;
 
   @ViewChild('editorModal', { static: true })
-  editorModal: ModalDirective;  
+  editorModal: ModalDirective;
 
   @ViewChild('groupinfoeditorModal', { static: true })
   groupinfoeditorModal: ModalDirective;
 
-  @ViewChild('userEditor', { static: true })
-  userEditor: UserInfoComponent;
+  // @ViewChild('userEditor', { static: true })
+  // userEditor: UserInfoComponent;
 
-  constructor(private alertService: AlertService, private translationService: AppTranslationService, private accountService: AccountService) {
+  constructor(
+    private alertService: AlertService,
+    private translationService: AppTranslationService,
+    private accountService: AccountService,
+    private _dialog: MatDialog) {
   }
 
 
@@ -90,7 +96,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
       { prop: 'createdDate', name: gT('users.manageuser.CreatedDate'), width: 120 }
     ];
 
-    
+
 
     if (this.canManageUsers) {
       this.columns.push({ name: '', width: 160, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false });
@@ -103,16 +109,16 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    this.userEditor.changesSavedCallback = () => {
-      this.addNewUserToList();
-      this.editorModal.hide();
-    };
+    // this.userEditor.changesSavedCallback = () => {
+    //   this.addNewUserToList();
+    //   this.editorModal.hide();
+    // };
 
-    this.userEditor.changesCancelledCallback = () => {
-      this.editedUser = null;
-      this.sourceUser = null;
-      this.editorModal.hide();
-    };
+    // this.userEditor.changesCancelledCallback = () => {
+    //   this.editedUser = null;
+    //   this.sourceUser = null;
+    //   this.editorModal.hide();
+    // };
   }
 
 
@@ -163,18 +169,18 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
     }
   }
 
-  loadGridUserManagement(){
+  loadGridUserManagement() {
 
     this.alertService.stopLoadingMessage();
     this.loadingIndicator = false;
 
-    this.accountService.getUserManagementGridData(null,null)
-    .subscribe(results => {    
-      this.GridUserManagementVM = results;
-      this.rowsCache = [...this.GridUserManagementVM];
-      this.rows = this.GridUserManagementVM;    
-      console.log("this.GridUserManagementVM" + this.GridUserManagementVM);      
-    });
+    this.accountService.getUserManagementGridData(null, null)
+      .subscribe(results => {
+        this.GridUserManagementVM = results;
+        this.rowsCache = [...this.GridUserManagementVM];
+        this.rows = this.GridUserManagementVM;
+        console.log("this.GridUserManagementVM" + this.GridUserManagementVM);
+      });
   }
 
   onDataLoadSuccessful(users: User[], roles: Role[]) {
@@ -205,18 +211,18 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
     //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.userName, r.fullName, r.email, r.phoneNumber, r.jobTitle, r.roles,r.accountOwner,r.department));
   }
 
-  onEditorModalHidden() {
-    this.editingUserName = null;
-    this.userEditor.resetForm(true);
-  }
+  // onEditorModalHidden() {
+  //   this.editingUserName = null;
+  //   this.userEditor.resetForm(true);
+  // }
 
 
-  newUser() {
-    this.editingUserName = null;
-    this.sourceUser = null;
-    this.editedUser = this.userEditor.newUser(this.allRoles);
-    this.editorModal.show();
-  }
+  // newUser() {
+  //   this.editingUserName = null;
+  //   this.sourceUser = null;
+  //   this.editedUser = this.userEditor.newUser(this.allRoles);
+  //   this.editorModal.show();
+  // }
 
   newGroupInfo() {
     this.editingGroupName = null;
@@ -228,17 +234,17 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
 
   editUser(row: UserEdit) {
-    this.editingUserName = { name: row.userName };
-    this.sourceUser = row;
-    this.editedUser = this.userEditor.editUser(row, this.allRoles);
-    //this.accountService.getUserManagementGridData(row.userID,null)
-    //.subscribe(results => {    
-      //this.GridUserManagementVM = results;
-      //this.rowsCache = [...this.GridUserManagementVM];
-      //this.rows = this.GridUserManagementVM;    
-      console.log("this.GridUserManagementVM" + this.GridUserManagementVM);      
-    //});
-    this.editorModal.show();
+    // this.editingUserName = { name: row.userName };
+    // this.sourceUser = row;
+    // this.editedUser = this.userEditor.editUser(row, this.allRoles);
+    // //this.accountService.getUserManagementGridData(row.userID,null)
+    // //.subscribe(results => {    
+    //   //this.GridUserManagementVM = results;
+    //   //this.rowsCache = [...this.GridUserManagementVM];
+    //   //this.rows = this.GridUserManagementVM;    
+    //   console.log("this.GridUserManagementVM" + this.GridUserManagementVM);      
+    // //});
+    // this.editorModal.show();
   }
 
 
@@ -267,6 +273,28 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
           this.alertService.showStickyMessage('Delete Error', `An error occured whilst deleting the user.\r\nError: "${Utilities.getHttpResponseMessages(error)}"`,
             MessageSeverity.error, error);
         });
+  }
+
+  //create or edit
+
+  showCreateOrEditDialog(row?: any): void {
+    debugger
+    let createOrEditSubTypeDialog;
+    if (!row) {
+      createOrEditSubTypeDialog = this._dialog.open(CreateOrEditUserComponent);
+    } else {
+      createOrEditSubTypeDialog = this._dialog.open(
+        CreateOrEditUserComponent, {
+        data: row
+      }
+      );
+    }
+
+    createOrEditSubTypeDialog.afterClosed().subscribe((result) => {
+      if (result) {
+
+      }
+    });
   }
 
 
